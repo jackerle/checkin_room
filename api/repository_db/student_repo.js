@@ -41,11 +41,21 @@ exports.register_std = function(u_id,student_id,student_name){
     return to_query(sql);
 }
 
+
+
 exports.getAllStd = function(){
     let sql = `select * from student_table;`
     return to_query(sql);
 }
 
+
+/**
+ * @param {string} student_id 
+ */
+exports.removeStd = function(student_id){
+    let sql = `delete from student_table where student_id = '${student_id}'`
+    return to_query(sql);
+}
 
 /**
  * @param {string} room_name Name of room which regis
