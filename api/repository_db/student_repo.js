@@ -71,3 +71,31 @@ exports.getAllRoom = function(){
     let sql = `select * from room_table;`
     return to_query(sql);
 }
+
+/**
+ * @param {number} room_id
+ * @param {string} u_id
+ */
+exports.checkin = function(room_id,u_id){
+    let sql = `insert into transaction (room_id,u_id,timestamp_checkin,status)
+    values(${room_id},'${u_id}',CURRENT_TIMESTAMP,1);`
+    return to_query(sql);
+}
+
+/**
+ * @param {string} u_id
+ */
+exports.checkout = function(u_id){
+    let sql = `update transaction
+    set timestamp_checkout = CURRENT_TIMESTAMP,status = 0
+    where u_id = '${u_id}';`
+    return to_query(sql);
+}
+
+/**
+ * @param {string} u_id
+ */
+exports.isRegis = function(u_id){
+    let sql = `select * from student_table where u_id = '${u_id}';`
+    return to_query(sql);
+}

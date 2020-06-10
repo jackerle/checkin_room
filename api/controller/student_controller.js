@@ -10,7 +10,6 @@ exports.getstd = async (req,res)=>{
     }
 }
 
-
 exports.regis_std = async (req,res)=>{
     let user_id = req.body.user_id;
     let student_id = req.body.student_id;
@@ -56,6 +55,7 @@ exports.regis_room = async (req,res)=>{
 exports.getroom = async (req,res)=>{
     try{
         let data = await std_repo.getAllRoom();
+        console.log(data)
         res.send(data);
     }
     catch(ex){
