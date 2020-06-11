@@ -88,7 +88,7 @@ exports.checkin = function(room_id,u_id){
 exports.checkout = function(u_id){
     let sql = `update transaction
     set timestamp_checkout = CURRENT_TIMESTAMP,status = 0
-    where u_id = '${u_id}';`
+    where u_id = '${u_id}' and status = 1;`
     return to_query(sql);
 }
 
@@ -97,5 +97,29 @@ exports.checkout = function(u_id){
  */
 exports.isRegis = function(u_id){
     let sql = `select * from student_table where u_id = '${u_id}';`
+    return to_query(sql);
+}
+
+
+/**
+ * @param {number} root_id
+ * @param {string} u_id
+ */
+exports.getObj = function(room_id,u_id){
+    //ทำ identify
+    let sql = `select 
+    student_table.student_id as student_id,
+    student_table.student_name as student_name,
+    room_table.room_name as room_name,
+    room_table.capacity as capacity
+    from student_table,room_table
+    where student_table.u_id = '${u_id}'
+    and room_table.room_id = ${room_id};`
+    return to_query(sql);
+    
+}
+
+exports.getAllTrans = function(){
+    let sql = `select * from transaction`
     return to_query(sql);
 }

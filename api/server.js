@@ -22,6 +22,8 @@ app.get('/getroom',std_controller.getroom);
 app.post('/checkin',checkin_controller.checkin);
 app.post('/checkout',checkin_controller.checkout);
 app.post('/hasAccount',checkin_controller.isRegis);
+app.get('/getAllTrans',checkin_controller.getAllTrans);
+app.post('/getObj',checkin_controller.getObj);
 
 
 
