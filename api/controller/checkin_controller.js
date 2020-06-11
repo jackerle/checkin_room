@@ -1,5 +1,8 @@
 const std_repo = require('./../../api/repository_db/student_repo');
 
+
+
+
 exports.checkin = async(req,res)=>{
     let room_id = req.body.room_id;
     let u_id = req.body.u_id;
@@ -31,14 +34,14 @@ exports.checkout = async(req,res)=>{
     }
 }
 
-exports.isRegis = async(req,res)=>{
+exports.hasAccount = async(req,res)=>{
     let u_id = req.body.u_id;
     try{
-        let data = await std_repo.isRegis(u_id);
+        let data = await std_repo.hasAccount(u_id);
         console.log(data[0]);
         
         res.send({
-            "hasAccount" : data[0]? true : false
+            "success" : data[0]? true : false
         })
     }
     catch(ex){
@@ -63,7 +66,7 @@ exports.getObj = async(req,res)=>{
     try {
         let data = await std_repo.getObj(room_id,u_id);
         res.send({
-            "status" : "OK",
+            "success" : true,
             "student_id" : data[0].student_id,
             "student_name" : data[0].student_name,
             "room_name" : data[0].room_name,
