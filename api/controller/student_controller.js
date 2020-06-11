@@ -14,14 +14,19 @@ exports.regis_std = async (req,res)=>{
     let user_id = req.body.user_id;
     let student_id = req.body.student_id;
     let student_name = req.body.student_name;
+    console.log(user_id)
     try {
         let data = await std_repo.register_std(user_id,student_id,student_name);
         console.log(data)
-        res.sendStatus(200)
+        res.send({
+            "success" : true,
+        })
     }
-    catch(ex){
+    catch(ex){ 
         console.log(ex)
-        res.sendStatus(404)
+        res.send({
+            "success": false
+        })
     }
 }
 
