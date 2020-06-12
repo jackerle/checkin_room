@@ -13,19 +13,17 @@ var pool = mariadb.createPool({
 
 
 const to_query = function(sql){
-    return new Promise((resolve,reject)=>{
-        pool.getConnection()
-        .then((con)=>{
-            con.query(sql)
-            .then(
-                res =>{
-                    resolve(res)
-                    con.end()
-                }
-            )
-        }).catch(err =>{
-            reject(err)
-        })
+    return new Promise(async (resolve,reject)=>{
+        try{
+            let _pool = await pool.getConnection();
+            let res_query = await _pool.query(sql);
+            _pool.release();
+            resolve(res_query);
+        }
+        catch(ex){
+            console.log(ex)
+            reject(ex)
+        }
     })
 }
 
@@ -78,7 +76,7 @@ exports.getAllRoom = function(){
  */
 exports.checkin = function(room_id,u_id){
     let sql = `insert into transaction (room_id,u_id,timestamp_checkin,status)
-    values(${room_id},'${u_id}',CURRENT_TIMESTAMP,1);`
+    values(${room_id},'${u_id}',CURRENT_TIMESTAMP,1);` 
     return to_query(sql);
 }
 
@@ -92,34 +90,46 @@ exports.checkout = function(u_id){
     return to_query(sql);
 }
 
-/**
- * @param {string} u_id
- */
-exports.isRegis = function(u_id){
-    let sql = `select * from student_table where u_id = '${u_id}';`
+
+exports.getAllTrans = function(){
+    let sql = `select * from transaction`
     return to_query(sql);
 }
 
 
 /**
- * @param {number} root_id
- * @param {string} u_id
+ * 
+ * @param {string} u_id 
+ * @param {number} room_id 
  */
-exports.getObj = function(room_id,u_id){
-    //ทำ identify
+exports.getInfo = function(u_id,room_id){
     let sql = `select 
+    case when exists(
+        select * 
+        from transaction
+        where u_id = '${u_id}'
+        and status = 1	
+    ) and exists(
+        select * 
+        from student_table
+        where u_id = '${u_id}'
+    )
+      then 'has account and checkin'
+    when exists(
+        select * 
+        from student_table
+        where u_id = '${u_id}'
+    )
+    then 'has account no checkin'
+    
+    else 'no account'
+    end as msg,
     student_table.student_id as student_id,
     student_table.student_name as student_name,
     room_table.room_name as room_name,
     room_table.capacity as capacity
     from student_table,room_table
     where student_table.u_id = '${u_id}'
-    and room_table.room_id = ${room_id};`
-    return to_query(sql);
-    
-}
-
-exports.getAllTrans = function(){
-    let sql = `select * from transaction`
-    return to_query(sql);
+    and room_table.room_id = ${room_id}`
+    return to_query(sql)
 }

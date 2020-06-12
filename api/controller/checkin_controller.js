@@ -60,18 +60,41 @@ exports.getAllTrans = async(req,res)=>{
     }
 }
 
-exports.getObj = async(req,res)=>{
-    let room_id = req.body.room_id;
+exports.getInfo = async(req,res)=>{
     let u_id = req.body.u_id;
+    let room_id = req.body.room_id;
+
     try {
-        let data = await std_repo.getObj(room_id,u_id);
-        res.send({
-            "success" : true,
-            "student_id" : data[0].student_id,
-            "student_name" : data[0].student_name,
-            "room_name" : data[0].room_name,
-            "capacity" : data[0].capacity
-        })
+        let data = await std_repo.getInfo(u_id,room_id);
+        let obj = data[0]
+        if(obj!=undefined&&obj.msg == 'has account and checkin'){
+            res.send({
+                "success" : true,
+                "hasAccount" : true,
+                "hasCheckin" : true,
+                "student_id" : obj.student_id,
+                "student_name" : obj.student_name,
+                "room_name" : obj.room_name,
+                "capacity" : obj.capacity
+            })
+        }
+        else if (obj!=undefined&&obj.msg == 'has account no checkin'){
+            res.send({
+                "success" : true,
+                "hasAccount" : true,
+                "hasCheckin" : false,
+                "student_id" : obj.student_id,
+                "student_name" : obj.student_name,
+                "room_name" : obj.room_name,
+                "capacity" : obj.capacity
+            })
+        }
+        else {
+            res.send({
+                "success" : true,
+                "hasAccount" : false,
+            })
+        }
     }
     catch(ex){
         console.log(ex)

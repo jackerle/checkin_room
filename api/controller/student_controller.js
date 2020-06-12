@@ -11,12 +11,11 @@ exports.getstd = async (req,res)=>{
 }
 
 exports.regis_std = async (req,res)=>{
-    let user_id = req.body.user_id;
+    let u_id = req.body.u_id;
     let student_id = req.body.student_id;
     let student_name = req.body.student_name;
-    console.log(user_id)
     try {
-        let data = await std_repo.register_std(user_id,student_id,student_name);
+        let data = await std_repo.register_std(u_id,student_id,student_name);
         console.log(data)
         res.send({
             "success" : true,
