@@ -10,7 +10,7 @@ exports.checkin = async(req,res)=>{
         let data = await std_repo.checkin(room_id,u_id);
         console.log(data);
         res.send({
-            "status" : data? true : false
+            "success" : data? true : false
         });
     }
     catch(ex){
@@ -25,7 +25,7 @@ exports.checkout = async(req,res)=>{
         let data = await std_repo.checkout(u_id);
         console.log(data);
         res.send({
-            "status" : data? true : false
+            "success" : data? true : false
         })
     }
     catch(ex){
@@ -34,21 +34,6 @@ exports.checkout = async(req,res)=>{
     }
 }
 
-exports.hasAccount = async(req,res)=>{
-    let u_id = req.body.u_id;
-    try{
-        let data = await std_repo.hasAccount(u_id);
-        console.log(data[0]);
-        
-        res.send({
-            "success" : data[0]? true : false
-        })
-    }
-    catch(ex){
-        console.log(ex);
-        res.sendStatus(404);
-    }
-}
 
 exports.getAllTrans = async(req,res)=>{
     try {
@@ -63,40 +48,46 @@ exports.getAllTrans = async(req,res)=>{
 exports.getInfo = async(req,res)=>{
     let u_id = req.body.u_id;
     let room_id = req.body.room_id;
-
-    try {
-        let data = await std_repo.getInfo(u_id,room_id);
-        let obj = data[0]
-        if(obj!=undefined&&obj.msg == 'has account and checkin'){
-            res.send({
-                "success" : true,
-                "hasAccount" : true,
-                "hasCheckin" : true,
-                "student_id" : obj.student_id,
-                "student_name" : obj.student_name,
-                "room_name" : obj.room_name,
-                "capacity" : obj.capacity
-            })
+    if(req.body.room_id){
+        try {
+            let data = await std_repo.getInfo(u_id,room_id);
+            let obj = data[0]
+            if(obj!=undefined&&obj.msg == 'has account and checkin'){
+                res.send({
+                    "success" : true,
+                    "hasAccount" : true,
+                    "hasCheckin" : true,
+                    "student_id" : obj.student_id,
+                    "student_name" : obj.student_name,
+                    "room_name" : obj.room_name,
+                    "capacity" : obj.capacity
+                })
+            }
+            else if (obj!=undefined&&obj.msg == 'has account no checkin'){
+                res.send({
+                    "success" : true,
+                    "hasAccount" : true,
+                    "hasCheckin" : false,
+                    "student_id" : obj.student_id,
+                    "student_name" : obj.student_name,
+                    "room_name" : obj.room_name,
+                    "capacity" : obj.capacity
+                })
+            }
+            else {
+                res.send({
+                    "success" : true,
+                    "hasAccount" : false,
+                })
+            }
         }
-        else if (obj!=undefined&&obj.msg == 'has account no checkin'){
-            res.send({
-                "success" : true,
-                "hasAccount" : true,
-                "hasCheckin" : false,
-                "student_id" : obj.student_id,
-                "student_name" : obj.student_name,
-                "room_name" : obj.room_name,
-                "capacity" : obj.capacity
-            })
+        catch(ex){
+            console.log(ex)
         }
-        else {
-            res.send({
-                "success" : true,
-                "hasAccount" : false,
-            })
-        }
+    }else{
+        res.send({
+            "success":false
+        })
     }
-    catch(ex){
-        console.log(ex)
-    }
+    
 }

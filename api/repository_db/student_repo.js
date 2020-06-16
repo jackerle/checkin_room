@@ -121,7 +121,6 @@ exports.getInfo = function(u_id,room_id){
         where u_id = '${u_id}'
     )
     then 'has account no checkin'
-    
     else 'no account'
     end as msg,
     student_table.student_id as student_id,
@@ -132,4 +131,12 @@ exports.getInfo = function(u_id,room_id){
     where student_table.u_id = '${u_id}'
     and room_table.room_id = ${room_id}`
     return to_query(sql)
+}
+
+/**
+ * @param {string} u_id
+ */
+exports.hasAccount = function(u_id){
+    let sql = `select * from student_table where u_id = '${u_id}';`
+    return to_query(sql);
 }

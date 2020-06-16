@@ -66,3 +66,17 @@ exports.getroom = async (req,res)=>{
         console.log(ex)
     }
 }
+
+exports.hasAccount = async (req,res)=>{
+    let u_id = req.body.u_id;
+    try{
+        let data = await std_repo.hasAccount(u_id);
+        res.send({
+            "success" : data[0]? true : false
+        })
+    }
+    catch(ex){
+        console.log(ex);
+        res.sendStatus(404);
+    }
+}

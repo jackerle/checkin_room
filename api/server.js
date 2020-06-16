@@ -32,7 +32,7 @@ authenRoute.post('/checkout',checkin_controller.checkout);
 authenRoute.post('/regis_std',std_controller.regis_std);
 authenRoute.post('/removestd',std_controller.removestd);
 authenRoute.post('/getInfo',checkin_controller.getInfo);
-
+authenRoute.post('/hasAccount',std_controller.hasAccount);
 
 
 https.createServer({
