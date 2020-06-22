@@ -71,6 +71,7 @@ exports.hasAccount = async (req,res)=>{
     let u_id = req.body.u_id;
     try{
         let data = await std_repo.hasAccount(u_id);
+        console.log(data)
         res.send({
             "success" : data[0]? true : false
         })

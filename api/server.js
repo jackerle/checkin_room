@@ -8,6 +8,7 @@ const cors = require('cors');
 const authenRoute = express.Router();
 const std_controller = require('./controller/student_controller');
 const checkin_controller = require('./controller/checkin_controller');
+const login_controller = require('./controller/login_controller');
 const line_middle_ware = require('./line_authen');
 
 
@@ -22,7 +23,8 @@ authenRoute.use(line_middle_ware.middle_ware);
 
 
 
-
+app.post('/login',login_controller.login);
+app.post('/register',login_controller.register);
 app.post('/regis_room',std_controller.regis_room);
 app.get('/getroom',std_controller.getroom);
 app.get('/getAllTrans',checkin_controller.getAllTrans);

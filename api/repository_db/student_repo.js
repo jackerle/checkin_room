@@ -140,3 +140,27 @@ exports.hasAccount = function(u_id){
     let sql = `select * from student_table where u_id = '${u_id}';`
     return to_query(sql);
 }
+
+/**
+ * 
+ * @param {string} username 
+ * @param {string} password 
+ */
+exports.login = function(username,hash_password){
+    let sql = `select * from admin where username = '${username}' and  hash_password = '${hash_password}'`
+    return to_query(sql);
+}
+
+
+/**
+ * 
+ * @param {string} username 
+ * @param {string} hash_password 
+ * @param {string} name 
+ * @param {string} about 
+ */
+exports.register = function(username,hash_password,name,about){
+    let sql = `insert into admin (username,hash_password,name,role,about)
+    values ('${username}','${hash_password}','${name}',1,'${about}');`
+    return to_query(sql);
+}
