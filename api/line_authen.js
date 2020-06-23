@@ -33,9 +33,9 @@ exports.middle_ware = async (req,res,next)=>{
         next();
     }
     else{
-
         res.send({
-            "success" : false
+            "success" : false,
+            "error": "in middle ware"
         })
     }
 

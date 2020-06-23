@@ -133,6 +133,16 @@ exports.getInfo = function(u_id,room_id){
     return to_query(sql)
 }
 
+
+/**
+ * 
+ * @param {string} u_id 
+ */
+exports.getTran = function(u_id){
+    let sql = `select * from transaction where u_id = '${u_id}' and status = 1`;
+    return to_query(sql);
+}
+
 /**
  * @param {string} u_id
  */
