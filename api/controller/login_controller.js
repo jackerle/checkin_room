@@ -7,6 +7,7 @@ const crypto = require('crypto');
 exports.login = async (req,res)=>{
     let username = req.body.username;
     let password = req.body.password;
+    console.log(password)
     let hash_password = crypto.createHash('sha256').update(password).digest('hex');
     console.log(hash_password)
     try {
@@ -44,7 +45,6 @@ exports.login = async (req,res)=>{
 exports.register = async (req,res)=>{
     let username = req.body.username;
     let password = req.body.password;
-    console.log(password)
     let name = req.body.name;
     let about = req.body.about;
     let hash_password = crypto.createHash('sha256').update(password).digest('hex');
