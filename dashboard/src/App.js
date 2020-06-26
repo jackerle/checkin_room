@@ -1,8 +1,13 @@
 import React from 'react'
+import Header from './components/Header'
+
 
 function App(){
     return(
-        <h1>Hello World 1</h1>
+        <div className = "App">
+            <Header></Header>
+            <h1>Hello</h1>
+        </div>
     )
 }
 
