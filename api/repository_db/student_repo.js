@@ -180,7 +180,7 @@ exports.register = function(username,hash_password,name,about){
  * @param {string} room_id
  */
 exports.getCheckin = function(room_id){
-    let sql = `select * from transaction
-    where room_id = ${room_id} and status = 1;`
+    let sql = `select student_table.u_id as u_id ,student_table.student_name as student_name,student_table.student_id as student_id,transaction.timestamp_checkin as timestamp_checkin from transaction,student_table
+    where transaction.room_id = ${room_id} and transaction.status = 1 and transaction.u_id = student_table.u_id;`
     return to_query(sql);
 }
