@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const env = require('./env.json');
 
 module.exports = {
     entry : './dashboard/src/index.js',
@@ -22,7 +23,7 @@ module.exports = {
         ]
     },
     devServer:{
-        host: 'jackerle.bike',
+        host: env.HOST,
         port:80
     },
     plugins:[
