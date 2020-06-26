@@ -174,3 +174,13 @@ exports.register = function(username,hash_password,name,about){
     values ('${username}','${hash_password}','${name}',1,'${about}');`
     return to_query(sql);
 }
+
+
+/**
+ * @param {string} room_id
+ */
+exports.get_checkin = function(room_id){
+    let sql = `select * from transaction
+    where room_id = ${room_id} and status = 1;`
+    return to_query(sql);
+}

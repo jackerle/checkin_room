@@ -110,7 +110,7 @@ exports.getInfo = async(req,res)=>{
  * @returns {Promise<getTran>}
  */
 
- 
+
 exports.getTran = async(u_id)=>{
     try{
         let data = await std_repo. getTran(u_id);
@@ -118,6 +118,16 @@ exports.getTran = async(u_id)=>{
         return tran;
     }
     catch (ex){
+        console.log(ex)
+    }
+}
+
+exports.get_checkin = async(room_id)=>{
+    try{
+        let data = await std_repo.get_checkin(room_id);
+        return data;
+    }
+    catch(ex){
         console.log(ex)
     }
 }

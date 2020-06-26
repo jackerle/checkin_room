@@ -3,7 +3,7 @@ import Axios from 'axios'
 import { useCookies } from "react-cookie";
 import jwt from 'jsonwebtoken'
 import { Link } from 'react-router-dom';
-
+import env from './../../../env.json';
 
 
 function Login(prop){
@@ -30,7 +30,7 @@ function Login(prop){
     const getLogin = ()=>{
         Axios({
           method:'post',
-          url:'https://jackerle.bike:8888/login',
+          url:env.API+'/login',
           data:{
             username:username,
             password:password
