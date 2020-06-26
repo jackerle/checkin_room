@@ -122,10 +122,10 @@ exports.getTran = async(u_id)=>{
     }
 }
 
-exports.get_checkin = async(room_id)=>{
+exports.getCheckin = async(room_id)=>{
     try{
-        let data = await std_repo.get_checkin(room_id);
-        return data;
+        let data = await std_repo.getCheckin(room_id);
+        res.send(data)
     }
     catch(ex){
         console.log(ex)

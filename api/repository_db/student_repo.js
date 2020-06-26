@@ -179,7 +179,7 @@ exports.register = function(username,hash_password,name,about){
 /**
  * @param {string} room_id
  */
-exports.get_checkin = function(room_id){
+exports.getCheckin = function(room_id){
     let sql = `select * from transaction
     where room_id = ${room_id} and status = 1;`
     return to_query(sql);

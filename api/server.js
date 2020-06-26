@@ -29,7 +29,7 @@ app.post('/regis_room',std_controller.regis_room);
 app.get('/getroom',std_controller.getroom);
 app.get('/getAllTrans',checkin_controller.getAllTrans);
 app.get('/getstd',std_controller.getstd);
-app.get('/get_checkin',checkin_controller.get_checkin);
+app.get('/getCheckin',checkin_controller.getCheckin);
 authenRoute.post('/checkin',checkin_controller.checkin);
 authenRoute.post('/checkout',checkin_controller.checkout);
 authenRoute.post('/regis_std',std_controller.regis_std);
