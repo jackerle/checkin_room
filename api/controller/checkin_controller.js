@@ -122,7 +122,8 @@ exports.getTran = async(u_id)=>{
     }
 }
 
-exports.getCheckin = async(room_id)=>{
+exports.getCheckin = async(req,res)=>{
+    let room_id = req.query.room_id;
     try{
         let data = await std_repo.getCheckin(room_id);
         res.send(data)
