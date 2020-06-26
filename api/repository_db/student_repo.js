@@ -83,10 +83,10 @@ exports.checkin = function(room_id,u_id){
 /**
  * @param {string} u_id
  */
-exports.checkout = function(u_id){
+exports.checkout = function(u_id,room_id){
     let sql = `update transaction
-    set timestamp_checkout = CURRENT_TIMESTAMP,status = 0
-    where u_id = '${u_id}' and status = 1;`
+    set timestamp_checkout = CURRENT_TIMESTAMP,status = 0,role = 0
+    where u_id = '${u_id}' and status = 1 and room_id = ${room_id};`
     return to_query(sql);
 }
 

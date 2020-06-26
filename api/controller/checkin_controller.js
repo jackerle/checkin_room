@@ -20,9 +20,11 @@ exports.checkin = async(req,res)=>{
 }
 
 exports.checkout = async(req,res)=>{
+    let room_id = req.body.room_id;
     let u_id = req.body.u_id;
     try{
-        let data = await std_repo.checkout(u_id);
+        let data = await std_repo.checkout(u_id,room_id);
+        console.log('checkout success')
         console.log(data);
         res.send({
             "success" : data? true : false
@@ -30,7 +32,9 @@ exports.checkout = async(req,res)=>{
     }
     catch(ex){
         console.log(ex);
-        res.sendStatus(404);
+        res.send({
+            "success":false,
+        });
     }
 }
 
@@ -54,12 +58,11 @@ exports.getInfo = async(req,res)=>{
             let obj = data[0]
             console.log(obj)
             if(obj!=undefined&&obj.msg == 'has account and checkin'){
-                let tran = await this.getTran(u_id);
                 res.send({
                     "success" : true,
                     "hasAccount" : true,
                     "hasCheckin" : true,
-                    "tran": tran,
+                    "tran": await this.getTran(u_id),
                     "student_id" : obj.student_id,
                     "student_name" : obj.student_name,
                     "room_name" : obj.room_name,
