@@ -24,6 +24,7 @@ const authentication = async function(access_token){
 
 
 exports.middle_ware = async (req,res,next)=>{
+    console.log(req.body)
     let access_token = req.headers.linetoken;
     console.log("now in middle ware")
     let res_line_verify = (await authentication(access_token))

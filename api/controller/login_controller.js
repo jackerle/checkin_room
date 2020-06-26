@@ -13,7 +13,13 @@ exports.login = async (req,res)=>{
         let data = await std_repo.login(username,hash_password);
         console.log(data[0]);
         if(data[0]){
-            let token = jwt.sign(data[0],env.JWT_SECRET);
+            let _token = {
+                username:data[0].username,
+                name:data[0].name,
+                role:data[0].role,
+                about:data[0].about
+            }
+            let token = jwt.sign(_token,env.JWT_SECRET);
             res.cookie('jwt',token,{secure: true,httpOnly: true,maxAge: 3600000})
             res.send({
                 "success":true,
