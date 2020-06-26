@@ -9,8 +9,9 @@ function Login(){
 
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
+    const [isLogin,setIsLogin] = useState(false)
     const [jwt,setjwt] = useState({})
-  console.log(jwt)
+    const [cookie,setCookie] = useCookies(['jwt']);
 
     const onChangeUsername = function(event){
       setUsername(event.target.value);
@@ -20,20 +21,8 @@ function Login(){
       setPassword(event.target.value);
     }
 
-    /*const getLogin = useCallback(()=>{
-      Axios.post('https://jackerle.bike:8888/login',{
-        username:username,
-        password:password
-      }).then((res)=>{
-        setjwt(res)
-      })
-    },)*/
-
-    const [cookie,setCookie] = useCookies(['jwt']);
 
     const getLogin = useCallback(function(){
-
-
 
         Axios({
           method:'post',
@@ -46,25 +35,30 @@ function Login(){
           console.log(res)
           setCookie('jwt',res.data.token,{path:'/'});
       })
-    })
+    },[cookie])
 
 
-    return(
-      <form class="form-inline my-2 my-lg-0" action="#">
+
+      if(cookie.jwt!='undefined'){
+        return(
+          <h1>Login Sucess</h1>
+        )
+      }
+      else{
+        return(
+          <form class="form-inline my-2 my-lg-0" onSubmit={getLogin} action="#">
           <input class="form-control mr-sm-2" type="text"  placeholder="Username" value={username} onChange={onChangeUsername}></input>
           <input class="form-control mr-sm-2" type="password" id = "password" placeholder="Password" value={password} onChange={onChangePassword}></input>
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={getLogin}>เข้าสู่ระบบ</button>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">เข้าสู่ระบบ</button>
         </form>
-    )
-}
+        )
+      }
+  }
+
+
 
 
 function Navbar() {
-
-  
-
-
-
 
   return (
     <div>

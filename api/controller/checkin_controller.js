@@ -107,8 +107,10 @@ exports.getInfo = async(req,res)=>{
  * @property {string} timestamp_checkin 
  * @property {string} timestamp_checkout
  * @property {number} status
- * @returns {getTran}
+ * @returns {Promise<getTran>}
  */
+
+ 
 exports.getTran = async(u_id)=>{
     try{
         let data = await std_repo. getTran(u_id);
