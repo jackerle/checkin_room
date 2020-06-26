@@ -1,17 +1,22 @@
 import React ,{useState, useCallback}from 'react';
 import Axios from 'axios'
 import { useCookies } from "react-cookie";
+import jwt from 'jsonwebtoken'
+import { Link } from 'react-router-dom';
 
 
 
+function Login(prop){
 
-function Login(){
+  const {
+    setToken,token,removeToken,isToken
+  } = prop
+
+
 
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
-    const [isLogin,setIsLogin] = useState(false)
-    const [jwt,setjwt] = useState({})
-    const [cookie,setCookie] = useCookies(['jwt']);
+
 
     const onChangeUsername = function(event){
       setUsername(event.target.value);
@@ -22,8 +27,7 @@ function Login(){
     }
 
 
-    const getLogin = useCallback(function(){
-
+    const getLogin = ()=>{
         Axios({
           method:'post',
           url:'https://jackerle.bike:8888/login',
@@ -33,23 +37,31 @@ function Login(){
           },
         }).then((res)=>{
           console.log(res)
-          setCookie('jwt',res.data.token,{path:'/'});
+          setToken(res.data.token)
       })
-    },[cookie])
+    }
+
+    const getLogout = ()=>{
+        removeToken()
+    }
 
 
 
-      if(cookie.jwt!='undefined'){
+      if(isToken()){
+        console.log(isToken())
         return(
-          <h1>Login Sucess</h1>
+          <form class="form-inline my-2 my-lg-0"   onSubmit= {getLogout}>
+            <button class="btn btn-secondary" disabled={true}>{jwt.decode(token).name}</button>
+            <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" >ออกจากระบบ</button>
+          </form>
         )
       }
       else{
         return(
-          <form class="form-inline my-2 my-lg-0" onSubmit={getLogin} action="#">
+          <form class="form-inline my-2 my-lg-0"  action="#" onSubmit= {getLogin}>
           <input class="form-control mr-sm-2" type="text"  placeholder="Username" value={username} onChange={onChangeUsername}></input>
           <input class="form-control mr-sm-2" type="password" id = "password" placeholder="Password" value={password} onChange={onChangePassword}></input>
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">เข้าสู่ระบบ</button>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >เข้าสู่ระบบ</button>
         </form>
         )
       }
@@ -58,26 +70,36 @@ function Login(){
 
 
 
-function Navbar() {
+function Navbar(prop) {
+
+  const {
+    setToken,token,removeToken,isToken
+  } = prop;
+
+
+
 
   return (
+
     <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">หน้าแรก</a>
+      
+      <Link to="/" class="navbar-brand">หน้าแรก</Link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+          <Link to="/table" class="navbar-brand">การใช้ห้อง</Link>
           </li>
         </ul>
-        <Login/>
+        <Login
+        setToken = {setToken}
+        token = {token}
+        removeToken = {removeToken}
+        isToken = {isToken}
+        />
       </div>
     </nav>
     </div>
