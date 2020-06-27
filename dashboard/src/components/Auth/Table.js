@@ -57,7 +57,7 @@ function Table() {
             <br />
             <h2 style={{ textAlign: "center" }}>บันทึกการใช้งานห้องเรียน</h2>
             <br />
-            <input style={{ width: "80%", margin: "auto", textAlign: "center" }} class="form-control" type="text" placeholder="เลือกห้อง" list="room_select" onChange={handleSelect} />
+            <input style={{ width: "50%", margin: "auto", textAlign: "center" }} class="form-control" type="text" placeholder="เลือกห้อง" list="room_select" onChange={handleSelect} />
             <datalist id="room_select" >
                 <option value="-- กรุณาเลือกห้อง --" disabled={true}></option>
                 { createRoom_list }
