@@ -44,11 +44,19 @@ function Table() {
         )
     })
 
-    const create_student_list = student_in&&student_in.map(student => {
+    const create_student_list = student_in&&student_in.map((student,i) => {
+        const {student_name,student_id,timestamp_checkin } = student
         return(
-        <h3>ชื่อ {student.student_name} รหัสนักศึกษา {student.student_id} เวลาที่ลงชื่อ {student.timestamp_checkin}</h3>
+            <tr class="d-flex">
+                <th scope="row" class="col-1">{i}</th>
+                <td class="col-1">{student_id}</td>
+                <td class="col-5">{student_name}</td>
+                <td class="col-4">{timestamp_checkin}</td>
+                <td class="col-1"></td>
+            </tr>
         )
     })
+
 
 
 
@@ -64,9 +72,25 @@ function Table() {
             </datalist>
             <br/>
             <div style ={{textAlign:"center"}}>
-            {create_student_list}
+ 
             </div>
-             
+            <div style ={{width:"80%",margin:"auto",textAlign:"center"}}class="table-responsive">
+                <table class = "table">
+                    <thead>
+                        <tr class="d-flex">
+                            <th class ="col-1" scope="col">#</th>
+                            <th class ="col-1" scope="col">รหัสนักศึกษา</th>
+                            <th class ="col-5"scope = "col">ชื่อนักศึกษา</th>
+                            <th class ="col-4"scope = "col">เวลาที่ลงชื่อ</th>
+                            <th class ="col-1"scope = "col">สถานะ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {create_student_list}
+                    </tbody>
+                </table>
+            </div>
+            
         </div>
 
     )

@@ -66,7 +66,9 @@ function App(){
             />
         <Switch>
         <Route exact path="/">
-            <Home/>
+            <Home
+                isToken = {isToken}
+            />
          </Route>
         {checkLogin()}
         </Switch>
