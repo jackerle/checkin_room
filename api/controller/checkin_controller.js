@@ -62,7 +62,7 @@ exports.getInfo = async(req,res)=>{
                     "success" : true,
                     "hasAccount" : true,
                     "hasCheckin" : true,
-                    "tran": await this.getTran(u_id),
+                    "tran": await this.getTran(u_id,room_id),
                     "student_id" : obj.student_id,
                     "student_name" : obj.student_name,
                     "room_name" : obj.room_name,
@@ -111,9 +111,9 @@ exports.getInfo = async(req,res)=>{
  */
 
 
-exports.getTran = async(u_id)=>{
+exports.getTran = async(u_id,room_id)=>{
     try{
-        let data = await std_repo. getTran(u_id);
+        let data = await std_repo. getTran(u_id,room_id);
         let tran = data[0];
         return tran;
     }
