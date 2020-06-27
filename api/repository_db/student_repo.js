@@ -108,6 +108,7 @@ exports.getInfo = function(u_id,room_id){
         select * 
         from transaction
         where u_id = '${u_id}'
+        and room_id = ${room_id}
         and status = 1	
     ) and exists(
         select * 

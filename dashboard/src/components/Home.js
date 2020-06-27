@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useLocation } from 'react-router-dom';
 
 function Home(){
+
+    let location = useLocation();
+
+    const [from,setForm] = useState(location.state||{from:{pathname:'/'}}) 
+
+    
+
     return(
+        
         <div style={{
             padding:"30px",
             color:"gray",

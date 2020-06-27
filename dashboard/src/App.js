@@ -4,7 +4,8 @@ import jwt from "jsonwebtoken";
 import Navbar from './components/Navbar'
 import { 
     Switch,
-    Route } from "react-router-dom";
+    Route, 
+    Redirect} from "react-router-dom";
 import Home from './components/Home';
 import Table from './components/Auth/Table';
 
@@ -21,7 +22,6 @@ function App(){
     
 
     const isToken =  ()=>{
-        console.log(cookie.jwt!='undefined'&&cookie.jwt!=undefined)
         return (cookie.jwt!='undefined'&&cookie.jwt!=undefined)
     }
 
@@ -45,6 +45,11 @@ function App(){
                 <Route exact path = "/table">
                     <Table/>
                 </Route>
+            )
+        }
+        else{
+            return(
+                <Redirect to={{pathname:'/'}}/>
             )
         }
     }

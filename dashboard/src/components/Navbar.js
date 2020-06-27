@@ -27,7 +27,7 @@ function Login(prop){
     }
 
 
-    const getLogin = ()=>{
+    const getLogin = (event)=>{
         Axios({
           method:'post',
           url:env.API+'/login',
@@ -37,9 +37,12 @@ function Login(prop){
           },
         }).then((res)=>{
           console.log(res)
-          setToken(res.data.token)
-      })
+          setToken(res.data.token)       
+      }).then(
+          event.preventDefault()
+        )
     }
+
 
     const getLogout = ()=>{
         removeToken()
@@ -50,7 +53,7 @@ function Login(prop){
       if(isToken()){
         console.log(isToken())
         return(
-          <form class="form-inline my-2 my-lg-0"   onSubmit= {getLogout}>
+          <form class="form-inline my-2 my-lg-0"  action="/" onSubmit= {getLogout}>
             <button class="btn btn-secondary" disabled={true}>{jwt.decode(token).name}</button>
             <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" >ออกจากระบบ</button>
           </form>
