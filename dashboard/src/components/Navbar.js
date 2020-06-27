@@ -30,7 +30,7 @@ function Login(prop) {
   const getLogin = (event) => {
     Axios({
       method: 'post',
-      url: env.API + '/login',
+      url: env.API + 'login',
       data: {
         username: username,
         password: password
