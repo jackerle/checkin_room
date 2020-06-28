@@ -30,7 +30,7 @@ function Login(prop) {
   const getLogin = (event) => {
     Axios({
       method: 'post',
-      url: env.API + 'login',
+      url: env.API + '/login',
       data: {
         username: username,
         password: password
@@ -89,6 +89,37 @@ function Navbar(prop) {
     setToken, token, removeToken, isToken
   } = prop;
 
+function hideNavbar(){
+  if(isToken()){
+    return(
+        <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+              <Link to="/table" class="navbar-brand">การใช้ห้อง</Link>
+            </li>
+            <li class="nav-item active">
+              <Link to="/history" class="navbar-brand">ประวัติ</Link>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle navbar-brand" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                จัดการ
+        </a>
+              <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                <li class="dropdown-item navbar-text">
+                <Link to="/manage_room" class="navbar-brand">จัดการห้องเรียน</Link>
+              </li>
+              <li class="dropdown-item navbar-text">
+                <Link to="/manage_student" class="navbar-brand">จัดการรายชื่อนักศึกษา</Link>
+              </li>
+              <li class="dropdown-item navbar-text">
+                <Link to="/manage_class" class="navbar-brand">จัดการรายวิชาเรียน</Link>
+              </li>
+              </div>
+            </li>
+            </ul>
+            
+    )
+  }
+}
 
 
 
@@ -102,23 +133,9 @@ function Navbar(prop) {
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <Link to="/table" class="navbar-brand">การใช้ห้อง</Link>
-            </li>
-            <li class="nav-item active">
-              <Link to="/history" class="navbar-brand">ประวัติ</Link>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle navbar-brand" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                จัดการ
-        </a>
-              <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item navbar-text" href="#">จัดการห้องเรียน</a>
-                <a class="dropdown-item navbar-text" href="#">จัดการรายชื่อนักเรียน</a>
-              </div>
-            </li>
-          </ul>
+          
+            {hideNavbar()}
+          
 
           <Login
             setToken={setToken}
