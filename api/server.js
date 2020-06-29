@@ -9,6 +9,7 @@ const authenRoute = express.Router();
 const std_controller = require('./controller/student_controller');
 const checkin_controller = require('./controller/checkin_controller');
 const login_controller = require('./controller/login_controller');
+const class_controller = require('./controller/class_controller')
 const line_middle_ware = require('./line_authen');
 
 
@@ -30,6 +31,7 @@ app.get('/getroom',std_controller.getroom);
 app.get('/getAllTrans',checkin_controller.getAllTrans);
 app.get('/getstd',std_controller.getstd);
 app.get('/getCheckin',checkin_controller.getCheckin);
+app.get('/getAllClass',class_controller.getAllClass);
 authenRoute.post('/checkin',checkin_controller.checkin);
 authenRoute.post('/checkout',checkin_controller.checkout);
 authenRoute.post('/regis_std',std_controller.regis_std);

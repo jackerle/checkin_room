@@ -185,3 +185,9 @@ exports.getCheckin = function(room_id){
     where transaction.room_id = ${room_id} and transaction.status = 1 and transaction.u_id = student_table.u_id;`
     return to_query(sql);
 }
+
+
+exports.getAllClass = function(){
+    let sql = `select * from class_table;`
+    return to_query(sql);
+}
