@@ -20,7 +20,7 @@ function Room(){
         .then(res=>{
             setRoom_list(res.data);           
         })
-    })
+    },[])
 
 
     const handleKeyword = (event)=>{
