@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import env from "./../../../../../env.json";
+import { Link } from "react-router-dom";
 
 
 
@@ -35,13 +36,16 @@ function Class() {
 
     const show_class_list = class_list && class_list.map(obj => {
         const { class_id, class_sect, class_name } = obj
+        let to_ = `/class_student?class_id=${class_id}&&class_sect=${class_sect}`
 
         if (keyword == '' || class_name.indexOf(keyword) != -1) {
             return (
                 <tr class="d-flex">
                     <th scope="row" class="col-3">{class_id}</th>
                     <td class="col-1">{class_sect}</td>
-                    <td class="col-6">{class_name}</td>
+                    <td class="col-6">
+                    <a href={to_}>{class_name}</a>
+                    </td>
                     <td class="col-2"></td>
                 </tr>
             )
@@ -52,13 +56,13 @@ function Class() {
     const add_class_button_element = () => {
         if (add_class_button) {
             return (
-                <br />
+                <ADD_CLASS/>
 
             )
         }
         else {
             return (
-                <ADD_CLASS/>
+                <br/>
                 
             )
         }
@@ -68,6 +72,11 @@ function Class() {
         set_add_Toggle(!add_class_button)
     }
 
+
+
+    const onChange = (value)=>{
+        console.log(value && value.format(format))
+    }
 
 
 
@@ -85,7 +94,7 @@ function Class() {
                         <input style={{ width: "100%", margin: "auto", textAlign: "center" }} class="form-control" type="text" placeholder="ค้นหาวิชาที่นี่" value={keyword} onChange={handleKeyword} />
                     </div>
                     <div class="col-2">
-                        <button type="button" class={add_class_button ? "btn btn-success" : "btn btn-danger"} onClick={handle_add_button}>{add_class_button ? "เพิ่มวิชาเรียน" : "ยกเลิก"}</button>
+                        <button type="button" class={add_class_button ?  "btn btn-danger": "btn btn-success"} onClick={handle_add_button}>{add_class_button ? "ยกเลิก" : "เพิ่มวิชาเรียน"}</button>
                     </div>
                 </div>
             </div>
@@ -104,6 +113,7 @@ function Class() {
                         {show_class_list}
                     </tbody>
                 </table>
+                
             </div>
         </div>
     )
@@ -111,6 +121,8 @@ function Class() {
 
 
 function ADD_CLASS() {
+
+    const [timeValue,setTimeValue] = useState('')
 
 
     const [form_input,set_Form_input] = useState({
@@ -137,7 +149,7 @@ function ADD_CLASS() {
         set_Form_input(dummy);
     }
 
-    
+   
 
 
     return (
@@ -156,9 +168,23 @@ function ADD_CLASS() {
                 <div class="col-7">
                 <input style={{ width: "100%", margin: "auto", textAlign: "center" }} class="form-control" type="text" placeholder="ชื่อวิชา" value={form_input.class_name} onChange={handle_classs_name_form}/>
                 </div>
-                
             </div>
-
+            <br/>
+            
+            <div class="row">
+            <div class="col-2"/>
+            <div class="col-4">
+            <label for="start_time">เลือกเวลาที่เริ่มต้น:</label>
+            <input type="time" id="start_time" name="start_time"></input>
+            </div>
+            <div class="col-4">
+            <label for="end_time">เลือกเวลาที่จบคาบ:</label>
+            <input type="time" id="start_time" name="end_time"></input>
+            </div>
+            <div class="col-2">
+            <button type="button" class="btn btn-outline-primary">เพิ่มเวลา</button>
+            </div>
+            </div>
         </div>
     )
 }

@@ -11,6 +11,7 @@ import Table from './components/Auth/Table';
 import History from './components/Auth/History';
 import Room from './components/Auth/Manage/Room';
 import Class from './components/Auth/Manage/Class';
+import Class_student from './components/Auth/Manage/Class_student';
 
 
 
@@ -53,6 +54,9 @@ function App() {
                     </Route>
                     <Route exact path="/manage_class">
                         <Class/>
+                    </Route>
+                    <Route exact path ="/class_student">
+                        <Class_student/>
                     </Route>
                 </div>
             )
