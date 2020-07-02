@@ -33,7 +33,7 @@ app.get('/getstd',std_controller.getstd);
 app.get('/getCheckin',checkin_controller.getCheckin);
 app.get('/getAllClass',class_controller.getAllClass);
 app.post('/getSchedule',class_controller.getSchedule);
-get.post('/getReg',class_controller.getReg);
+app.post('/getReg',class_controller.getReg);
 authenRoute.post('/checkin',checkin_controller.checkin);
 authenRoute.post('/checkout',checkin_controller.checkout);
 authenRoute.post('/regis_std',std_controller.regis_std);
