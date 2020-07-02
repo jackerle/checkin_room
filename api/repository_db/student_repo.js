@@ -244,11 +244,14 @@ exports.getClass_room = function(room_id,day){
 exports.getCurrentClass = function(room_id,day){
     let sql = `select class_table.class_name as class_name,
     class_table.class_id as class_id,
-    class_table.class_sect as class_sect
+    class_table.class_sect as class_sect,
+class_schedule.class_start_time as class_start_time,
+class_schedule.class_end_time as class_end_time
     from class_schedule,class_table
-    where class_schedule.room_id = ${room_id}
-    and class_schedule.class_day = ${day}
+    where class_schedule.room_id = 1
+    and class_schedule.class_day = 4
 and class_table.class_sect = class_schedule.class_sect
 and class_table.class_id = class_schedule.class_id
 ;`
+return to_query(sql);
 }
