@@ -17,7 +17,7 @@ function Class_student (){
         class_sect : query.get('class_sect')
     })
     const [list_schedule,setSchedule]  = useState([])
-
+    const [class_name_header,setHeader] = useState('')
 
 
     useEffect(()=>{
@@ -30,6 +30,7 @@ function Class_student (){
             },
           }).then((res)=>{
               setSchedule(res.data)
+              setHeader(res.data[0].class_name);
           })
         
     },[])
@@ -46,8 +47,9 @@ function Class_student (){
 
     return(
     <div>
-        <h1>ชื่อวิชา : {class_student.class_id} sect : {class_student.class_sect}</h1>
+        <h1>ชื่อวิชา : {class_name_header} sect : {class_student.class_sect}</h1>
         {show_schedule_element}
+        <h2></h2>
     </div>
     
     )

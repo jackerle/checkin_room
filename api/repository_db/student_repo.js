@@ -198,13 +198,13 @@ exports.getSchedule = function (class_id,class_sect){
     class_table.class_name as class_name,
     class_schedule.class_start_time as class_start_time,
     class_schedule.class_end_time as class_end_time,
-    class_schedule.room_id as room_id
-    from reg_class,class_table,class_schedule,room_table
+    room_table.room_name as room_name
+    from class_table,class_schedule,room_table
     where class_schedule.room_id = room_table.room_id
-    and reg_class.class_id = class_table.class_id
-    and reg_class.class_sect = class_table.class_sect
-    and reg_class.class_id = '${class_id}'
-    and reg_class.class_sect = '${class_sect}';
+    and class_schedule.class_id = class_table.class_id
+    and class_schedule.class_sect = class_table.class_sect
+    and class_table.class_id = '${class_id}'
+    and class_table.class_sect = ${class_sect};
     `
     return to_query(sql);
 }
