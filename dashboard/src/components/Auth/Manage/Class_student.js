@@ -47,10 +47,10 @@ function Class_student (){
 
     const show_schedule_element = list_schedule &&list_schedule.map(element=>{
         const {
-            class_id,class_name,class_start_time,class_end_time,room_id
+            class_id,class_name,class_day,class_start_time,class_end_time,room_id
         } = element
         return (
-        <p>{class_id} ชื่อ {class_name} เวลาเริ่ม {class_start_time} เวลาจบ {class_end_time} ห้อง {room_id}</p>
+        <p>{class_id} ชื่อ {class_name} วัน { class_day} เวลาเริ่ม {class_start_time} เวลาจบ {class_end_time} ห้อง {room_id}</p>
         )
     })
 

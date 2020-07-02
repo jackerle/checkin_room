@@ -34,7 +34,8 @@ function Table() {
             method: 'post',
             url: env.API + '/getClass_room',
             data: {
-              room_id:1
+              room_id:1,
+              day : new Date().getDay()
             },
           }).then(res=>{
             
