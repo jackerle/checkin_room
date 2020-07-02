@@ -71,7 +71,8 @@ function Table() {
                 { createRoom_list }
             </datalist>
             <br/>
-    
+            <p>ขณะนี้กำลังอยู่ในวิชา</p>
+            <br/>
             <div style ={{width:"80%",margin:"auto",textAlign:"center"}}class="table-responsive">
                 <table class = "table">
                     <thead>

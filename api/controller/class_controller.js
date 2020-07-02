@@ -36,3 +36,14 @@ exports.getReg = async (req,res)=>{
     }
 }
     
+exports.getClass_room = async (req,res)=>{
+    let room_id = req.body.room_id;
+    let day = new Date().getDay();
+    try{
+        let data = await std_repo.getClass_room(room_id,day);
+        res.send(data)
+    }
+    catch(ex){
+        console.log(ex)
+    }
+}

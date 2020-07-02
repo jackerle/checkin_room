@@ -219,3 +219,22 @@ exports.getReg = function(class_id,class_sect){
     and reg_class.student_id = student_table.student_id;`
     return to_query(sql);
 }
+
+
+exports.getClass_room = function(room_id,day){
+    let sql = `select class_table.class_id as class_id,
+    class_table.class_sect as class_sect,
+    class_schedule.class_start_time as class_start_time,
+    class_schedule.class_end_time as class_end_time,
+    class_table.class_name as class_name,
+    room_table.room_name as room_name,
+    room_table.capacity as capacity
+    from 
+    class_schedule,class_table,room_table
+    where class_schedule.class_day = ${day}
+    and class_schedule.room_id = ${room_id}
+    and class_schedule.room_id = room_table.room_id
+    and class_table.class_sect = class_schedule.class_sect
+    and class_table.class_id = class_schedule.class_id`
+    return to_query(sql)
+}
