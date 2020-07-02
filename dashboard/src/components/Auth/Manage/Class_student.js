@@ -18,7 +18,7 @@ function Class_student (){
     })
     const [list_schedule,setSchedule]  = useState([])
     const [class_name_header,setHeader] = useState('')
-
+    const [student_list,setStudent] = useState([])
 
     useEffect(()=>{
         Axios({
@@ -31,6 +31,16 @@ function Class_student (){
           }).then((res)=>{
               setSchedule(res.data)
               setHeader(res.data[0].class_name);
+          });
+          Axios({
+            method: 'post',
+            url: env.API + '/getReg',
+            data: {
+              class_id: class_student.class_id ,
+              class_sect: class_student.class_sect
+            },
+          }).then(res=>{
+            setStudent(res.data)
           })
         
     },[])
@@ -44,12 +54,24 @@ function Class_student (){
         )
     })
 
+    const show_student_element = student_list &&student_list.map(element=>{
+        const {
+            student_id,student_name
+        }  = element;
+        return(
+            <p>
+                ชื่อ {student_name} รหัสนักศึกษา {student_id}
+            </p>
+        )
+    })
+
 
     return(
     <div>
         <h1>ชื่อวิชา : {class_name_header} sect : {class_student.class_sect}</h1>
         {show_schedule_element}
-        <h2></h2>
+        <h2>นักศึกษาที่ลง</h2>
+        {show_student_element}
     </div>
     
     )
