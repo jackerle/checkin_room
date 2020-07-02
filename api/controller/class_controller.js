@@ -47,3 +47,15 @@ exports.getClass_room = async (req,res)=>{
         console.log(ex)
     }
 }
+
+exports.getCurrentClass = async (req,res)=>{
+    let room_id = req.body.room_id;
+    let day = req.body.day;
+    try{
+        let data = await std_repo.getCurrentClass(room_id,day);
+        res.send(data)
+    }
+    catch(ex){
+        console.log(ex)
+    }
+}

@@ -35,6 +35,7 @@ app.get('/getAllClass',class_controller.getAllClass);
 app.post('/getSchedule',class_controller.getSchedule);
 app.post('/getReg',class_controller.getReg);
 app.post('/getClass_room',class_controller.getClass_room);
+app.post('/getCurrentClass',class_controller.getCurrentClass);
 authenRoute.post('/checkin',checkin_controller.checkin);
 authenRoute.post('/checkout',checkin_controller.checkout);
 authenRoute.post('/regis_std',std_controller.regis_std);

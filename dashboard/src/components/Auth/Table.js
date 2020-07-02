@@ -13,8 +13,7 @@ function Table() {
     const [class_list,setClass_list] = useState([]);
     const [time_now,setTimeNow] = useState({
         hours:d.getHours(),
-        minute:d.getMinutes(),
-        seconds:d.getSeconds()
+        minute:d.getMinutes()
     });
     const [check_talbe,Toggle_button] = useState(false)
     const [current_class,setCurrent_class] = useState(null)
@@ -61,33 +60,14 @@ function Table() {
         setInterval(()=>{
             setTimeNow({
                 hours:new Date().getHours(),
-                minute:new Date().getMinutes(),
-                seconds:new Date().getSeconds()
+                minute:new Date().getMinutes()
             })
-            calc_intime()
-        },1000)
+
+        },60000)
     },[time_now])
 
 
-    const calc_intime = function(){
-        class_list && class_list.map(obj=>{
-            const {class_id,class_sect,class_name,class_start_time,class_end_time} = obj
-            let start_h = parseInt(class_start_time.split(':')[0]);
-            let start_m = parseInt(class_start_time.split(':')[1]);
-            let end_h = parseInt(class_end_time.split(':')[0]);
-            let end_m = parseInt(class_end_time.split(':')[1]);
-            if ((time_now.hours*60)+time_now.minute >=(start_h*60)+start_m&&(time_now.hours*60)+time_now.minute <=(end_h*60)+end_m){
-                setCurrent_class({
-                    class_name:class_name,
-                    class_id:class_id,
-                    class_sect:class_sect})
-            }
-            else {
-                setCurrent_class(null)
-            }
-        })
-
-    }
+    
 
 
     
@@ -111,7 +91,7 @@ function Table() {
     })
 
     const handleSelect = function(event){
-        let target = event.target.value.split(".")[0];
+        let target = event.target.value;
         setRoom_Select(target);
         fetch_student(target)
         console.log(target);
