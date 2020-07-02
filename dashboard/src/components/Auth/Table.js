@@ -9,7 +9,7 @@ function Table() {
     const [room_list, setRoom_list] = useState([]);
     const [student_in,setStudent] = useState([]);
     const [room_select,setRoom_Select] = useState(0);
-
+    const [class_list,setClass_list] = useState([]);
     
 
 
@@ -29,22 +29,35 @@ function Table() {
             })
     }, [])
 
+
     useEffect(()=>{
         Axios({
             method: 'post',
             url: env.API + '/getClass_room',
             data: {
-              room_id:1,
-              day : new Date().getDay()
+              room_id:room_select,
+              day : 4//new Date().getDay()
             },
           }).then(res=>{
-            
+            setClass_list(res.data)
           })
           .catch(err=>{
               console.log(err)
           })
     },[room_select,room_list])
 
+
+
+
+    
+    const show_class_list = class_list && class_list.map(obj=>{
+        const {
+            class_id,class_sect,class_start_time,class_end_time,class_name,room_name,capacity
+        } = obj;
+        return (
+        <p>{class_id} sect: {class_sect} {class_name} เริ่มต้น : {class_start_time} หมดคาบ : {class_end_time}</p>
+        )
+    })
 
     const handleSelect = function(event){
         let target = event.target.value.split(".")[0];
@@ -56,7 +69,7 @@ function Table() {
 
     const createRoom_list = room_list && room_list.map(room => {
         return (
-        <option data-value= {room.room_id} value={room.room_id +'.  '+room.room_name} key={room.room_id}></option>
+        <option  value={room.room_id} key={room.room_id}>{room.room_name}</option>
         )
     })
 
@@ -81,13 +94,13 @@ function Table() {
             <br />
             <h2 style={{ textAlign: "center" }}>บันทึกการใช้งานห้องเรียน</h2>
             <br />
-            <input style={{ width: "50%", margin: "auto", textAlign: "center" }} class="form-control" type="text" placeholder="เลือกห้อง" list="room_select" onChange={handleSelect} />
-            <datalist id="room_select" >
-                <option value="-- กรุณาเลือกห้อง --" disabled={true}></option>
+            <select style={{ width: "50%", margin: "auto", textAlign: "center" }}  class="form-control" id="room_select" onChange={handleSelect}>
+                <option value="-- กรุณาเลือกห้อง --" >--กรุณาเลือกห้อง--</option>
                 { createRoom_list }
-            </datalist>
+            </select>
             <br/>
-            <p>ขณะนี้กำลังอยู่ในวิชา</p>
+            <p>วันนี้จะมีวิชา</p>
+            {show_class_list}
             <br/>
             <div style ={{width:"80%",margin:"auto",textAlign:"center"}}class="table-responsive">
                 <table class = "table">
