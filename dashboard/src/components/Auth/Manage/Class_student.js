@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 
@@ -15,6 +15,10 @@ function Class_student (){
         class_id : query.get('class_id'),
         class_sect : query.get('class_sect')
     })
+
+    useEffect(()=>{
+
+    },[])
 
 
     return(

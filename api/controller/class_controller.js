@@ -10,3 +10,15 @@ exports.getAllClass = async (req,res)=>{
     }
    
 }
+
+exports.getSchedule = async (req,res)=>{
+    let class_id = req.body.class_id;
+    let class_sect = req.body.class_sect;
+    try {
+        let data = await std_repo.getSchedule(class_id,class_sect);
+        res.send(data)
+    }
+    catch(ex){
+        console.log(ex)
+    }
+}

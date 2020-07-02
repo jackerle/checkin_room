@@ -191,3 +191,20 @@ exports.getAllClass = function(){
     let sql = `select * from class_table;`
     return to_query(sql);
 }
+
+exports.getSchedule = function (class_id,class_sect){
+    let sql = `select 
+    class_table.class_id as class_id,
+    class_table.class_name as class_name,
+    class_schedule.class_start_time as class_start_time,
+    class_schedule.class_end_time as class_end_time,
+    class_schedule.room_id as room_id
+    from reg_class,class_table,class_schedule,room_table
+    where class_schedule.room_id = room_table.room_id
+    and reg_class.class_id = class_table.class_id
+    and reg_class.class_sect = class_table.class_sect
+    and reg_class.class_id = '${class_id}'
+    and reg_class.class_sect = '${class_sect}';
+    `
+    return to_query(sql);
+}
