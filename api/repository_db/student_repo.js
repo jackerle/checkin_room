@@ -196,6 +196,7 @@ exports.getSchedule = function (class_id,class_sect){
     let sql = `select 
     class_table.class_id as class_id,
     class_table.class_name as class_name,
+    class_schedule.class_day as class_day,
     class_schedule.class_start_time as class_start_time,
     class_schedule.class_end_time as class_end_time,
     room_table.room_name as room_name

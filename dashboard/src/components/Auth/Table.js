@@ -29,6 +29,21 @@ function Table() {
             })
     }, [])
 
+    useEffect(()=>{
+        Axios({
+            method: 'post',
+            url: env.API + '/getClass_room',
+            data: {
+              room_id:1
+            },
+          }).then(res=>{
+            
+          })
+          .catch(err=>{
+              console.log(err)
+          })
+    },[room_select,room_list])
+
 
     const handleSelect = function(event){
         let target = event.target.value.split(".")[0];
