@@ -208,3 +208,14 @@ exports.getSchedule = function (class_id,class_sect){
     `
     return to_query(sql);
 }
+
+exports.getReg = function(class_id,class_sect){
+    let sql = `select 
+    student_table.student_id as student_id,
+    student_table.student_name as student_name
+    from reg_class,student_table
+    where reg_class.class_id = '${class_id}'
+    and reg_class.class_sect = ${class_sect}
+    and reg_class.student_id = student_table.student_id;`
+    return to_query(sql);
+}

@@ -22,3 +22,17 @@ exports.getSchedule = async (req,res)=>{
         console.log(ex)
     }
 }
+
+
+exports.getReg = async (req,res)=>{
+    let class_id = req.body.class_id;
+    let class_sect = req.body.class_sect;
+    try{
+        let data = await std_repo.getReg(class_id,class_sect);
+        res.send(data)
+    }
+    catch(ex){
+        console.log(ex)
+    }
+}
+    
