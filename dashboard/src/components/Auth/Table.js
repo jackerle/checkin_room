@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import env from "./../../../../env.json";
 
+const d = new Date();
 
 
 function Table() {
@@ -10,7 +11,14 @@ function Table() {
     const [student_in,setStudent] = useState([]);
     const [room_select,setRoom_Select] = useState(0);
     const [class_list,setClass_list] = useState([]);
-    
+    const [time_now,setTimeNow] = useState({
+        hours:d.getHours(),
+        minute:d.getMinutes(),
+        seconds:d.getSeconds()
+    });
+    const [check_talbe,Toggle_button] = useState(false)
+    const [current_class,setCurrent_class] = useState(null)
+
 
 
     function fetch_student(room_id){
@@ -19,6 +27,8 @@ function Table() {
            setStudent(res.data);
         })
     }
+
+
 
     useEffect(() => {
         Axios.get(env.API + '/getroom')
@@ -47,6 +57,37 @@ function Table() {
     },[room_select,room_list])
 
 
+    useEffect(()=>{
+        setInterval(()=>{
+            setTimeNow({
+                hours:new Date().getHours(),
+                minute:new Date().getMinutes(),
+                seconds:new Date().getSeconds()
+            })
+            calc_intime()
+        },1000)
+    },[time_now])
+
+
+    const calc_intime = function(){
+        class_list && class_list.map(obj=>{
+            const {class_id,class_sect,class_name,class_start_time,class_end_time} = obj
+            let start_h = parseInt(class_start_time.split(':')[0]);
+            let start_m = parseInt(class_start_time.split(':')[1]);
+            let end_h = parseInt(class_end_time.split(':')[0]);
+            let end_m = parseInt(class_end_time.split(':')[1]);
+            if ((time_now.hours*60)+time_now.minute >=(start_h*60)+start_m&&(time_now.hours*60)+time_now.minute <=(end_h*60)+end_m){
+                setCurrent_class({
+                    class_name:class_name,
+                    class_id:class_id,
+                    class_sect:class_sect})
+            }
+            else {
+                setCurrent_class(null)
+            }
+        })
+
+    }
 
 
     
@@ -54,9 +95,19 @@ function Table() {
         const {
             class_id,class_sect,class_start_time,class_end_time,class_name,room_name,capacity
         } = obj;
-        return (
-        <p>{class_id} sect: {class_sect} {class_name} เริ่มต้น : {class_start_time} หมดคาบ : {class_end_time}</p>
-        )
+        let show_start = class_start_time.split(':')[0]+":"+class_start_time.split(':')[1]
+        let show_end = class_end_time.split(':')[0]+":"+class_end_time.split(':')[1]
+        if(check_talbe){
+            return (
+                <div class = "row">
+                    <div class = "col-2">เวลา : {show_start} - {show_end} น.</div>
+                    <div class="col-2">วิชา :{class_id} sect : {class_sect}</div>
+                    <div class = "col-4">{class_name}</div>
+                </div>
+                
+                )
+        }
+        
     })
 
     const handleSelect = function(event){
@@ -64,6 +115,10 @@ function Table() {
         setRoom_Select(target);
         fetch_student(target)
         console.log(target);
+    }
+
+    const handle_button_table = function(){
+        Toggle_button(!check_talbe);
     }
 
 
@@ -99,8 +154,28 @@ function Table() {
                 { createRoom_list }
             </select>
             <br/>
-            <p>วันนี้จะมีวิชา</p>
-            {show_class_list}
+            <div class="container">
+                <div class="row">
+                    <div class = "col-2">
+                        <p>เวลาปัจจุบัน : {time_now.hours}:{time_now.minute}:{time_now.seconds} น.</p>
+                    </div>
+                    <div class= "col-3">
+                        <b>วิชาที่กำลังเรียนอยู่ในขณะนี้ : </b>
+                    </div>
+                    <div class = "col-4">
+                        <p>{current_class? current_class.class_id+'sect:'+current_class.class_sect+' '+current_class.class_name : 'ขณะนี้ไม่มีการเรียนวิชาใด'}</p>
+                    </div>
+                    <div class = "col-3">
+                        <button style={{margin:"auto",textAlign:"center"}}type="button" class={check_talbe? "btn btn-secondary" :"btn btn-info" } onClick={handle_button_table}>{check_talbe? "ซ่อน":"ดูตารางวันนี้"}</button>
+                    </div>
+                </div>
+                <hr/>
+                {show_class_list}
+                
+            
+            
+            </div>
+            
             <br/>
             <div style ={{width:"80%",margin:"auto",textAlign:"center"}}class="table-responsive">
                 <table class = "table">

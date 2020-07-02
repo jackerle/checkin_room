@@ -228,6 +228,7 @@ exports.getClass_room = function(room_id,day){
     class_schedule.class_start_time as class_start_time,
     class_schedule.class_end_time as class_end_time,
     class_table.class_name as class_name,
+    room_table.room_id as room_id,
     room_table.room_name as room_name,
     room_table.capacity as capacity
     from 
