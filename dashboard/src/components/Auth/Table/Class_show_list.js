@@ -39,7 +39,7 @@ function Class_show_list(prop) {
                 console.log(err)
             })
 
-    }, [room_select, room_list])
+    }, [room_select])
 
 
     useEffect(() => {

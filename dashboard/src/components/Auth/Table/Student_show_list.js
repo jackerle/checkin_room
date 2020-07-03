@@ -11,23 +11,29 @@ function STUDENT_SHOW_LIST(prop){
     
 
     useEffect(()=>{
-        Axios({
-            method: 'post',
-            url: env.API + '/getReg',
-            data: {
-              class_id: current_class.class_id ,
-              class_sect: current_class.class_sect
-            },
-          }).then(res=>{
-            setStudent(res.data)
-          })
-    },[room_list,room_select])
+        if(current_class.class_id != undefined){
+            Axios({
+                method: 'post',
+                url: env.API + '/getReg',
+                data: {
+                  class_id: current_class.class_id ,
+                  class_sect: current_class.class_sect
+                },
+              }).then(res=>{
+                setStudent(res.data)
+              }).catch(err=>{
+                  console.log(err)
+              })
+        }
+        
+    },[current_class])
     
 
 
     const _create_student_list = student_in && student_in.map((student, i) => {
         const { student_name, student_id, timestamp_checkin } = student
-        let isReg = student_reg.filter(e => e.student_id ==student_id).length > 0
+        let isReg = student_reg.filter(e=> e.student_id ==student_id).length >0
+        console.log(isReg)
         return (
             <tr class="d-flex">
                 <th scope="row" class="col-1">{i + 1}</th>
@@ -35,7 +41,8 @@ function STUDENT_SHOW_LIST(prop){
                 <td class="col-4">{student_name}</td>
                 <td class="col-3">{timestamp_checkin}</td>
                 <td class="col-2">
-                {isReg?  <button type="button" class="btn btn-success">ลงทะเบียน</button> : <p>ยังไม่ลง</p>}
+                {isReg? <button type="button" class="btn btn-success"></button>: <button type="button" class="btn btn-secondary"></button>}
+                
                
                 </td>
             </tr>
