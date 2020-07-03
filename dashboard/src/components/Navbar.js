@@ -37,7 +37,7 @@ function Login(prop) {
       },
       withCredentials:true
     }).then((res) => {
-      console.log(res)
+      console.log(res.data)
       setToken(res.data.token)
     }).then(
       event.preventDefault()

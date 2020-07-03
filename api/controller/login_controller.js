@@ -21,7 +21,7 @@ exports.login = async (req,res)=>{
                 about:data[0].about
             }
             let token = jwt.sign(_token,env.JWT_SECRET);
-            res.cookie('jwt',token,{secure: true,httpOnly: true,maxAge: 3600000})
+            res.cookie('jwt',token,{maxAge: 3600000})
             res.send({
                 "success":true,
                 "token":token,
