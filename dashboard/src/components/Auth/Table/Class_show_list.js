@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Axios from 'axios'
+import env from './../../../../../env.json'
+
 
 function Class_show_list(prop) {
 
 
     const {
-        room_select,room_list
+        room_select, room_list
     } = prop;
     const [class_list, setClass_list] = useState([]);
 
-    
+
+    const [current_class, setCurrent_class] = useState({})
+    const [check_talbe, Toggle_button] = useState(false)
 
 
 
@@ -55,6 +60,8 @@ function Class_show_list(prop) {
     }, [class_list])
 
 
+
+
     const handle_current_class = function () {
         class_list && class_list.map(obj => {
             const {
@@ -62,30 +69,36 @@ function Class_show_list(prop) {
             } = obj
             const [h_start, m_start] = class_start_time.split(':');
             const [h_end, m_end] = class_end_time.split(':');
-            if ( (+h_start * 60) + m_start <= ((time_now.hours * 60) + time_now.minute )&&
+            if ((+h_start * 60) + m_start <= ((time_now.hours * 60) + time_now.minute) &&
                 (+h_end * 60) + m_end >= ((time_now.hours * 60) + time_now.minute) &&
-                    room_select == room_id){
-                        console.log('in hereee')
-                        setCurrent_class({
-                            class_id:class_id,
-                            class_sect:class_sect,
-                            class_name:class_name
-                        })
+                room_select == room_id) {
+                console.log('in hereee')
+                setCurrent_class({
+                    class_id: class_id,
+                    class_sect: class_sect,
+                    class_name: class_name
+                })
             }
             else {
                 console.log('in here')
                 setCurrent_class({})
             }
         })
-        if(class_list.length<1){
+        if (class_list.length < 1) {
             setCurrent_class({})
         }
-        
-
     }
 
 
-  const show_class_list = class_list && class_list.map(obj => {
+
+    const handle_button_table = function () {
+        Toggle_button(!check_talbe);
+    }
+
+
+
+
+    const show_class_list = class_list && class_list.map(obj => {
         const {
             class_id, class_sect, class_start_time, class_end_time, class_name, room_name, capacity
         } = obj;
@@ -101,8 +114,9 @@ function Class_show_list(prop) {
 
             )
         }
-
     })
+
+
 
     return (
         <div class="container">
@@ -122,9 +136,6 @@ function Class_show_list(prop) {
             </div>
             <hr />
             {show_class_list}
-
-
-
         </div>
     )
 }
