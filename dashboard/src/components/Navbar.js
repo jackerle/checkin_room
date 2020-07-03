@@ -35,6 +35,7 @@ function Login(prop) {
         username: username,
         password: password
       },
+      withCredentials:true
     }).then((res) => {
       console.log(res)
       setToken(res.data.token)
