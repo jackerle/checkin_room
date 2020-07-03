@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import env from "./../../../../env.json";
+import STUDENT_SHOW_LIST from './Table/Student_show_list'
 
-const d = new Date();
+
+
 
 
 function Table() {
@@ -12,8 +14,8 @@ function Table() {
     const [room_select, setRoom_Select] = useState(0);
     const [class_list, setClass_list] = useState([]);
     const [time_now, setTimeNow] = useState({
-        hours: d.getHours(),
-        minute: d.getMinutes()
+        hours: new Date().getHours(),
+        minute: new Date().getMinutes()
     });
     const [check_talbe, Toggle_button] = useState(false)
     const [current_class, setCurrent_class] = useState({})
@@ -145,18 +147,7 @@ function Table() {
         )
     })
 
-    const create_student_list = student_in && student_in.map((student, i) => {
-        const { student_name, student_id, timestamp_checkin } = student
-        return (
-            <tr class="d-flex">
-                <th scope="row" class="col-1">{i + 1}</th>
-                <td class="col-2">{student_id}</td>
-                <td class="col-5">{student_name}</td>
-                <td class="col-3">{timestamp_checkin}</td>
-                <td class="col-1"></td>
-            </tr>
-        )
-    })
+    
 
 
 
@@ -174,7 +165,7 @@ function Table() {
             <div class="container">
                 <div class="row">
                     <div class="col-2">
-                        <p>เวลาปัจจุบัน : {time_now.hours}:{time_now.minute}:{time_now.seconds} น.</p>
+                        <p>เวลาปัจจุบัน : {time_now.hours}:{time_now.minute} น.</p>
                     </div>
                     <div class="col-3">
                         <b>วิชาที่กำลังเรียนอยู่ในขณะนี้ : </b>
@@ -194,26 +185,19 @@ function Table() {
             </div>
 
             <br />
-            <div style={{ width: "80%", margin: "auto", textAlign: "center" }} class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr class="d-flex">
-                            <th class="col-1" scope="col">#</th>
-                            <th class="col-2" scope="col">รหัสนักศึกษา</th>
-                            <th class="col-5" scope="col">ชื่อนักศึกษา</th>
-                            <th class="col-3" scope="col">เวลาที่ลงชื่อ</th>
-                            <th class="col-1" scope="col">สถานะ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {create_student_list}
-                    </tbody>
-                </table>
-            </div>
+            <STUDENT_SHOW_LIST student_in={student_in}/>
 
         </div>
 
     )
 }
+
+
+
+
+
+
+
+
 
 export default Table;
