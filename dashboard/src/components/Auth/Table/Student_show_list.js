@@ -27,6 +27,7 @@ function STUDENT_SHOW_LIST(prop){
 
     const _create_student_list = student_in && student_in.map((student, i) => {
         const { student_name, student_id, timestamp_checkin } = student
+        let isReg = student_reg.filter(e => e.student_id ==student_id).length > 0
         return (
             <tr class="d-flex">
                 <th scope="row" class="col-1">{i + 1}</th>
@@ -34,7 +35,8 @@ function STUDENT_SHOW_LIST(prop){
                 <td class="col-4">{student_name}</td>
                 <td class="col-3">{timestamp_checkin}</td>
                 <td class="col-2">
-                <button type="button" class="btn btn-success">ลงทะเบียน</button>
+                {isReg?  <button type="button" class="btn btn-success">ลงทะเบียน</button> : <p>ยังไม่ลง</p>}
+               
                 </td>
             </tr>
         )

@@ -15,7 +15,8 @@ var pool = mariadb.createPool({
 const to_query = function(sql){
     return new Promise(async (resolve,reject)=>{
         try{
-            let _pool = await pool.getConnection();
+            let __pool = await pool.getConnection();
+            let _pool = await __pool.beginTransaction()
             let res_query = await _pool.query(sql);
             _pool.release();
             resolve(res_query);

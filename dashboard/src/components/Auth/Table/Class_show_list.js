@@ -75,7 +75,8 @@ function Class_show_list(prop) {
                 set_current_class({
                     class_id: class_id,
                     class_sect: class_sect,
-                    class_name: class_name
+                    class_name: class_name,
+                    capacity:capacity
                 })
             }
             else {
