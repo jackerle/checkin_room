@@ -14,7 +14,7 @@ const line_middle_ware = require('./line_authen');
 
 
 
-app.use(cors({origin: 'https://127.0.0.1:3000',credentials:true}));
+app.use(cors({origin: ['https://127.0.0.1:3000','https://jackerle.bike','https://127.0.0.1'],credentials:true}));
 app.use(bodyParser.json());
 app.use('/api',authenRoute)
 
