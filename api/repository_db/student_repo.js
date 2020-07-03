@@ -8,15 +8,17 @@ var pool = mariadb.createPool({
     user : 'root',
     password : env.PASSWORD_DB,
     database : env.DATABASE,
-    connectionLimit : 20
+    connectionLimit : 20,
+    connectTimeout:15000,
+    idleTimeout:1
+
 });
 
 
 const to_query = function(sql){
     return new Promise(async (resolve,reject)=>{
         try{
-            let __pool = await pool.getConnection();
-            let _pool = await __pool.beginTransaction()
+            let _pool = await pool.getConnection();
             let res_query = await _pool.query(sql);
             _pool.release();
             resolve(res_query);
