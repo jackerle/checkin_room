@@ -13,6 +13,12 @@ function Table() {
     const [room_list, setRoom_list] = useState([]);
     const [student_in, setStudent] = useState([]);
     const [room_select, setRoom_Select] = useState(0);
+    const [current_class,setCurrent_class] = useState({})
+
+
+    const set_current_class = function(obj){
+        setCurrent_class(obj)
+    } 
 
 
 
@@ -69,9 +75,9 @@ function Table() {
                 {createRoom_list}
             </select>
             <br />
-            <Class_show_list room_select={room_select} room_list={room_list} />
+            <Class_show_list room_select={room_select} room_list={room_list} current_class={current_class} set_current_class={set_current_class} />
             <br />
-            <Student_show_list student_in={student_in} />
+            <Student_show_list student_in={student_in} room_select={room_select} room_list={room_list} current_class={current_class}/>
 
         </div>
 

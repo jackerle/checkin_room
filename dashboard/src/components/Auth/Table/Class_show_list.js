@@ -7,12 +7,11 @@ function Class_show_list(prop) {
 
 
     const {
-        room_select, room_list
+        room_select, room_list,current_class,set_current_class
     } = prop;
     const [class_list, setClass_list] = useState([]);
 
 
-    const [current_class, setCurrent_class] = useState({})
     const [check_talbe, Toggle_button] = useState(false)
 
 
@@ -73,7 +72,7 @@ function Class_show_list(prop) {
                 (+h_end * 60) + m_end >= ((time_now.hours * 60) + time_now.minute) &&
                 room_select == room_id) {
                 console.log('in hereee')
-                setCurrent_class({
+                set_current_class({
                     class_id: class_id,
                     class_sect: class_sect,
                     class_name: class_name
@@ -81,11 +80,11 @@ function Class_show_list(prop) {
             }
             else {
                 console.log('in here')
-                setCurrent_class({})
+                set_current_class({})
             }
         })
         if (class_list.length < 1) {
-            setCurrent_class({})
+            set_current_class({})
         }
     }
 
@@ -128,7 +127,21 @@ function Class_show_list(prop) {
                     <b>วิชาที่กำลังเรียนอยู่ในขณะนี้ : </b>
                 </div>
                 <div class="col-4">
-                    <p>{current_class.class_id != undefined ? current_class.class_id + 'sect:' + current_class.class_sect + ' ' + current_class.class_name : 'ขณะนี้ไม่มีการเรียนวิชาใด'}</p>
+                    {(()=>{
+                        let _to = `/class_student?class_id=${current_class.class_id}&&class_sect=${current_class.class_sect}`
+                        if(current_class.class_id != undefined){
+                            return(
+                                <a href={_to}>{current_class.class_id + 'sect:' + current_class.class_sect + ' ' + current_class.class_name}</a>
+                            )
+                        }
+                        else{
+                            return(
+                                <p>--ขณะนี้ไม่มีการเรียนวิชาใดๆ--</p>
+                            )
+                        }
+                        
+                    })()}
+                    
                 </div>
                 <div class="col-3">
                     <button style={{ margin: "auto", textAlign: "center" }} type="button" class={check_talbe ? "btn btn-secondary" : "btn btn-info"} onClick={handle_button_table}>{check_talbe ? "ซ่อน" : "ดูตารางวันนี้"}</button>
