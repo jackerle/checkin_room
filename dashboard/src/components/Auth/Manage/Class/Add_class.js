@@ -28,15 +28,17 @@ function ADD_CLASS() {
         class_id: "",
         class_sect: '',
         class_name: "",
-        schedule:[]
+        schedule: []
     })
 
 
 
-    const [schedule_list, setSchedule] = useState({day: 0,
+    const [schedule_list, setSchedule] = useState({
+        day: 0,
         time_start: "00:00",
         time_end: "00:00",
-        room_id: '-'})
+        room_id: '-'
+    })
 
     const handle_time_start_form = (event) => {
         let dummy = { ...schedule_list }
@@ -51,8 +53,8 @@ function ADD_CLASS() {
     }
 
 
-    const handle_day_form = (event)=>{
-        let dummy = {...schedule_list}
+    const handle_day_form = (event) => {
+        let dummy = { ...schedule_list }
         dummy.day = event.target.value
         setSchedule(dummy)
     }
@@ -98,34 +100,70 @@ function ADD_CLASS() {
 
 
     const add_class_handle = function () {
-        let dummy = {...form_input}
+        let dummy = { ...form_input }
         dummy.schedule.push(schedule_list)
         set_Form_input(dummy)
-        setSchedule({day: 0,
+        setSchedule({
+            day: 0,
             time_start: "00:00",
             time_end: "00:00",
-            room_id: '-'})
+            room_id: '-'
+        })
         console.log(form_input)
     }
 
     const schedule_list_element = form_input.schedule && form_input.schedule.map(ele => {
-        return(<div class="row">
-        <div class="col-2">
-            <p>{ele.day}</p>
-        </div>
-        <div class="col-3">
-            <p>{ele.time_start}</p>
-        </div>
-        <div class="col-3">
-            <p>{ele.time_end}</p>
-        </div>
-        <div class="col-2">
-            <p>{ele.room_id}</p>
-        </div>
-        <div class="col-2">
-        </div>
-    </div>)
-        
+        let day, time_s, time_e, room
+        switch (ele.day) {
+            case 0:
+                day = 'วันอาทิตย์'
+                break;
+            case 1:
+                day = 'วันจันทร์'
+                break;
+            case 2:
+                day = 'วันอังคาร'
+                break;
+            case 3:
+                day = 'วันพุธ'
+                break;
+            case 4:
+                day = 'วันพฤหัสบดี'
+                break;
+            case 5:
+                day = 'วันศุกร์'
+                break;
+            case 6:
+                day = 'วันเสาร์'
+                break;
+            default:
+                break;
+        }
+
+        time_s = `เวลาเริ่มต้น ${ele.time_start} น.`
+        time_e = `เวลาจบคาบ ${ele.time_end} น.`
+        room = room_list.find(element => element.room_id=ele.room_id).room_name
+
+
+
+        return (
+            <div style={{ textAlign: "center" }} class="row">
+                <div class="col-2">
+                    <p>{day}</p>
+                </div>
+                <div class="col-3">
+                    <p>{time_s}</p>
+                </div>
+                <div class="col-3">
+                    <p>{time_e}</p>
+                </div>
+                <div class="col-2">
+                    <p>{room}</p>
+                </div>
+                <div class="col-2">
+                </div>
+            </div>)
+
     })
 
 
@@ -150,7 +188,7 @@ function ADD_CLASS() {
             {schedule_list_element}
             <div class="row">
                 <div class="col-2" >
-                    <select class="form-control" id="day_select" value = {schedule_list.day}onChange={handle_day_form}>
+                    <select class="form-control" id="day_select" value={schedule_list.day} onChange={handle_day_form}>
                         <option value="0" >วันอาทิตย์</option>
                         <option value="1" >วันจันทร์</option>
                         <option value="2" >วันอังคาร</option>
@@ -166,7 +204,7 @@ function ADD_CLASS() {
                 </div>
                 <div class="col-3">
                     <label for="end_time">เลือกเวลาที่จบคาบ:</label>
-                    <input type="time" id="start_time" name="end_time" value={schedule_list.time_end}onChange={handle_time_end_form}></input>
+                    <input type="time" id="start_time" name="end_time" value={schedule_list.time_end} onChange={handle_time_end_form}></input>
                 </div>
                 <div class="col-2">
                     <select class="form-control" id="room_select" value={schedule_list.room_id} onChange={handleSelect}>
