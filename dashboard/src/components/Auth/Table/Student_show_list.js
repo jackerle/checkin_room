@@ -3,36 +3,39 @@ import Axios from 'axios'
 import env from './../../../../../env.json'
 
 
-function STUDENT_SHOW_LIST(prop){
+function STUDENT_SHOW_LIST(prop) {
 
 
-    const {student_in,room_select,room_list,current_class} = prop
-    const [student_reg,setStudent] = useState([])
-    
+    const { student_in, room_select, room_list, current_class,refresh_button_active } = prop
+    const [student_reg, setStudent] = useState([])
 
-    useEffect(()=>{
-        if(current_class.class_id != undefined){
+
+    useEffect(() => {
+        if (current_class.class_id != undefined) {
             Axios({
                 method: 'post',
                 url: env.API + '/getReg',
                 data: {
-                  class_id: current_class.class_id ,
-                  class_sect: current_class.class_sect
+                    class_id: current_class.class_id,
+                    class_sect: current_class.class_sect
                 },
-              }).then(res=>{
+            }).then(res => {
                 setStudent(res.data)
-              }).catch(err=>{
-                  console.log(err)
-              })
+            }).catch(err => {
+                console.log(err)
+            })
         }
-        
-    },[current_class])
+        console.log('useEffect!')
+
+    }, [current_class])
+
+
     
 
 
     const _create_student_list = student_in && student_in.map((student, i) => {
         const { student_name, student_id, timestamp_checkin } = student
-        let isReg = student_reg.filter(e=> e.student_id ==student_id).length >0
+        let isReg = student_reg.filter(e => e.student_id == student_id).length > 0
         console.log(isReg)
         return (
             <tr class="d-flex">
@@ -41,16 +44,19 @@ function STUDENT_SHOW_LIST(prop){
                 <td class="col-4">{student_name}</td>
                 <td class="col-3">{timestamp_checkin}</td>
                 <td class="col-2">
-                {isReg? <button type="button" class="btn btn-success"></button>: <button type="button" class="btn btn-secondary"></button>}
-                
-               
+                    {isReg ? <button type="button" class="btn btn-success"></button> : <button type="button" class="btn btn-secondary"></button>}
+
+
                 </td>
             </tr>
         )
     })
 
-    return(
-        <div style={{ width: "80%", margin: "auto", textAlign: "center" }} class="table-responsive">
+    return (
+        
+            
+            <div style={{ width: "80%", margin: "auto", textAlign: "center" }} class="table-responsive">
+            <button style = {{float:"right",}}class="btn btn-outline-secondary" onClick={refresh_button_active}><span class="glyphicon glyphicon-refresh"></span> Refresh</button>
                 <table class="table">
                     <thead>
                         <tr class="d-flex">
@@ -66,6 +72,7 @@ function STUDENT_SHOW_LIST(prop){
                     </tbody>
                 </table>
             </div>
+
     )
 }
 

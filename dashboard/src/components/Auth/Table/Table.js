@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import env from "./../../../../env.json";
-import Student_show_list from './Table/Student_show_list'
-import Class_show_list from "./Table/CLASS_SHOW_LIST";
+import env from "../../../../../env.json";
+import Student_show_list from './Student_show_list'
+import Class_show_list from "./Class_show_list";
 
 
 
@@ -14,6 +14,13 @@ function Table() {
     const [student_in, setStudent] = useState([]);
     const [room_select, setRoom_Select] = useState(0);
     const [current_class,setCurrent_class] = useState({})
+    const [refresh_button,setRefresh] = useState(0);
+
+
+
+    const refresh_button_active = function(){
+        fetch_student(room_select)
+    }
 
 
     const set_current_class = function(obj){
@@ -75,9 +82,9 @@ function Table() {
                 {createRoom_list}
             </select>
             <br />
-            <Class_show_list room_select={room_select} room_list={room_list} current_class={current_class} set_current_class={set_current_class} />
+            <Class_show_list room_select={room_select} room_list={room_list} current_class={current_class} set_current_class={set_current_class} refresh_button_active={refresh_button_active} />
             <br />
-            <Student_show_list student_in={student_in} room_select={room_select} room_list={room_list} current_class={current_class}/>
+            <Student_show_list student_in={student_in} room_select={room_select} room_list={room_list} current_class={current_class} refresh_button_active={refresh_button_active}/>
 
         </div>
 

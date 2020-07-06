@@ -7,7 +7,7 @@ function Class_show_list(prop) {
 
 
     const {
-        room_select, room_list,current_class,set_current_class
+        room_select, room_list,current_class,set_current_class,refresh_button_active
     } = prop;
     const [class_list, setClass_list] = useState([]);
 

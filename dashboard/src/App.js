@@ -7,10 +7,10 @@ import {
     Redirect
 } from "react-router-dom";
 import Home from './components/Home';
-import Table from './components/Auth/Table';
+import Table from './components/Auth/Table/Table';
 import History from './components/Auth/History';
 import Room from './components/Auth/Manage/Room';
-import Class from './components/Auth/Manage/Class';
+import Class from './components/Auth/Manage/Class/Class';
 import Class_student from './components/Auth/Manage/Class_student';
 
 
