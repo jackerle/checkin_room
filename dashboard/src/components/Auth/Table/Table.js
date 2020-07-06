@@ -83,7 +83,6 @@ function Table() {
             </select>
             <br />
             <Class_show_list room_select={room_select} room_list={room_list} current_class={current_class} set_current_class={set_current_class} refresh_button_active={refresh_button_active} />
-            <br />
             <Student_show_list student_in={student_in} room_select={room_select} room_list={room_list} current_class={current_class} refresh_button_active={refresh_button_active}/>
 
         </div>
