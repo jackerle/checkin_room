@@ -3,7 +3,7 @@ import Axios from 'axios'
 import env from './../../../../../env.json'
 
 
-function STUDENT_SHOW_LIST(prop) {
+function Student_show_list(prop) {
 
 
     const { student_in,  current_class } = prop
@@ -76,4 +76,4 @@ function STUDENT_SHOW_LIST(prop) {
 }
 
 
-export default STUDENT_SHOW_LIST;
+export default Student_show_list;
