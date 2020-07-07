@@ -6,6 +6,11 @@ function show_all_student({
     student_list,room_list
 }) {
 
+
+    const [status_student,setStatus] = useState([])
+
+
+
     useEffect(()=>{
         Axios({
             method: 'post',
@@ -15,6 +20,7 @@ function show_all_student({
             },
         }).then(res => {
             console.log(res.data)
+            setStatus(res.data)
         }).catch(err => {
             console.log(err)
         })
@@ -24,13 +30,14 @@ function show_all_student({
 
     const _create_student_list = student_list && student_list.map((student, i) => {
         const { student_id, student_name } = student
+        let isCheckin = status_student.filter(e=>e.student_id ==student_id).length >0
         return (
             <tr class="d-flex">
                 <th scope="row" class="col-1">{i + 1}</th>
                 <td class="col-2">{student_id}</td>
                 <td class="col-4">{student_name}</td>
                 <td class="col-2">
-                    <button type="button" class="btn btn-success"></button>
+                {isCheckin ? <button type="button" class="btn btn-success"></button> : <button type="button" class="btn btn-secondary"></button>}
                 </td>
             </tr>
         )
