@@ -293,7 +293,7 @@ exports.getClass = function(){
 
 
 exports.get_room_from_class = function(class_id,class_sect){
-    let sql = `select room_id 
+    let sql = `select * 
     from class_schedule
     where class_id = '${class_id}'
     and class_sect = ${class_sect}
