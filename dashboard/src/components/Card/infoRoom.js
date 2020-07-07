@@ -1,3 +1,5 @@
+/// <reference path="../../../@types/api.d.ts"/>
+
 import React, { Component } from 'react'
 import { Bar, HorizontalBar } from 'react-chartjs-2'
 import axios from 'axios'
@@ -14,10 +16,10 @@ export default class infoRoom extends Component {
 
 	async componentDidMount() {
 
-		/** @type {import('axios').AxiosResponse<getRoom[]>} */
+		/** @type {import('axios').AxiosResponse<getRoom_in[]>} */
 		const dataRoom = await axios({
 			method: 'GET',
-			url: env.API + '/getroom'
+			url: env.API + '/getroom_in'
 		})
 
 		const labels = []
@@ -45,8 +47,8 @@ export default class infoRoom extends Component {
 
 		for (const room of dataRoom.data) {
 			labels.push(room.room_name)
-			datasets[0].data.push(Math.round(Math.random() * 100))
-			datasets[1].data.push(Math.round(Math.random() * 100))
+			datasets[0].data.push(room.count)
+			datasets[1].data.push(room.capacity - room.count)
 			// datasets[0].data.push(room.capacity)
 		}
 		this.setState({
