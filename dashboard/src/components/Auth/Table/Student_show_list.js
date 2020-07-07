@@ -6,7 +6,7 @@ import env from './../../../../../env.json'
 function STUDENT_SHOW_LIST(prop) {
 
 
-    const { student_in,  current_class,refresh_button_active } = prop
+    const { student_in,  current_class } = prop
     const [student_reg, setStudent] = useState([])
 
 
