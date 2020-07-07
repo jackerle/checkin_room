@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import env from './../../../../../../env.json'
+import { Redirect } from "react-router-dom";
 
 
 function ADD_CLASS() {
@@ -89,7 +90,20 @@ function ADD_CLASS() {
 
 
     const add_class_button = function(){
-
+        Axios({
+            method:'post',
+            url:env.API + '/add_class',
+            data :{
+                class_id:form_input.class_id,
+                class_sect:form_input.class_sect,
+                class_name:form_input.class_name,
+                schedule:form_input.schedule
+            }
+        }).then(res=>{
+            if(res.data.success){
+                <Redirect to={{pathname:'/manage_class'}}></Redirect>
+            }
+        })
     }
 
 
