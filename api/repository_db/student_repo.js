@@ -245,6 +245,24 @@ exports.getClass_room = function(room_id,day){
     return to_query(sql)
 }
 
+
+/**
+ * 
+ * @param {string} class_id 
+ * @param {number} class_sect 
+ * @param {string} class_name 
+ * @param {Array} schedule 
+ */
 exports.add_class = function(class_id,class_sect,class_name,schedule){
-    console.log(schedule)
+    let sql_1 = `insert into class_table (class_id,class_sect,class_name)
+    values ('${class_id}',${class_sect},'${class_name}')`
+    to_query(sql_1)
+    schedule.map(e => {
+        let sql = `insert into class_schedule (class_id,class_sect,class_day,class_start_time,class_end_time,room_id) values('${class_id}',${class_sect},${e.day},'${e.start_time}:00','${e.end_time}:00',${e.room_id});`
+        to_query(sql)
+    })
+    return({
+        "success":true
+    })
+
 }
