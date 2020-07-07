@@ -19,6 +19,13 @@ export default class infoRoom extends Component {
 	}
 
 	async componentDidMount() {
+		this.update()
+		setInterval(() => {
+			this.update()
+		}, 2000);
+	}
+
+	async update(params) {
 
 		/** @type {import('axios').AxiosResponse<getRoom_in[]>} */
 		const dataRoom = await axios({
@@ -32,21 +39,21 @@ export default class infoRoom extends Component {
 		// [0] use | [1] space
 		const datasets = [{
 			label: 'use slot',
-			backgroundColor: 'rgba(255,99,132,0.2)',
-			borderColor: 'rgba(255,99,132,1)',
+			backgroundColor: 'rgba(8, 173, 0, 0.2)',
+			borderColor: 'rgba(8, 173, 0, 1)',
 			borderWidth: 1,
-			hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-			hoverBorderColor: 'rgba(255,99,132,1)',
+			hoverBackgroundColor: 'rgba(8, 173, 0, 0.4)',
+			hoverBorderColor: 'rgba(8, 173, 0, 1)',
 			data: [],
 			stack: 'stack1'
 		},
 		{
 			label: 'free slot',
-			backgroundColor: 'rgba(255,99,132,0.2)',
-			borderColor: 'rgba(255,99,132,1)',
+			backgroundColor: 'rgba(78, 242, 229, 0.2)',
+			borderColor: 'rgba(78, 242, 229, 1)',
 			borderWidth: 1,
-			hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-			hoverBorderColor: 'rgba(255,99,132,1)',
+			hoverBackgroundColor: 'rgba(78, 242, 229, 0.4)',
+			hoverBorderColor: 'rgba(78, 242, 229, 1)',
 			data: [],
 			stack: 'stack1'
 		}]
@@ -62,7 +69,6 @@ export default class infoRoom extends Component {
 			datasets,
 			isLoading: false
 		})
-
 	}
 
 	render() {

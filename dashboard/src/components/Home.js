@@ -29,7 +29,12 @@ function Home(prop) {
         }}>
             <h2>ยินดีต้อนรับเข้าสู่ระบบบันทึกการใช้งานห้องเรียน</h2>
             <h4>ท่านเข้าสู่ระบบเรียบร้อยแล้ว</h4>
-            <InfoRoom />
+            <div className="row">
+                <div className="col">
+                    <InfoRoom />
+                </div>
+            </div>
+
         </div>
     )
 }
