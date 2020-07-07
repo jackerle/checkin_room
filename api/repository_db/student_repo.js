@@ -284,3 +284,9 @@ exports.getroom_in = function(){
     group by room_table.room_id`;
     return to_query(sql);
 }
+
+
+exports.getClass = function(){
+    let sql = `select * from class_table`
+    return to_query(sql)
+}

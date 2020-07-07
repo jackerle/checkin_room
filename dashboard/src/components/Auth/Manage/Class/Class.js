@@ -16,7 +16,7 @@ function Class() {
     const [keyword, setKeyword] = useState('');
     const [class_list, setClass_list] = useState([]);
     const [add_class_button, set_add_Toggle] = useState(false)
-
+    const [keyword_id,setKeyword_id] = useState('');
 
 
     useEffect(() => {
@@ -33,12 +33,16 @@ function Class() {
         setKeyword(event.target.value);
     }
 
+    const handleKeyword_id = (event)=>{
+        setKeyword_id(event.target.value);
+    }
+
 
     const show_class_list = class_list && class_list.map(obj => {
         const { class_id, class_sect, class_name } = obj
         let to_ = `/class_student?class_id=${class_id}&&class_sect=${class_sect}`
 
-        if (keyword == '' || class_name.indexOf(keyword) != -1) {
+        if ((keyword == '' &&keyword_id == '')|| (class_name.toUpperCase().indexOf(keyword.toUpperCase()) != -1 &&class_id.indexOf(keyword_id)!= -1)) {
             return (
                 <tr class="d-flex">
                     <th scope="row" class="col-3">{class_id}</th>
@@ -86,9 +90,11 @@ function Class() {
             <br />
             <div class="container">
                 <div class="row">
-                    <div class="col-2"></div>
+                    <div class="col-2">
+                    <input style={{ width: "100%", margin: "auto", textAlign: "center" }} class="form-control" type="text" placeholder="ค้นหารหัสวิชาที่นี่" value={keyword_id} onChange={handleKeyword_id} />
+                    </div>
                     <div class="col-8">
-                        <input style={{ width: "100%", margin: "auto", textAlign: "center" }} class="form-control" type="text" placeholder="ค้นหาวิชาที่นี่" value={keyword} onChange={handleKeyword} />
+                        <input style={{ width: "100%", margin: "auto", textAlign: "center" }} class="form-control" type="text" placeholder="ค้นหาชื่อวิชาที่นี่" value={keyword} onChange={handleKeyword} />
                     </div>
                     <div class="col-2">
                         <button type="button" class={add_class_button ?  "btn btn-danger": "btn btn-success"} onClick={handle_add_button}>{add_class_button ? "ยกเลิก" : "เพิ่มวิชาเรียน"}</button>
