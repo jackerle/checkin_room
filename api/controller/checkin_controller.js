@@ -132,3 +132,16 @@ exports.getCheckin = async(req,res)=>{
         console.log(ex)
     }
 }
+
+
+
+exports.getroom_in = async(req,res)=>{
+    let room_id = req.query.room_id;
+    try{
+        let data = await std_repo.getroom_in(room_id);
+        res.send(data)
+    }
+    catch(ex){
+        console.log(ex)
+    }
+}

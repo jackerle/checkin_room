@@ -33,6 +33,7 @@ app.get('/getstd',std_controller.getstd);
 app.get('/getCheckin',checkin_controller.getCheckin);
 app.get('/getAllClass',class_controller.getAllClass);
 app.post('/getSchedule',class_controller.getSchedule);
+app.get('/getroom_in',checkin_controller.getroom_in);
 app.post('/getReg',class_controller.getReg);
 app.post('/add_class',class_controller.add_class)
 app.post('/getClass_room',class_controller.getClass_room);
