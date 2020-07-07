@@ -43,13 +43,13 @@ function ADD_CLASS() {
 
     const handle_time_start_form = (event) => {
         let dummy = { ...schedule_list }
-        dummy.time_start = event.target.value
+        dummy.start_time = event.target.value
         setSchedule(dummy)
     }
 
     const handle_time_end_form = (event) => {
         let dummy = { ...schedule_list }
-        dummy.time_end = event.target.value
+        dummy.end_time = event.target.value
         setSchedule(dummy)
     }
 

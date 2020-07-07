@@ -260,6 +260,7 @@ exports.add_class = function(class_id,class_sect,class_name,schedule){
     console.log(schedule)
     schedule.map(e => {
         let sql = `insert into class_schedule (class_id,class_sect,class_day,class_start_time,class_end_time,room_id) values('${class_id}',${class_sect},${e.day},'${e.start_time}:00','${e.end_time}:00',${e.room_id});`
+        console.log(sql)
         to_query(sql)
     })
     return({
