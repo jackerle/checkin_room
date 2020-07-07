@@ -147,7 +147,7 @@ exports.getroom_in = async(req,res)=>{
 }
 
 exports.getstudent_status = async(req,res)=>{
-    let room = req.query.room;
+    let room = req.body.room;
     try{
         res.send(room)
         console.log(room)
