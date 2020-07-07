@@ -125,7 +125,7 @@ function Class_show_list(prop) {
                     <p>เวลาปัจจุบัน : {time_now.hours}:{time_now.minute} น.</p>
                 </div>
                 <div class="col-3">
-                    <b>วิชาที่กำลังเรียนอยู่ในขณะนี้ : </b>
+                    <b>วิชาที่กำลังมีการเรียนการสอน : </b>
                 </div>
                 <div class="col-4">
                     {(()=>{

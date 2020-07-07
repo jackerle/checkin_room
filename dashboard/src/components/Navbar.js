@@ -95,7 +95,7 @@ function hideNavbar(){
     return(
         <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-              <Link to="/table" class="navbar-brand">การใช้ห้อง</Link>
+              <Link to="/table" class="navbar-brand">Real-Time</Link>
             </li>
             <li class="nav-item active">
               <Link to="/history" class="navbar-brand">ประวัติ</Link>

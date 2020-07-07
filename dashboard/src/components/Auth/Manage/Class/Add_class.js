@@ -88,6 +88,11 @@ function ADD_CLASS() {
     }
 
 
+    const add_class_button = function(){
+
+    }
+
+
 
 
 
@@ -147,7 +152,7 @@ function ADD_CLASS() {
 
 
         return (
-            <div style={{ textAlign: "center" }} class="row">
+            <div style={{ textAlign: "center",backgroundColor:"#d4d4d4" }} class="row">
                 <div class="col-2">
                     <p>{day}</p>
                 </div>
@@ -216,6 +221,8 @@ function ADD_CLASS() {
                     <button type="button" class="btn btn-outline-primary" onClick={add_class_handle}>เพิ่มเวลา</button>
                 </div>
             </div>
+            <br/>
+            <button type="button" class="btn btn-primary" onClick={add_class_button}>เพิ่มวิชา</button>
         </div>
     )
 }

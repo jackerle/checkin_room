@@ -245,3 +245,6 @@ exports.getClass_room = function(room_id,day){
     return to_query(sql)
 }
 
+exports.add_class = function(class_id,class_sect,class_name,schedule){
+    console.log(schedule)
+}

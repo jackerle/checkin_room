@@ -48,3 +48,18 @@ exports.getClass_room = async (req,res)=>{
     }
 }
 
+
+exports.add_class = async (req,res)=>{
+    let class_id = req.body.class_id;
+    let class_sect = req.body.class_sect;
+    let class_name = req.body.class_name;
+    let schedule = req.body.schedule;
+    try{
+        let data = await std_repo.add_class(class_id,class_sect,class_name,schedule)
+        console.log(data);
+    }
+    catch(ex){
+        console.log(ex)
+    }
+}
+
