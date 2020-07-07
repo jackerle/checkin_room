@@ -274,7 +274,7 @@ exports.getroom_in = function(){
     let sql = `select room_table.room_id as room_id,
     room_table.room_name as room_name,
     room_table.capacity as capacity,
-    count(*)
+    count(*) as count
     
     
     from  room_table,transaction
