@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import { Bar, HorizontalBar } from 'react-chartjs-2'
 import axios from 'axios'
 import env from '../../../../env.json'
+import Loading from '../Loading'
 
 
 
@@ -11,10 +12,10 @@ import env from '../../../../env.json'
 export default class infoRoom extends Component {
 	constructor(props) {
 		super(props)
-		// /** @type {{ allRoom: getRoom[] }} */
-		// this.setState({
 
-		// })
+		this.state = {
+			isLoading: true
+		}
 	}
 
 	async componentDidMount() {
@@ -25,7 +26,7 @@ export default class infoRoom extends Component {
 			url: env.API + '/getroom_in'
 		})
 
-		
+
 
 		const labels = []
 		// [0] use | [1] space
@@ -58,43 +59,16 @@ export default class infoRoom extends Component {
 		}
 		this.setState({
 			labels,
-			datasets
+			datasets,
+			isLoading: false
 		})
 
-
-
-
-		/*
-		this.setState({
-			labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-			datasets: [
-				{
-					label: 'My First dataset',
-					backgroundColor: 'rgba(255,99,132,0.2)',
-					borderColor: 'rgba(255,99,132,1)',
-					borderWidth: 1,
-					hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-					hoverBorderColor: 'rgba(255,99,132,1)',
-					data: [10, 20, 30],
-					stack: 'stack1'
-				},
-				{
-					label: 'My Second dataset',
-					backgroundColor: 'rgba(255,99,132,0.2)',
-					borderColor: 'rgba(255,99,132,1)',
-					borderWidth: 1,
-					hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-					hoverBorderColor: 'rgba(255,99,132,1)',
-					data: [50, 100],
-					stack: 'stack1'
-				}
-			]
-		})
-		*/
-		//
 	}
 
 	render() {
+		if (this.state.isLoading)
+			return <Loading custom={{ width: '3rem', height: '3rem' }} />
+
 		return (
 			<HorizontalBar data={this.state}></HorizontalBar>
 		)

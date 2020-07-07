@@ -21,7 +21,7 @@ function Home(prop) {
 
     // Auth Success
     return (
-        <div style={{
+        <div className="container" style={{
             padding: "30px",
             color: "gray",
             textAlign: "center",
