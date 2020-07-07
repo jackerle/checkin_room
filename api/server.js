@@ -23,7 +23,7 @@ app.use('/api',authenRoute)
 authenRoute.use(line_middle_ware.middle_ware);
 
 
-
+app.get('/getClass',class_controller.getClass);
 app.post('/login',login_controller.login);
 app.post('/register',login_controller.register);
 app.post('/regis_room',std_controller.regis_room);

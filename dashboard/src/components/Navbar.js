@@ -35,7 +35,7 @@ function Login(prop) {
         username: username,
         password: password
       },
-      withCredentials:true
+      withCredentials: true
     }).then((res) => {
       console.log(res.data)
       setToken(res.data.token)
@@ -57,7 +57,7 @@ function Login(prop) {
       <form class="form-inline my-2 my-lg-0" action="/" onSubmit={getLogout}>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle navbar-text btn btn-secondary" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {jwt.decode(token).name? jwt.decode(token).name : ""}
+            {jwt.decode(token).name ? jwt.decode(token).name : ""}
           </a>
           <div class="dropdown-menu " aria-labelledby="navbarDropdown">
             <a class="dropdown-item " href="#">แก้ไขข้อมูล</a>
@@ -90,22 +90,36 @@ function Navbar(prop) {
     setToken, token, removeToken, isToken
   } = prop;
 
-function hideNavbar(){
-  if(isToken()){
-    return(
+  function hideNavbar() {
+    if (isToken()) {
+      return (
         <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-              <Link to="/table" class="navbar-brand">Real-Time</Link>
-            </li>
-            <li class="nav-item active">
-              <Link to="/history" class="navbar-brand">ประวัติ</Link>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle navbar-brand" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                จัดการ
+          <li class="nav-item dropdown">
+            <a class="navbar-brand " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Real-Time
         </a>
-              <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-                <li class="dropdown-item navbar-text">
+            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+              <li class="dropdown-item navbar-text">
+                <Link to="/table" class="navbar-brand">ห้องเรียน</Link>
+              </li>
+
+              <li class="dropdown-item navbar-text">
+                <Link to="/table_class" class="navbar-brand">รายวิชา</Link>
+              </li>
+            </div>
+          </li>
+          <li class="nav-item ">
+
+          </li>
+          <li class="nav-item active">
+            <Link to="/history" class="navbar-brand">ประวัติ</Link>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              จัดการ
+        </a>
+            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+              <li class="dropdown-item navbar-text">
                 <Link to="/manage_room" class="navbar-brand">จัดการห้องเรียน</Link>
               </li>
               <li class="dropdown-item navbar-text">
@@ -114,13 +128,13 @@ function hideNavbar(){
               <li class="dropdown-item navbar-text">
                 <Link to="/manage_class" class="navbar-brand">จัดการรายวิชาเรียน</Link>
               </li>
-              </div>
-            </li>
-            </ul>
-            
-    )
+            </div>
+          </li>
+        </ul>
+
+      )
+    }
   }
-}
 
 
 
@@ -134,9 +148,9 @@ function hideNavbar(){
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          
-            {hideNavbar()}
-          
+
+          {hideNavbar()}
+
 
           <Login
             setToken={setToken}

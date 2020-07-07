@@ -12,6 +12,7 @@ import History from './components/Auth/History';
 import Room from './components/Auth/Manage/Room';
 import Class from './components/Auth/Manage/Class/Class';
 import Class_student from './components/Auth/Manage/Class_student';
+import Table_class from './components/Auth/Table/Table_class';
 
 
 
@@ -45,6 +46,9 @@ function App() {
                 <div className="AuthRoute">
                     <Route exact path="/table">
                         <Table />
+                    </Route>
+                    <Route exact path="/table_class">
+                        <Table_class />
                     </Route>
                     <Route exact path="/history">
                         <History />

@@ -64,3 +64,13 @@ exports.add_class = async (req,res)=>{
     }
 }
 
+
+exports.getClass = async(req,res)=>{
+    try{
+        let data = await std_repo.getClass();
+        res.send(data)
+    }
+    catch(ex){
+        console.log(ex)
+    }
+}
