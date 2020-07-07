@@ -241,7 +241,8 @@ exports.getClass_room = function(room_id,day){
     and class_schedule.room_id = ${room_id}
     and class_schedule.room_id = room_table.room_id
     and class_table.class_sect = class_schedule.class_sect
-    and class_table.class_id = class_schedule.class_id`
+    and class_table.class_id = class_schedule.class_id
+    order by class_schedule.class_start_time;`
     return to_query(sql)
 }
 

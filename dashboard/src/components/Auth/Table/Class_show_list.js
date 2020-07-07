@@ -29,7 +29,7 @@ function Class_show_list(prop) {
             url: env.API + '/getClass_room',
             data: {
                 room_id: room_select,
-                day: 4//new Date().getDay()
+                day: 3//new Date().getDay()
             },
         }).then(res => {
             setClass_list(res.data)
