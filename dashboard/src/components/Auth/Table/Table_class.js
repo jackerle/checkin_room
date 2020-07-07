@@ -114,6 +114,7 @@ function Student_all_collapse({ room_list, student_list,class_select }) {
 
 
 
+
     useEffect( ()=>{
         async function fetchData() {
             let dummy = { ...student_reg_list }
@@ -123,7 +124,7 @@ function Student_all_collapse({ room_list, student_list,class_select }) {
                 dummy[room_id] = res.data
             }
             setStudent_reg(dummy)
-
+            
         }
         fetchData()
 
@@ -132,7 +133,7 @@ function Student_all_collapse({ room_list, student_list,class_select }) {
 
 
     const handle_student_list = () => {
-        console.log(student_reg_list)
+        //console.log(student_reg_list)
     }
 
 

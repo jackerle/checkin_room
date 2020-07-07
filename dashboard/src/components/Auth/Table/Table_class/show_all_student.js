@@ -1,10 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Axios from 'axios'
 import env from './../../../../../../env.json'
 
 function show_all_student({
-    student_list
+    student_list,student_reg_list,room_list
 }) {
+
+    const [status_list,setStatu_List] = useState([])
+
+    const setStatus = student_reg_list&&room_list &&room_list.map(e=>{
+        student_reg_list.map(f=>{
+
+        })
+    })
+
 
 
     const _create_student_list = student_list && student_list.map((student, i) => {

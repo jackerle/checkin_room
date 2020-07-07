@@ -28,6 +28,7 @@ app.post('/login',login_controller.login);
 app.post('/get_room_from_class',class_controller.get_room_from_class);
 app.post('/register',login_controller.register);
 app.post('/regis_room',std_controller.regis_room);
+app.post('/get_student_status',checkin_controller.getstudent_status);
 app.get('/getroom',std_controller.getroom);
 app.get('/getAllTrans',checkin_controller.getAllTrans);
 app.get('/getstd',std_controller.getstd);
