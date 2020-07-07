@@ -36,9 +36,9 @@ function ADD_CLASS() {
 
     const [schedule_list, setSchedule] = useState({
         day: 0,
-        time_start: "00:00",
-        time_end: "00:00",
-        room_id: '-'
+        start_time: "00:00",
+        end_time: "00:00",
+        room_id: 0
     })
 
     const handle_time_start_form = (event) => {
@@ -83,27 +83,31 @@ function ADD_CLASS() {
     const handleSelect = function (event) {
         let target = event.target.value;
         let dummy = { ...schedule_list }
-        dummy.room_id = event.target.value
+        dummy.room_id = target
         setSchedule(dummy)
-        console.log(target);
+        console.log("target"+target);
     }
 
 
-    const add_class_button = function(){
-        Axios({
-            method:'post',
-            url:env.API + '/add_class',
-            data :{
-                class_id:form_input.class_id,
-                class_sect:form_input.class_sect,
-                class_name:form_input.class_name,
-                schedule:form_input.schedule
-            }
-        }).then(res=>{
-            if(res.data.success){
-                <Redirect to={{pathname:'/manage_class'}}></Redirect>
-            }
-        })
+    const add_class_button = ()=>{
+        if(form_input.schedule.length!=0){
+            Axios({
+                method:'post',
+                url:env.API + '/add_class',
+                data :{
+                    class_id:form_input.class_id,
+                    class_sect:form_input.class_sect,
+                    class_name:form_input.class_name,
+                    schedule:form_input.schedule
+                }
+            }).then((res)=>{
+                location.reload()
+            })
+        }
+        else{
+            alert('กรุณากรอกข้อมูลให้ครบถ้วน')
+        }
+        
     }
 
 
@@ -122,18 +126,13 @@ function ADD_CLASS() {
         let dummy = { ...form_input }
         dummy.schedule.push(schedule_list)
         set_Form_input(dummy)
-        setSchedule({
-            day: 0,
-            start_time: "00:00",
-            end_time: "00:00",
-            room_id: '-'
-        })
         console.log(form_input)
+        console.log(schedule_list)
     }
 
     const schedule_list_element = form_input.schedule && form_input.schedule.map(ele => {
         let day, time_s, time_e, room
-        switch (ele.day) {
+        switch (+ele.day) {
             case 0:
                 day = 'วันอาทิตย์'
                 break;
@@ -159,9 +158,9 @@ function ADD_CLASS() {
                 break;
         }
 
-        time_s = `เวลาเริ่มต้น ${ele.time_start} น.`
-        time_e = `เวลาจบคาบ ${ele.time_end} น.`
-        room = room_list.find(element => element.room_id=ele.room_id).room_name
+        time_s = `เวลาเริ่มต้น ${ele.start_time} น.`
+        time_e = `เวลาจบคาบ ${ele.end_time} น.`
+        room = `id ของห้อง : ${ele.room_id}`
 
 
 
@@ -226,7 +225,7 @@ function ADD_CLASS() {
                     <input type="time" id="start_time" name="end_time" value={schedule_list.time_end} onChange={handle_time_end_form}></input>
                 </div>
                 <div class="col-2">
-                    <select class="form-control" id="room_select" value={schedule_list.room_id} onChange={handleSelect}>
+                    <select class="form-control" id="room_select"  onChange={handleSelect}>
                         <option value="-" >--กรุณาเลือกห้อง--</option>
                         {createRoom_list}
                     </select>
