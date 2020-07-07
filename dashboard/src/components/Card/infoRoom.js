@@ -1,7 +1,12 @@
+/// <reference path="../../../@types/api.d.ts"/>
+
 import React, { Component } from 'react'
 import { Bar, HorizontalBar } from 'react-chartjs-2'
 import axios from 'axios'
 import env from '../../../../env.json'
+
+
+
 
 export default class infoRoom extends Component {
 	constructor(props) {
@@ -19,6 +24,8 @@ export default class infoRoom extends Component {
 			method: 'GET',
 			url: env.API + '/getroom'
 		})
+
+		
 
 		const labels = []
 		// [0] use | [1] space

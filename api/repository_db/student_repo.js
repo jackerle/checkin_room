@@ -268,3 +268,18 @@ exports.add_class = function(class_id,class_sect,class_name,schedule){
     })
 
 }
+
+
+exports.getroom_in = frunction(){
+    let sql = `select room_table.room_id as room_id,
+    room_table.room_name as room_name,
+    room_table.capacity as capacity,
+    count(*)
+    
+    
+    from  room_table,transaction
+    where room_table.room_id = transaction.room_id
+    and transaction.status = 1
+    group by room_table.room_id`;
+    return to_query(sql);
+}
