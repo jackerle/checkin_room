@@ -57,6 +57,7 @@ exports.add_class = async (req,res)=>{
     try{
         let data = await std_repo.add_class(class_id,class_sect,class_name,schedule)
         console.log(data);
+        res.send(data)
     }
     catch(ex){
         console.log(ex)
