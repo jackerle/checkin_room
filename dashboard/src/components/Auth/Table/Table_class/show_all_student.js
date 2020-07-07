@@ -24,7 +24,7 @@ function show_all_student({
         }).catch(err => {
             console.log(err)
         })
-    })
+    },[room_list])
 
 
 
