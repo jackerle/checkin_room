@@ -3,14 +3,20 @@ import Axios from 'axios'
 import env from './../../../../../../env.json'
 
 function show_all_student({
-    student_list,student_reg_list,room_list
+    student_list,room_list
 }) {
 
-    const [status_list,setStatu_List] = useState([])
-
-    const setStatus = student_reg_list&&room_list &&room_list.map(e=>{
-        student_reg_list.map(f=>{
-
+    useEffect(()=>{
+        Axios({
+            method: 'post',
+            url: env.API + '/get_student_status',
+            data: {
+                room: room_list,
+            },
+        }).then(res => {
+            console.log(res.data)
+        }).catch(err => {
+            console.log(err)
         })
     })
 

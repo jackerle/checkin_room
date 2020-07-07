@@ -149,8 +149,9 @@ exports.getroom_in = async(req,res)=>{
 exports.getstudent_status = async(req,res)=>{
     let room = req.body.room;
     try{
-        res.send(room)
-        console.log(room)
+        let data = await std_repo.get_student_status(room)
+        res.send(data)
+        console.log(data)
     }
     catch(ex){
         console.log(ex)

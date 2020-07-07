@@ -304,3 +304,14 @@ exports.get_room_from_class = function(class_id,class_sect){
     group by room_table.room_id;`;
     return to_query(sql)
 }
+
+exports.get_student_status = function (room){
+    let sql = `select student_table.student_id as student_id from 
+    transaction,student_table
+    where transaction.u_id = student_table.u_id and (`
+    room.map(e=>{
+        sql+= `transaction.room_id = ${e.room_id} or `
+    })
+    sql += `1!=1) and status = 1;`
+    return to_query(sql)
+}

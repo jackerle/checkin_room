@@ -173,7 +173,7 @@ function Student_all_collapse({ room_list, student_list,class_select }) {
                 <div class="col">
                     <div class="collapse multi-collapse" id="student_all">
                         <div class="card card-body">
-                            <Show_all_student student_list={student_list} />
+                            <Show_all_student student_list={student_list} room_list={room_list} />
                         </div>
                     </div>
                 </div>
