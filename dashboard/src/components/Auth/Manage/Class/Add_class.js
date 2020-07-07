@@ -124,8 +124,8 @@ function ADD_CLASS() {
         set_Form_input(dummy)
         setSchedule({
             day: 0,
-            time_start: "00:00",
-            time_end: "00:00",
+            start_time: "00:00",
+            end_time: "00:00",
             room_id: '-'
         })
         console.log(form_input)
