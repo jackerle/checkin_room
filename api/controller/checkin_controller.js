@@ -150,6 +150,7 @@ exports.getstudent_status = async(req,res)=>{
     let room = req.query.room;
     try{
         res.send(room)
+        console.log(room)
     }
     catch(ex){
         console.log(ex)
