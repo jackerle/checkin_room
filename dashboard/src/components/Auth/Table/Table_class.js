@@ -126,6 +126,8 @@ function Student_all_collapse({ room_list, student_list,class_select }) {
 
         }
         fetchData()
+
+
     },[room_list])
 
 
