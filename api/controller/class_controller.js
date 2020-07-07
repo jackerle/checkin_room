@@ -74,3 +74,15 @@ exports.getClass = async(req,res)=>{
         console.log(ex)
     }
 }
+
+exports.get_room_from_class = async(req,res)=>{
+    let class_id = req.body.class_id;
+    let class_sect = req.body.class_sect;
+    try{
+        let data = await std_repo.get_room_from_class(class_id,class_sect)
+        res.send(data)
+    }
+    catch(ex){
+        console.log(ex)
+    }
+}

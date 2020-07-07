@@ -3,12 +3,14 @@ import Axios from 'axios'
 import env from './../../../../../env.json'
 
 
-function Class_show_list(prop) {
+function Class_show_list({
+    room_select,current_class,set_current_class
+}) {
 
 
-    const {
-        room_select, room_list,current_class,set_current_class,refresh_button_active
-    } = prop;
+   
+
+
     const [class_list, setClass_list] = useState([]);
 
 

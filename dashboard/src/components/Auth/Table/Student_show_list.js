@@ -6,7 +6,7 @@ import env from './../../../../../env.json'
 function STUDENT_SHOW_LIST(prop) {
 
 
-    const { student_in, room_select, room_list, current_class,refresh_button_active } = prop
+    const { student_in,  current_class,refresh_button_active } = prop
     const [student_reg, setStudent] = useState([])
 
 
@@ -56,7 +56,6 @@ function STUDENT_SHOW_LIST(prop) {
         
             
             <div style={{ width: "80%", margin: "auto", textAlign: "center" }} class="table-responsive">
-            <button style = {{float:"right",}}class="btn btn-outline-secondary" onClick={refresh_button_active}><span class="glyphicon glyphicon-refresh"></span> Refresh</button>
                 <table class="table">
                     <thead>
                         <tr class="d-flex">

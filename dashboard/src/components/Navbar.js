@@ -108,9 +108,6 @@ function Navbar(prop) {
               </li>
             </div>
           </li>
-          <li class="nav-item ">
-
-          </li>
           <li class="nav-item active">
             <Link to="/history" class="navbar-brand">ประวัติ</Link>
           </li>

@@ -290,3 +290,13 @@ exports.getClass = function(){
     let sql = `select * from class_table`
     return to_query(sql)
 }
+
+
+exports.get_room_from_class = function(class_id,class_sect){
+    let sql = `select room_id 
+    from class_schedule
+    where class_id = '${class_id}'
+    and class_sect = ${class_sect}
+    group by room_id;`;
+    return to_query(sql)
+}
