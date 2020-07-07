@@ -119,20 +119,13 @@ function Student_all_collapse({ room_list, student_list,class_select }) {
             let dummy = { ...student_reg_list }
             for (const room of room_list) {
                 const { room_id } = room
-                
                 let res = await Axios.get(env.API + '/getCheckin?room_id=' + room_id)
                 dummy[room_id] = res.data
-                console.log(JSON.stringify(dummy, null, 2))
             }
             setStudent_reg(dummy)
-            console.log(JSON.stringify(dummy, null, 2))
-            console.log('end-')
 
         }
         fetchData()
-       
-
-
     },[room_list])
 
 
