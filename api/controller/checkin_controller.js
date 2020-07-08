@@ -170,6 +170,7 @@ exports.get_history = async(req,res)=>{
     if(student_id==''){
         console.log('not in condition')
     }
+    console.log(room_id)
     res.send({
         data: student_id + " "+ student_name+" "+room_id
     })
