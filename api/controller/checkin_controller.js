@@ -166,12 +166,17 @@ exports.get_history = async(req,res)=>{
     let start_time = req.body.start_time;
     let end_time = req.body.end_time;
     let room_id = req.body.room_id;
-    //std_repo.get_history(student_id,student_name,class_id,class_sect,start_time,end_time,room_id);
-    if(student_id==''){
-        console.log('not in condition')
+    try {
+        let data = await std_repo.get_history(student_id,student_name,class_id,class_sect,start_time,end_time,room_id);
+        res.send(
+            data
+        )
     }
-    console.log(room_id)
-    res.send({
-        data: student_id + " "+ student_name+" "+room_id
-    })
+    catch(ex){
+        console.log(ex)
+    }
+
+
+    
+    
 }

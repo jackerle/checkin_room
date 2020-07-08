@@ -317,8 +317,21 @@ exports.get_student_status = function (room){
 }
 
 exports.get_history = function (student_id,student_name,class_id,class_sect,start_time,end_time,room_id){
-    if(student_id==''){
-        console.log('not in condition')
+    let sql = `select room_table.room_name as room_name ,student_table.student_id ,student_table.student_name,transaction.timestamp_checkin as timestamp_checkin , transaction.timestamp_checkout as timestamp_checkout, transaction.role
+    from transaction,student_table,room_table
+    where transaction.u_id = student_table.u_id
+    and transaction.room_id = room_table.room_id
+    and student_table.student_id like '%%'
+    and student_table.student_name like '%%'
+    `
+    if(class_id==''&&class_sect==''){
+        if(room_id==''){
+            return to_query(sql+';')
+        }
+        else{
+            sql+=`and room_id = ${room_id}`
+            return to_query(sql+";")
+        }
     }
-    console.log(student_id+" "+student_name)
+    
 }
