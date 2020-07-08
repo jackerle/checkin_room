@@ -8,6 +8,7 @@ function History() {
     const [input_student_id, set_input_student_id] = useState('')
     const [input_student_name, set_input_student_name] = useState('')
     const [input_class_id, set_input_class_id] = useState('')
+    const [input_class_sect,set_input_class_sect] = useState('')
     const [input_start_time, set_input_start_time] = useState('')
     const [input_end_time, set_input_end_time] = useState('')
     const [input_room_id, set_input_room_id] = useState('')
@@ -30,7 +31,15 @@ function History() {
     }
 
     const handle_class_id = (event) => {
-        set_input_class_id(event.target.value)
+        if(event.target.value=='_'){
+            set_input_class_id('')
+            set_input_class_sect('')
+        }
+        else{
+            set_input_class_id(event.target.value.split('-')[0])
+            set_input_class_sect(event.target.value.split('-')[1])
+        }
+
     }
 
 
@@ -54,8 +63,8 @@ function History() {
             data: {
                 student_id :input_student_id,
                 student_name : input_student_name,
-                class_id : input_class_id.split('-')[0],
-                class_sect : input_class_id.split('-')[1],
+                class_id : input_class_id,
+                class_sect : input_class_sect,
                 start_time : input_start_time,
                 end_time : input_end_time,
                 room_id : input_room_id

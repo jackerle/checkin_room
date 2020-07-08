@@ -329,7 +329,7 @@ exports.get_history = function (student_id,student_name,class_id,class_sect,star
             return to_query(sql+';')
         }
         else{
-            sql+=`and room_id = ${room_id}`
+            sql+=`and room_table.room_id = ${room_id}`
             return to_query(sql+";")
         }
     }
