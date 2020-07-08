@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Input_search from "./Input_search";
 import Axios from "axios";
 import env from './../../../../../env.json'
+import Show_history from "./Show_history";
 
 function History() {
 
@@ -103,6 +104,7 @@ function History() {
                 handle_room_id={handle_room_id}
                 onClick_button={onClick_button}
             />
+            <Show_history history_list={history_list}/>
         </div>
     )
 }
