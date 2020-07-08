@@ -9,8 +9,8 @@ function History() {
     const [input_student_name, set_input_student_name] = useState('')
     const [input_class_id, set_input_class_id] = useState('')
     const [input_class_sect,set_input_class_sect] = useState('')
-    const [input_start_time, set_input_start_time] = useState('')
-    const [input_end_time, set_input_end_time] = useState('')
+    const [input_start_time, set_input_start_time] = useState('2020-01-25')
+    const [input_end_time, set_input_end_time] = useState('2029-01-25')
     const [input_room_id, set_input_room_id] = useState('')
     const [search_button, set_search_button] = useState(0);
     const [history_list,setHistory] = useState([])
@@ -78,7 +78,7 @@ function History() {
 
     const onClick_button = () => {
         fetch_history()
-        console.log(history_list)
+        console.log(input_start_time)
     }
 
 

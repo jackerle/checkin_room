@@ -321,8 +321,10 @@ exports.get_history = function (student_id,student_name,class_id,class_sect,star
     from transaction,student_table,room_table
     where transaction.u_id = student_table.u_id
     and transaction.room_id = room_table.room_id
-    and student_table.student_id like '%%'
-    and student_table.student_name like '%%'
+    and student_table.student_id like '%${student_id}%'
+    and student_table.student_name like '%${student_name}%'
+    and transaction.timestamp_checkin > "${start_time}"
+    and transaction.timestamp_checkin < "${end_time}"
     `
     if(class_id==''&&class_sect==''){
         if(room_id==''){
