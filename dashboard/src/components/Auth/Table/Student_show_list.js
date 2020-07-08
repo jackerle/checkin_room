@@ -55,7 +55,7 @@ function Student_show_list(prop) {
     return (
         
             
-            <div style={{ width: "80%", margin: "auto", textAlign: "center" }} class="table-responsive">
+            <div style={{ width: "80%", margin: "auto", textAlign: "center" }} class="table-responsive" >
                 <table class="table">
                     <thead>
                         <tr class="d-flex">

@@ -169,9 +169,9 @@ function Student_all_collapse({ room_list, student_list,class_select }) {
                     <h5 class="p-2 text-secondary">- รายชื่อนักเรียน</h5>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" >
                 <div class="col">
-                    <div class="collapse multi-collapse" id="student_all">
+                    <div  class="collapse multi-collapse" id="student_all">
                         <div class="card card-body">
                             <Show_all_student student_list={student_list} room_list={room_list} />
                         </div>

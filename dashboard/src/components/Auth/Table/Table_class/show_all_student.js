@@ -47,8 +47,8 @@ function show_all_student({
 
     return (
 
-        <div style={{ width: "80%", margin: "auto", textAlign: "center" }} class="table-responsive">
-            <table class="table">
+        <div style={{ width: "80%", margin: "auto", textAlign: "center" ,height:"500px",overflowY:"scroll"}} class="table-responsive">
+            <table  class="table">
                 <thead>
                     <tr class="d-flex">
                         <th class="col-1" scope="col">#</th>
@@ -57,7 +57,7 @@ function show_all_student({
                         <th class="col-2" scope="col">สถานะ</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody >
                     {_create_student_list}
                 </tbody>
             </table>

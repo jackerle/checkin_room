@@ -31,7 +31,7 @@ function Class_show_list({
             url: env.API + '/getClass_room',
             data: {
                 room_id: room_select,
-                day: 3//new Date().getDay()
+                day: new Date().getDay()
             },
         }).then(res => {
             setClass_list(res.data)
@@ -68,10 +68,13 @@ function Class_show_list({
             const {
                 class_id, class_sect, class_start_time, class_end_time, class_name, room_id, room_name, capacity
             } = obj
-            const [h_start, m_start] = class_start_time.split(':');
-            const [h_end, m_end] = class_end_time.split(':');
-            if ((+h_start * 60) + m_start <= ((time_now.hours * 60) + time_now.minute) &&
-                (+h_end * 60) + m_end >= ((time_now.hours * 60) + time_now.minute) &&
+            const [h_start, m_start,s_start] = class_start_time.split(':');
+            const [h_end, m_end,s_end] = class_end_time.split(':');
+            console.log((parseInt(h_start) * 60) + parseInt(m_start))
+            console.log()
+            console.log('why')
+            if ((parseInt(h_start) * 60) + parseInt(m_start) <= ((time_now.hours * 60) + time_now.minute) &&
+                (parseInt(h_end )* 60) + parseInt(m_end) >= ((time_now.hours * 60) + time_now.minute) &&
                 room_select == room_id) {
                 console.log('in hereee')
                 set_current_class({
@@ -121,7 +124,7 @@ function Class_show_list({
 
 
     return (
-        <div class="container">
+        <div >
             <div class="row">
                 <div class="col-2">
                     <p>เวลาปัจจุบัน : {time_now.hours}:{time_now.minute} น.</p>
