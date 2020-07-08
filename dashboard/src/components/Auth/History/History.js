@@ -18,23 +18,7 @@ function History() {
 
 
     useEffect(() => {
-        Axios({
-            method: 'post',
-            url: env.API + '/get_history',
-            data: {
-                student_id :input_student_id,
-                student_name : input_student_name,
-                class_id : input_class_id.split('-')[0],
-                class_sect : input_class_id.split('-')[1],
-                start_time : input_start_time,
-                end_time : input_end_time,
-                room_id : input_room_id
-            },
-        }).then(res => {
-            
-        }).catch(err => {
-            console.log(err)
-        })
+        
     }, [search_button])
 
     const handle_student_id = (event) => {
@@ -63,11 +47,29 @@ function History() {
     }
 
 
-
+    const fetch_history = ()=>{
+        Axios({
+            method: 'post',
+            url: env.API + '/get_history',
+            data: {
+                student_id :input_student_id,
+                student_name : input_student_name,
+                class_id : input_class_id.split('-')[0],
+                class_sect : input_class_id.split('-')[1],
+                start_time : input_start_time,
+                end_time : input_end_time,
+                room_id : input_room_id
+            },
+        }).then(res => {
+            setHistory(res.data)
+        }).catch(err => {
+            console.log(err)
+        })
+    }
 
     const onClick_button = () => {
-        set_search_button(search_button + 1)
-        console.log(input_student_id + " " + input_student_name + " " + input_class_id + " " + input_start_time + " " + input_end_time + " " + input_room_id)
+        fetch_history()
+        console.log(history_list)
     }
 
 
