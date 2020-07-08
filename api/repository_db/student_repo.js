@@ -333,8 +333,8 @@ exports.get_history = function (student_id,student_name,class_id,class_sect,star
             return to_query(sql+";")
         }
     }
-    else {
-        return to_query(sql+";")
-    }
+    // else {
+    //     return to_query(sql+";")
+    // }
     
 }

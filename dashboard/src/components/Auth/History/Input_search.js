@@ -79,7 +79,7 @@ function Input_search({
                     </div>
                     <div class="col-8">
                         <select class="form-control" onChange={handle_class_id}>
-                            <option value="_">--กรุณาเลือกวิชา--</option>
+                            <option value="-">--กรุณาเลือกวิชา--</option>
                             {class_select_element}
                         </select>
                     </div>
