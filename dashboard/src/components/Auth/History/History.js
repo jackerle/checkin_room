@@ -6,7 +6,6 @@ function History(){
     const [input_student_id,set_input_student_id] = useState('')
     const [input_student_name,set_input_student_name] = useState('')
     const [input_class_id,set_input_class_id]= useState('')
-    const [input_class_name,set_input_class_name] = useState('')
     const [input_start_time,set_input_start_time] = useState('')
     const [input_end_time,set_input_end_time] = useState('')
     const [input_room_id,set_input_room_id] = useState('')
@@ -24,9 +23,6 @@ function History(){
         set_input_class_id(event.target.value)
     }
 
-    const handle_class_name = (event)=>{
-        set_input_class_name(event.target.value)
-    }
 
     const handle_start_time = (event)=>{
         set_input_start_time(event.target.value);
@@ -45,7 +41,7 @@ function History(){
 
     const onClick_button = ()=>{
         set_search_button(search_button+1)
-        console.log(input_student_id+" "+input_student_name+" "+input_class_id+" "+input_class_name+" "+input_start_time+" "+input_end_time+" "+input_room_id)
+        console.log(input_student_id+" "+input_student_name+" "+input_class_id+" "+input_start_time+" "+input_end_time+" "+input_room_id)
     }
 
 
@@ -64,7 +60,6 @@ function History(){
                 handle_student_id = {handle_student_id}
                 handle_student_name = {handle_student_name}
                 handle_class_id = {handle_class_id}
-                handle_class_name = {handle_class_name}
                 handle_start_time = {handle_start_time}
                 handle_end_time = {handle_end_time}
                 handle_room_id = {handle_room_id}

@@ -315,3 +315,10 @@ exports.get_student_status = function (room){
     sql += `1!=1) and status = 1;`
     return to_query(sql)
 }
+
+exports.get_history = function (student_id,student_name,class_id,class_sect,start_time,end_time,room_id){
+    if(student_id==''){
+        console.log('not in condition')
+    }
+    console.log(student_id+" "+student_name)
+}

@@ -23,6 +23,9 @@ app.use('/api',authenRoute)
 authenRoute.use(line_middle_ware.middle_ware);
 
 
+
+
+app.post('/get_history',checkin_controller.get_history);
 app.get('/getClass',class_controller.getClass);
 app.post('/login',login_controller.login);
 app.post('/get_room_from_class',class_controller.get_room_from_class);
