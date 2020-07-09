@@ -14,7 +14,7 @@ const line_middle_ware = require('./line_authen');
 
 
 
-app.use(cors({origin: ['https://127.0.0.1:3000','https://localhost:7777','https://jackerle.bike','https://jackerle.bike:80','http://127.0.0.1','http://127.0.0.1:3000','http://localhost','https://crossknight.com'],credentials:true}));
+app.use(cors({origin: ['http://jackerle.bike:80','https://127.0.0.1:3000','https://localhost:7777','https://jackerle.bike','https://jackerle.bike:80','http://127.0.0.1','http://127.0.0.1:3000','http://localhost','https://crossknight.com'],credentials:true}));
 app.use(bodyParser.json());
 app.use('/api',authenRoute)
 
