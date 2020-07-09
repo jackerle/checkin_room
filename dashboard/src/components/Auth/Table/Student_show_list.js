@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Axios from 'axios'
 import env from './../../../../../env.json'
+import {change_date_format} from './../../../Helper'
+//const helper = require('./../../../Helper')
+
 
 
 function Student_show_list(prop) {
@@ -36,15 +39,16 @@ function Student_show_list(prop) {
     const _create_student_list = student_in && student_in.map((student, i) => {
         const { student_name, student_id, timestamp_checkin } = student
         let isReg = student_reg.filter(e => e.student_id == student_id).length > 0
+        
         console.log(isReg)
         return (
             <tr class="d-flex">
                 <th scope="row" class="col-1">{i + 1}</th>
                 <td class="col-2">{student_id}</td>
                 <td class="col-4">{student_name}</td>
-                <td class="col-3">{timestamp_checkin}</td>
+                <td class="col-3">{change_date_format(timestamp_checkin)}</td>
                 <td class="col-2">
-                    {isReg ? <button type="button" class="btn btn-success"></button> : <button type="button" class="btn btn-secondary"></button>}
+                    {isReg ? <button disabled={true}title="ลงทะเบียน"type="button" class="btn btn-success"></button> : <button disabled={true}type="button" title="ยังไม่ลงทะเบียน" class="btn btn-secondary"></button>}
 
 
                 </td>

@@ -37,7 +37,7 @@ function show_all_student({
                 <td class="col-2">{student_id}</td>
                 <td class="col-4">{student_name}</td>
                 <td class="col-2">
-                {isCheckin ? <button type="button" class="btn btn-success"></button> : <button type="button" class="btn btn-secondary"></button>}
+                {isCheckin ? <button type="button" title = "เข้าห้องเรียนแล้ว"class="btn btn-success" disabled={true}></button> : <button title="ยังไม่เข้าห้องเรียน"type="button" class="btn btn-secondary" disabled={true}></button>}
                 </td>
             </tr>
         )

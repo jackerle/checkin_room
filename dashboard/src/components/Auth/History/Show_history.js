@@ -1,4 +1,6 @@
 import React from "react";
+import {change_date_format} from './../../../Helper'
+
 
 function Show_history({ history_list }) {
 
@@ -13,8 +15,8 @@ function Show_history({ history_list }) {
                 <td scope="row" class="col-2">{room_name}</td>
                 <td class="col-2">{student_id}</td>
                 <td class="col-3">{student_name}</td>
-                <td class="col-2">{timestamp_checkin}</td>
-                <td class="col-2" >{timestamp_checkout}}</td>
+                <td class="col-2">{change_date_format(timestamp_checkin)}</td>
+                <td class="col-2" >{timestamp_checkout==null? null:change_date_format(timestamp_checkout)}</td>
                 <td class="col-1" >{role}</td>
                
             </tr >
