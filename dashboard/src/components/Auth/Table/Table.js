@@ -15,7 +15,22 @@ function Table() {
     const [room_select, setRoom_Select] = useState(0);
     const [current_class,setCurrent_class] = useState({})
     const [refresh_button,setRefresh] = useState(0);
+    const [time_now, setTimeNow] = useState({
+        hours: new Date().getHours(),
+        minute: new Date().getMinutes()
+    });
 
+
+
+    useEffect(() => {
+        setInterval(() => {
+            setTimeNow({
+                hours: new Date().getHours(),
+                minute: new Date().getMinutes()
+            })
+
+        }, env.TIME_REFRESH)
+    }, [time_now])
 
 
     const refresh_button_active = function(){
@@ -82,7 +97,7 @@ function Table() {
                 {createRoom_list}
             </select>
             <br />
-            <Class_show_list room_select={room_select} current_class={current_class} set_current_class={set_current_class}  />
+            <Class_show_list room_select={room_select} current_class={current_class} set_current_class={set_current_class}  time_now={time_now}/>
             <br/>
             <div class="row pb-2">
                 <div class="col text-center" >

@@ -4,7 +4,7 @@ import env from './../../../../../env.json'
 
 
 function Class_show_list({
-    room_select,current_class,set_current_class
+    room_select,current_class,set_current_class,time_now
 }) {
 
 
@@ -18,10 +18,7 @@ function Class_show_list({
 
 
 
-    const [time_now, setTimeNow] = useState({
-        hours: new Date().getHours(),
-        minute: new Date().getMinutes()
-    });
+   
 
 
 
@@ -44,15 +41,7 @@ function Class_show_list({
     }, [room_select])
 
 
-    useEffect(() => {
-        setInterval(() => {
-            setTimeNow({
-                hours: new Date().getHours(),
-                minute: new Date().getMinutes()
-            })
-
-        }, 60000)
-    }, [time_now])
+    
 
 
     useEffect(() => {
