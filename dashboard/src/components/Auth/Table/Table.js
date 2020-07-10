@@ -54,6 +54,8 @@ function Table() {
 
 
     useEffect(() => {
+
+
         setInterval(() => {
             console.log('interval!')
             setTimeNow({
@@ -62,6 +64,8 @@ function Table() {
             })
     
         }, env.TIME_REFRESH)
+
+        
         console.log('first time')
         Axios.get(env.API + '/getroom')
             .then(res => {
@@ -116,7 +120,7 @@ function Table() {
                 
             </div>
             
-            {/* <Student_show_list student_in={student_in} current_class={current_class}/> */}
+            <Student_show_list student_in={student_in} current_class={current_class}/>
 
         </div>
 
