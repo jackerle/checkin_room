@@ -22,9 +22,8 @@ function Table() {
 
 
 
-    useEffect(() => {
-        
-    }, [time_now])
+   
+
 
 
     
@@ -50,6 +49,14 @@ function Table() {
                 setStudent(res.data);
             })
     }
+
+
+    useEffect(()=>{
+        console.log('fetch student')
+        fetch_student(room_select)
+    },[time_now])
+
+
 
 
 
@@ -115,7 +122,7 @@ function Table() {
             <br/>
             <div class="row pb-2">
                 <div class="col text-center" >
-                    <button style={{float:"right"}} class="btn btn-outline-secondary" onClick={refresh_button_active}><span class="glyphicon glyphicon-refresh"></span> Refresh</button>
+                    {/* <button style={{float:"right"}} class="btn btn-outline-secondary" onClick={refresh_button_active}><span class="glyphicon glyphicon-refresh"></span> Refresh</button> */}
                 </div>
                 
             </div>
