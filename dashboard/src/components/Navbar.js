@@ -56,7 +56,7 @@ function Login(prop) {
     return (
       <form class="form-inline my-2 my-lg-0" action="/" onSubmit={getLogout}>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle navbar-text btn btn-secondary" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle navbar-text btn " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {jwt.decode(token).name ? jwt.decode(token).name : ""}
           </a>
           <div class="dropdown-menu " aria-labelledby="navbarDropdown">
@@ -98,13 +98,13 @@ function Navbar(prop) {
             <a class="navbar-brand " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Real-Time
         </a>
-            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+            <div style ={{backgroundColor:"white"}}class="dropdown-menu " aria-labelledby="navbarDropdown">
               <li class="dropdown-item navbar-text">
-                <Link to="/table" class="navbar-brand">ห้องเรียน</Link>
+                <Link style={{color:"black"}}to="/table" class="navbar-text">ห้องเรียน</Link>
               </li>
 
               <li class="dropdown-item navbar-text">
-                <Link to="/table_class" class="navbar-brand">รายวิชา</Link>
+                <Link style={{color:"black"}} to="/table_class" class="navbar-text">รายวิชา</Link>
               </li>
             </div>
           </li>
@@ -115,15 +115,15 @@ function Navbar(prop) {
             <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               จัดการ
         </a>
-            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+            <div style ={{backgroundColor:"white"}}class="dropdown-menu " aria-labelledby="navbarDropdown">
               <li class="dropdown-item navbar-text">
-                <Link to="/manage_room" class="navbar-brand">จัดการห้องเรียน</Link>
+                <Link style={{color:"black"}} to="/manage_room" class="navbar-text">จัดการห้องเรียน</Link>
               </li>
               <li class="dropdown-item navbar-text">
-                <Link to="/manage_student" class="navbar-brand">จัดการรายชื่อนักศึกษา</Link>
+                <Link style={{color:"black"}} to="/manage_student" class="navbar-text">จัดการรายชื่อนักศึกษา</Link>
               </li>
               <li class="dropdown-item navbar-text">
-                <Link to="/manage_class" class="navbar-brand">จัดการรายวิชาเรียน</Link>
+                <Link style={{color:"black"}} to="/manage_class" class="navbar-text">จัดการรายวิชาเรียน</Link>
               </li>
             </div>
           </li>
@@ -138,7 +138,7 @@ function Navbar(prop) {
   return (
 
     <div>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav style={{backgroundColor:"#45ab87"}}class="navbar navbar-expand-lg navbar-dark">
 
         <Link to="/" class="navbar-brand">หน้าแรก</Link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
