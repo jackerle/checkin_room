@@ -56,7 +56,7 @@ function Login(prop) {
     return (
       <form class="form-inline my-2 my-lg-0" action="/" onSubmit={getLogout}>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle navbar-text btn " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a style={{color:"white"}}class="nav-link dropdown-toggle navbar-text " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {jwt.decode(token).name ? jwt.decode(token).name : ""}
           </a>
           <div class="dropdown-menu " aria-labelledby="navbarDropdown">
