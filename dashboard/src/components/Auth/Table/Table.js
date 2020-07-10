@@ -23,16 +23,19 @@ function Table() {
 
 
     useEffect(() => {
-        setInterval(() => {
-            setTimeNow({
-                hours: new Date().getHours(),
-                minute: new Date().getMinutes()
-            })
-
-        }, env.TIME_REFRESH)
+        
     }, [time_now])
 
 
+    setInterval(() => {
+        setTimeNow({
+            hours: new Date().getHours(),
+            minute: new Date().getMinutes()
+        })
+
+    }, env.TIME_REFRESH)
+
+    
     const refresh_button_active = function(){
         fetch_student(room_select)
     }
