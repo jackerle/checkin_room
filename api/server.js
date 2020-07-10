@@ -25,7 +25,7 @@ app.use(cors({origin: [
     'http://localhost',
     'https://crossknight.com',
     'https://line.crossknight.com',
-    'dashboard.crossknight.com'
+    'https://dashboard.crossknight.com'
 ],credentials:true}));
 app.use(bodyParser.json());
 app.use('/api',authenRoute)
