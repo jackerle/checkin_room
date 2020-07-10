@@ -39,7 +39,7 @@ function Student_show_list(prop) {
     const _create_student_list = student_in && student_in.map((student, i) => {
         const { student_name, student_id, timestamp_checkin } = student
         let isReg = student_reg.filter(e => e.student_id == student_id).length > 0
-        
+        console.log('from this')
         console.log(isReg)
         return (
             <tr class="d-flex">

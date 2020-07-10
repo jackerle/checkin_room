@@ -93,6 +93,7 @@ function Class_show_list({
 
 
     const show_class_list = class_list && class_list.map(obj => {
+        console.log('from here')
         const {
             class_id, class_sect, class_start_time, class_end_time, class_name, room_name, capacity
         } = obj;

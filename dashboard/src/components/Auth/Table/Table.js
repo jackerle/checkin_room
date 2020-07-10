@@ -27,16 +27,12 @@ function Table() {
     }, [time_now])
 
 
-    setInterval(() => {
-        setTimeNow({
-            hours: new Date().getHours(),
-            minute: new Date().getMinutes()
-        })
+    
 
-    }, env.TIME_REFRESH)
 
     
     const refresh_button_active = function(){
+        console.log("asd")
         fetch_student(room_select)
     }
 
@@ -48,6 +44,7 @@ function Table() {
 
 
     function fetch_student(room_id) {
+        console.log('from fetch')
         Axios.get(env.API + '/getCheckin?room_id=' + room_id)
             .then(res => {
                 setStudent(res.data);
@@ -57,12 +54,22 @@ function Table() {
 
 
     useEffect(() => {
+        setInterval(() => {
+            console.log('interval!')
+            setTimeNow({
+                hours: new Date().getHours(),
+                minute: new Date().getMinutes()
+            })
+    
+        }, env.TIME_REFRESH)
+        console.log('first time')
         Axios.get(env.API + '/getroom')
             .then(res => {
                 setRoom_list(res.data)
             }).catch(err => {
                 console.log(err)
             })
+
     }, [])
 
 
@@ -109,7 +116,7 @@ function Table() {
                 
             </div>
             
-            <Student_show_list student_in={student_in} current_class={current_class}/>
+            {/* <Student_show_list student_in={student_in} current_class={current_class}/> */}
 
         </div>
 
