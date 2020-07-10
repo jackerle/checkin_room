@@ -47,7 +47,7 @@ function Class_show_list({
     useEffect(() => {
         handle_current_class()
         console.log('handle class_list')
-    }, [class_list])
+    }, [class_list,time_now])
 
 
 
@@ -59,9 +59,7 @@ function Class_show_list({
             } = obj
             const [h_start, m_start,s_start] = class_start_time.split(':');
             const [h_end, m_end,s_end] = class_end_time.split(':');
-            console.log((parseInt(h_start) * 60) + parseInt(m_start))
-            console.log()
-            console.log('why')
+
             if ((parseInt(h_start) * 60) + parseInt(m_start) <= ((time_now.hours * 60) + time_now.minute) &&
                 (parseInt(h_end )* 60) + parseInt(m_end) >= ((time_now.hours * 60) + time_now.minute) &&
                 room_select == room_id) {

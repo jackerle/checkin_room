@@ -30,10 +30,6 @@ function Table() {
 
 
     
-    const refresh_button_active = function(){
-        console.log("asd")
-        fetch_student(room_select)
-    }
 
 
     const set_current_class = function(obj){
@@ -43,7 +39,6 @@ function Table() {
 
 
     function fetch_student(room_id) {
-        console.log('from fetch')
         Axios.get(env.API + '/getCheckin?room_id=' + room_id)
             .then(res => {
                 setStudent(res.data);
@@ -52,7 +47,6 @@ function Table() {
 
 
     useEffect(()=>{
-        console.log('fetch student')
         fetch_student(room_select)
     },[time_now])
 
