@@ -75,7 +75,7 @@ function Login(prop) {
       <form class="form-inline my-2 my-lg-0" action="#" onSubmit={getLogin}>
         <input class="form-control mr-sm-2" type="text" placeholder="Username" value={username} onChange={onChangeUsername}></input>
         <input class="form-control mr-sm-2" type="password" id="password" placeholder="Password" value={password} onChange={onChangePassword}></input>
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >เข้าสู่ระบบ</button>
+        <button style = {{backgroundColor:"#228763",color:"white"}}class="btn  my-2 my-sm-0" type="submit" >เข้าสู่ระบบ</button>
       </form>
     )
   }
