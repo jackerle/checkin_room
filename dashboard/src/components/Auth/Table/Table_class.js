@@ -11,10 +11,15 @@ function Table_class() {
     const [class_list, setClassList] = useState([])
     const [student_list, setStudent] = useState([])
     const [room_list, setRoom_list] = useState([])
+
     const [time_now, setTimeNow] = useState({
         hours: new Date().getHours(),
         minute: new Date().getMinutes()
     });
+
+
+   
+ 
 
 
 
@@ -35,7 +40,7 @@ function Table_class() {
                 hours: new Date().getHours(),
                 minute: new Date().getMinutes()
             })
-    
+
         }, env.TIME_REFRESH)
 
 
@@ -114,7 +119,7 @@ function Table_class() {
                 {createClass_list}
             </select>
             <br />
-            <Student_all_collapse room_list={room_list} student_list={student_list} class_select= {class_select} time_now={time_now}/>
+            <Student_all_collapse room_list={room_list} student_list={student_list} class_select={class_select} time_now={time_now} />
         </div>
     )
 }
@@ -124,16 +129,21 @@ export default Table_class;
 
 
 
-function Student_all_collapse({ room_list, student_list,class_select,time_now }) {
+function Student_all_collapse({ room_list, student_list, class_select, time_now }) {
 
-    const [student_reg_list,setStudent_reg] = useState({
-        init:0
+
+    const [count_class,set_count_class] = useState(0);
+    const [student_reg_list, setStudent_reg] = useState({
+        init: 0
     })
 
 
 
 
-    useEffect( ()=>{
+
+
+
+    useEffect(() => {
         async function fetchData() {
             let dummy = { ...student_reg_list }
             for (const room of room_list) {
@@ -142,12 +152,12 @@ function Student_all_collapse({ room_list, student_list,class_select,time_now })
                 dummy[room_id] = res.data
             }
             setStudent_reg(dummy)
-            
+
         }
         fetchData()
 
-
-    },[room_list,time_now])
+        console.log(document.getElementById('inclass'))
+    }, [room_list, time_now])
 
 
     const handle_student_list = () => {
@@ -170,7 +180,7 @@ function Student_all_collapse({ room_list, student_list,class_select,time_now })
                     <div class="col">
                         <div class="collapse multi-collapse" id={_id}>
                             <div class="card card-body">
-                                <Student_show_list student_in ={student_reg_list[room_id]} current_class ={class_select}/>
+                                <Student_show_list student_in={student_reg_list[room_id]} current_class={class_select} />
                             </div>
                         </div>
                     </div>
@@ -186,12 +196,15 @@ function Student_all_collapse({ room_list, student_list,class_select,time_now })
                 <div class="col-10">
                     <h5 class="p-2 text-secondary">- รายชื่อนักเรียน</h5>
                 </div>
+                <div class="col-1">
+                    <h5 class="p-2 text-secondary">{count_class+"/"+student_list.length}</h5>
+                </div>
             </div>
             <div class="row" >
                 <div class="col">
-                    <div  class="collapse multi-collapse" id="student_all">
+                    <div class="collapse multi-collapse" id="student_all">
                         <div class="card card-body">
-                            <Show_all_student student_list={student_list} room_list={room_list} time_now={time_now}/>
+                            <Show_all_student student_list={student_list} room_list={room_list} time_now={time_now} set_count_class={set_count_class}/>
                         </div>
                     </div>
                 </div>
