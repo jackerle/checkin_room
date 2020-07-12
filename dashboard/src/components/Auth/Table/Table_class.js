@@ -11,6 +11,12 @@ function Table_class() {
     const [class_list, setClassList] = useState([])
     const [student_list, setStudent] = useState([])
     const [room_list, setRoom_list] = useState([])
+    const [time_now, setTimeNow] = useState({
+        hours: new Date().getHours(),
+        minute: new Date().getMinutes()
+    });
+
+
 
     const handleClassSelect = function (event) {
         let target = event.target.value;
@@ -22,6 +28,18 @@ function Table_class() {
 
 
     useEffect(() => {
+
+        setInterval(() => {
+            console.log('interval!')
+            setTimeNow({
+                hours: new Date().getHours(),
+                minute: new Date().getMinutes()
+            })
+    
+        }, env.TIME_REFRESH)
+
+
+
         Axios.get(env.API + '/getClass')
             .then(res => {
                 setClassList(res.data)
@@ -96,7 +114,7 @@ function Table_class() {
                 {createClass_list}
             </select>
             <br />
-            <Student_all_collapse room_list={room_list} student_list={student_list} class_select= {class_select}/>
+            <Student_all_collapse room_list={room_list} student_list={student_list} class_select= {class_select} time_now={time_now}/>
         </div>
     )
 }
@@ -106,7 +124,7 @@ export default Table_class;
 
 
 
-function Student_all_collapse({ room_list, student_list,class_select }) {
+function Student_all_collapse({ room_list, student_list,class_select,time_now }) {
 
     const [student_reg_list,setStudent_reg] = useState({
         init:0
@@ -129,7 +147,7 @@ function Student_all_collapse({ room_list, student_list,class_select }) {
         fetchData()
 
 
-    },[room_list])
+    },[room_list,time_now])
 
 
     const handle_student_list = () => {
@@ -173,7 +191,7 @@ function Student_all_collapse({ room_list, student_list,class_select }) {
                 <div class="col">
                     <div  class="collapse multi-collapse" id="student_all">
                         <div class="card card-body">
-                            <Show_all_student student_list={student_list} room_list={room_list} />
+                            <Show_all_student student_list={student_list} room_list={room_list} time_now={time_now}/>
                         </div>
                     </div>
                 </div>

@@ -3,7 +3,7 @@ import Axios from 'axios'
 import env from './../../../../../../env.json'
 
 function show_all_student({
-    student_list,room_list
+    student_list,room_list,time_now
 }) {
 
 
@@ -24,7 +24,7 @@ function show_all_student({
         }).catch(err => {
             console.log(err)
         })
-    },[room_list])
+    },[room_list,time_now])
 
 
 
