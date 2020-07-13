@@ -13,10 +13,13 @@ import Room from './components/Auth/Manage/Room';
 import Class from './components/Auth/Manage/Class/Class';
 import Class_student from './components/Auth/Manage/Class_student';
 import Table_class from './components/Auth/Table/Table_class';
+import Register from './components/Register'
 
 
 
 function App() {
+
+	document.body.style.fontFamily = "Kanit, sans-serif"
 
 	const [cookie, setCookie, removeCookie] = useCookies(['jwt']);
 
@@ -98,9 +101,7 @@ function App() {
 				</Route>
 
 				<Route exact path="/register">
-					<div>
-						"register"
-					</div>
+					<Register />
 				</Route>
 				{checkLogin()}
 			</Switch>
