@@ -32,21 +32,18 @@ export default class Register_Page extends Component {
 
 	async handleSubmit(event) {
 		event.preventDefault()
+		// https://stackoverflow.com/a/45899343
+		const form = new FormData(event.target)
+		const json = Object.assign({}, ...Array.from(form.entries(), ([key, value]) => ({ [key]: value })))
+		console.log(json)
 		// TODO: validate data
 		const req = await Register({
-			invite_code: this.state.invite_code,
-			name: this.state.name,
-			username: this.state.username
+			invite_code: json.invite,
+			name: json.name,
+			username: json.username,
+			password: json.password
 		})
-		if (req.data.success) {
-			this.setState({
-				showRegisterSuccess: true
-			})
-		} else {
-			this.setState({
-				showRegisterFailure: true
-			})
-		}
+
 	}
 
 
@@ -59,7 +56,7 @@ export default class Register_Page extends Component {
 			<div className="container">
 				<div className="row min-vh-100 align-items-center pb-5">
 					<div className="col col-sm-5 col-md-7 col-lg-7 col-xl-5 mx-auto">
-							<FormCompoment handleSubmit={this.handleSubmit} />
+						<FormCompoment handleSubmit={this.handleSubmit} />
 					</div>
 				</div>
 			</div>
