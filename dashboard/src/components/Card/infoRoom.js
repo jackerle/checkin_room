@@ -16,13 +16,15 @@ export default class infoRoom extends Component {
 		this.state = {
 			isLoading: true
 		}
+		this.reload
 	}
 
-	async componentDidMount() {
+	componentDidMount() {
 		this.update()
-		setInterval(() => {
-			this.update()
-		}, 2000);
+	}
+	
+	componentWillUnmount() {
+		clearTimeout(this.reload)
 	}
 
 	async update(params) {
@@ -69,6 +71,7 @@ export default class infoRoom extends Component {
 			datasets,
 			isLoading: false
 		})
+		this.reload = setTimeout(this.update.bind(this), env.TIME_REFRESH)
 	}
 
 	render() {
