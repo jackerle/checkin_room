@@ -13,5 +13,5 @@ import axios from 'axios'
  * @returns {import('axios').AxiosResponse<{success: boolean}>}
  */
 export function Register(params) {
-	return axios.post(env.API, ...params)
+	return axios.post(env.API + '/register', {...params})
 }
