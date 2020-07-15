@@ -82,7 +82,7 @@ exports.checkin = function(room_id,u_id){
     values(${room_id},'${u_id}',CURRENT_TIMESTAMP,1)
     where not exists (
         select * from transaction where room_id =${room_id} and u_id = '${u_id} and status = 1'
-    ) limit 1
+    ) 
     ;` 
     return to_query(sql);
 }
