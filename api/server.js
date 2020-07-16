@@ -25,7 +25,11 @@ app.use(cors({origin: [
     'http://localhost',
     'https://crossknight.com',
     'https://line.crossknight.com',
-    'https://dashboard.crossknight.com'
+    'https://dashboard.crossknight.com',
+    'https://dashboard.jackerle.bike',
+    'https://qrcheck.jackerle.bike',
+    'https://checkin.sc.su.ac.th',
+    'https://qrcheck.sc.su.ac.th'
 ],credentials:true}));
 app.use(bodyParser.json());
 app.use('/api',authenRoute)
