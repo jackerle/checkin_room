@@ -3,13 +3,14 @@ import Axios from 'axios'
 import env from './../../../../../env.json'
 import { change_date_format } from './../../../Helper'
 //const helper = require('./../../../Helper')
+import { useHistory } from "react-router";
 
 
 
 function Student_show_list(prop) {
 
 
-    const { student_in, current_class } = prop
+    const { student_in, current_class ,room_select} = prop
     const [student_reg, setStudent] = useState([])
 
 
@@ -33,8 +34,21 @@ function Student_show_list(prop) {
 
 
 
-    const kick_button = function(){
-        
+    const kick_button = async function(event){
+        console.log(event.target.value)
+        Axios({
+            method: 'post',
+            url: env.API + '/f_checkout',
+            data: {
+                student_id:event.target.value,
+                room_id : room_select
+            },
+        }).then(res => {
+            console.log('force success')
+            
+        }).catch(err => {
+            console.log(err)
+        })
     }
 
 
@@ -74,7 +88,7 @@ function Student_show_list(prop) {
       </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                                <button type="button" class="btn btn-danger">ยืนยัน</button>
+                                <button type="button"  class="btn btn-danger" value={student_id} onClick={kick_button} data-dismiss = "modal">ยืนยัน</button>
                             </div>
                         </div>
                     </div>

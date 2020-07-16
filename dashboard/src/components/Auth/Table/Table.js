@@ -131,7 +131,7 @@ function Table() {
                 
             </div>
             
-            <Student_show_list student_in={student_in} current_class={current_class}/>
+            <Student_show_list student_in={student_in} current_class={current_class} room_select = {room_select}/>
 
         </div>
 
