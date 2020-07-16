@@ -5,7 +5,7 @@ const env = require('./../../env.json')
 
 var pool = mariadb.createPool({
     host : 'localhost',
-    user : 'root',
+    user : env.USERNAME_DB,
     password : env.PASSWORD_DB,
     database : env.DATABASE,
     connectionLimit : 20,
