@@ -8,11 +8,9 @@ exports.checkin = async(req,res)=>{
     let u_id = req.body.u_id;
     try{
         let data = await std_repo.checkin(room_id,u_id);
-        console.log(JSON.stringify(data,null,2));
-        console.log('hello ',data.affectedRows == 1)
+        console.log(data)
         res.send({
-            "success" : data? true : false,
-            
+            "success" : data.affectedRows>0
         });
     }
     catch(ex){
