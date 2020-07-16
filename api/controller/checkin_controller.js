@@ -39,6 +39,24 @@ exports.checkout = async(req,res)=>{
 }
 
 
+exports.f_checkout = async(req,res)=>{
+    let room_id = req.body.room_id;
+    let student_id = req.body.student_id;
+    try {
+        let data = await std_repo.f_checkout(student_id,room_id)
+        res.send({
+            "success" : data?true:false
+        })
+    }
+    catch(ex){
+        res.send({
+            "success":false
+        })
+    }
+}
+
+
+
 exports.getAllTrans = async(req,res)=>{
     try {
         let data = await std_repo.getAllTrans();

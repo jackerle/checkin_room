@@ -110,6 +110,17 @@ exports.checkout = function(u_id,room_id){
 }
 
 
+exports.f_checkout = function(student_id,room_id){
+    let sql = `update transaction,student_table
+    set transaction.timestamp_checkout = CURRENT_TIMESTAMP,transaction.status = 0,transaction.role = 1
+    where transaction.status = 1 and transaction.room_id = ${room_id} and transaction.u_id = student_table.u_id
+    and student_table.student_id = '${student_id}'
+    ;`
+    return to_query(sql)
+}
+
+
+
 exports.getAllTrans = function(){
     let sql = `select * from transaction`
     return to_query(sql);
