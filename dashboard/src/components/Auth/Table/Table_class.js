@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import env from './../../../../../env.json';
-import Show_all_student from "./Table_class/Show_all_student";
-import Student_show_list from "./STUDENT_SHOW_LIST";
+import Show_all_student from "./Table_class/show_all_student";
+import Student_show_list from "./Student_show_list";
 
 
 function Table_class() {
