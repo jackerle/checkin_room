@@ -87,6 +87,14 @@ exports.checkin = function(room_id,u_id){
     and u_id =  '${u_id}'
     and status = 1
     )
+    and exists (
+        select 'left' as a
+from room_table,
+(select count(room_id) as l_count from transaction where room_id=${room_id} and status =1) as c_in
+where capacity - c_in.l_count  >=0
+and room_table.room_id = ${room_id}
+
+    )
     ;` 
     return to_query(sql);
 }
