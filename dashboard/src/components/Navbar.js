@@ -119,9 +119,7 @@ function Navbar(prop) {
               <li class="dropdown-item navbar-text">
                 <Link style={{color:"black"}} to="/manage_room" class="navbar-text">จัดการห้องเรียน</Link>
               </li>
-              <li class="dropdown-item navbar-text">
-                <Link style={{color:"black"}} to="/manage_student" class="navbar-text">จัดการรายชื่อนักศึกษา</Link>
-              </li>
+              
               <li class="dropdown-item navbar-text">
                 <Link style={{color:"black"}} to="/manage_class" class="navbar-text">จัดการรายวิชาเรียน</Link>
               </li>

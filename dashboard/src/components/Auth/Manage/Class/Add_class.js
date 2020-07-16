@@ -235,7 +235,16 @@ function ADD_CLASS() {
                 </div>
             </div>
             <br/>
-            <button type="button" class="btn btn-primary" onClick={add_class_button}>เพิ่มวิชา</button>
+            <div class ="row">
+                <div class = "col-9">
+                    <small style={{color:"red"}}>* กรุณาใส่ข้อมูลให้ครบถ้วน และอย่าเพิ่มวิชาที่ไม่จำเป็น หากไม่มั่นใจติดต่อเจ้าหน้าที่</small>
+                </div>
+                <div class = "col-2">
+                <button type="button" class="btn btn-primary" onClick={add_class_button}>เพิ่มวิชา</button>
+                </div>
+            </div>
+            <br/>
+            
         </div>
     )
 }
