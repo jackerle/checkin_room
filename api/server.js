@@ -66,12 +66,21 @@ authenRoute.post('/getInfo',checkin_controller.getInfo);
 authenRoute.post('/hasAccount',std_controller.hasAccount);
 
 
-/*https.createServer({
-    key : fs.readFileSync(env.SSL_KEY),
-    cert : fs.readFileSync(env.SSL_FULLCHAIN)
-},app)
-.listen(env.PORT,()=>{
-    console.log('opened on '+env.PORT)
-})*/
 
-app.listen(env.PORT,()=>{console.log('openned on port:'+env.PORT)})
+
+
+if(env.DEV){
+    https.createServer({
+        key : fs.readFileSync(env.SSL_KEY),
+        cert : fs.readFileSync(env.SSL_FULLCHAIN)
+    },app)
+    .listen(env.PORT,()=>{
+        console.log('opened on devs '+env.PORT)
+    })
+}else{
+    app.listen(env.PORT,()=>{console.log('openned on production port:'+env.PORT)})
+}
+
+
+
+
