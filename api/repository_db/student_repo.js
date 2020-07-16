@@ -351,7 +351,15 @@ exports.get_history = function (student_id,student_name,class_id,class_sect,star
 }
 
 
-exports.is_full = function(room_id){
-
+exports.count_room = function(room_id){
+    let sql = `select count(transaction.room_id) as count_in,
+    room_table.capacity-count(transaction.room_id) as count_def,
+    room_table.capacity as capacity
+    
+    from transaction,room_table
+    where transaction.room_id = ${room_id}
+    and transaction.room_id = room_table.room_id
+    and transaction.status = 1`
+    return to_query(sql)
 }
 

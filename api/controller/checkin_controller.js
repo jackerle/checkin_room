@@ -175,7 +175,15 @@ exports.get_history = async(req,res)=>{
         console.log(ex)
     }
 
+}
 
-    
-    
+exports.count_room = async(req,res)=>{
+    let room_id = req.query.room_id;
+    try{
+        let data = await std_repo.count_room(room_id);
+        res.send(data)
+    }
+    catch(ex){
+        console.log(ex)
+    }
 }
