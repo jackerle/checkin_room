@@ -58,7 +58,7 @@ app.get('/getroom_in',checkin_controller.getroom_in);
 app.post('/getReg',class_controller.getReg);
 app.post('/add_class',class_controller.add_class)
 app.post('/getClass_room',class_controller.getClass_room);
-app.get('/count_room',checkin_controller.count_room);
+authenRoute.get('/count_room',checkin_controller.count_room);
 authenRoute.post('/checkin',checkin_controller.checkin);
 authenRoute.post('/checkout',checkin_controller.checkout);
 authenRoute.post('/regis_std',std_controller.regis_std);
