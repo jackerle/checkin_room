@@ -79,8 +79,14 @@ exports.getAllRoom = function(){
  */
 exports.checkin = function(room_id,u_id){
     let sql = `insert into transaction (room_id,u_id,timestamp_checkin,status)
-    values(${room_id},'${u_id}',CURRENT_TIMESTAMP,1)
+    select ${room_id},'${u_id}',CURRENT_TIMESTAMP,1
     
+    where not exists(
+        select * from transaction 
+    where room_id = ${room_id}
+    and u_id =  '${u_id}'
+    and status = 1
+    )
     ;` 
     return to_query(sql);
 }
