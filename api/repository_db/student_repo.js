@@ -211,7 +211,7 @@ exports.getSchedule = function (class_id,class_sect){
     and class_schedule.class_id = class_table.class_id
     and class_schedule.class_sect = class_table.class_sect
     and class_table.class_id = '${class_id}'
-    and class_table.class_sect = ${class_sect};
+    and class_table.class_sect = '${class_sect}';
     `
     return to_query(sql);
 }
@@ -222,7 +222,7 @@ exports.getReg = function(class_id,class_sect){
     student_table.student_name as student_name
     from reg_class,student_table
     where reg_class.class_id = '${class_id}'
-    and reg_class.class_sect = ${class_sect}
+    and reg_class.class_sect = '${class_sect}'
     and reg_class.student_id = student_table.student_id;`
     return to_query(sql);
 }
@@ -258,11 +258,11 @@ exports.getClass_room = function(room_id,day){
  */
 exports.add_class = function(class_id,class_sect,class_name,schedule){
     let sql_1 = `insert into class_table (class_id,class_sect,class_name)
-    values ('${class_id}',${class_sect},'${class_name}')`
+    values ('${class_id}','${class_sect}','${class_name}')`
     to_query(sql_1)
     console.log(schedule)
     schedule.map(e => {
-        let sql = `insert into class_schedule (class_id,class_sect,class_day,class_start_time,class_end_time,room_id) values('${class_id}',${class_sect},${e.day},'${e.start_time}:00','${e.end_time}:00',${e.room_id});`
+        let sql = `insert into class_schedule (class_id,class_sect,class_day,class_start_time,class_end_time,room_id) values('${class_id}','${class_sect}',${e.day},'${e.start_time}:00','${e.end_time}:00',${e.room_id});`
         console.log(sql)
         to_query(sql)
     })
@@ -301,7 +301,7 @@ exports.get_room_from_class = function(class_id,class_sect){
     room_table.capacity as capacity
     from class_schedule,room_table
     where class_id = '${class_id}'
-    and class_sect = ${class_sect}
+    and class_sect = '${class_sect}'
     and class_schedule.room_id = room_table.room_id
     group by room_table.room_id;`;
     return to_query(sql)
