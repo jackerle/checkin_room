@@ -353,7 +353,7 @@ exports.get_history = function (student_id,student_name,class_id,class_sect,star
 
 exports.count_room = function(room_id){
     let sql = `select count(transaction.room_id) as count_in,
-    room_table.capacity-count(transaction.room_id) as count_def,
+    room_table.capacity-count(transaction.room_id) as count_left,
     room_table.capacity as capacity
     
     from transaction,room_table
