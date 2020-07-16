@@ -157,3 +157,25 @@ exports.getstudent_status = async(req,res)=>{
         console.log(ex)
     }
 }
+
+exports.get_history = async(req,res)=>{
+    let student_id = req.body.student_id;
+    let student_name = req.body.student_name;
+    let class_id = req.body.class_id;
+    let class_sect = req.body.class_sect;
+    let start_time = req.body.start_time;
+    let end_time = req.body.end_time;
+    let room_id = req.body.room_id;
+    try {
+        let data = await std_repo.get_history(student_id,student_name,class_id,class_sect,start_time,end_time,room_id);
+        console.log(data)
+        res.send(data)
+    }
+    catch(ex){
+        console.log(ex)
+    }
+
+
+    
+    
+}

@@ -79,7 +79,9 @@ exports.getAllRoom = function(){
  */
 exports.checkin = function(room_id,u_id){
     let sql = `insert into transaction (room_id,u_id,timestamp_checkin,status)
-    values(${room_id},'${u_id}',CURRENT_TIMESTAMP,1);` 
+    values(${room_id},'${u_id}',CURRENT_TIMESTAMP,1)
+    
+    ;` 
     return to_query(sql);
 }
 
@@ -315,3 +317,35 @@ exports.get_student_status = function (room){
     sql += `1!=1) and status = 1;`
     return to_query(sql)
 }
+
+
+exports.get_history = function (student_id,student_name,class_id,class_sect,start_time,end_time,room_id){
+    let sql = `select room_table.room_name as room_name ,student_table.student_id ,student_table.student_name,transaction.timestamp_checkin as timestamp_checkin , transaction.timestamp_checkout as timestamp_checkout, transaction.role
+    from transaction,student_table,room_table
+    where transaction.u_id = student_table.u_id
+    and transaction.room_id = room_table.room_id
+    and student_table.student_id like '%${student_id}%'
+    and student_table.student_name like '%${student_name}%'
+    and transaction.timestamp_checkin > "${start_time}"
+    and transaction.timestamp_checkin < "${end_time}"
+    `
+    if(class_id==''&&class_sect==''){
+        if(room_id==''){
+            return to_query(sql+';')
+        }
+        else{
+            sql+=`and room_table.room_id = ${room_id}`
+            return to_query(sql+";")
+        }
+    }
+    // else {
+    //     return to_query(sql+";")
+    // }
+    
+}
+
+
+exports.is_full = function(room_id){
+
+}
+

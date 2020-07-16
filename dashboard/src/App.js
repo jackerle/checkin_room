@@ -2,97 +2,112 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { useCookies } from "react-cookie";
 import Navbar from './components/Navbar'
 import {
-    Switch,
-    Route,
-    Redirect
+	Switch,
+	Route,
+	Redirect
 } from "react-router-dom";
 import Home from './components/Home';
 import Table from './components/Auth/Table/Table';
-import History from './components/Auth/History';
+import History from './components/Auth/History/History';
 import Room from './components/Auth/Manage/Room';
 import Class from './components/Auth/Manage/Class/Class';
 import Class_student from './components/Auth/Manage/Class_student';
 import Table_class from './components/Auth/Table/Table_class';
+import Register from './components/Register'
 
 
 
 function App() {
 
-    const [cookie, setCookie, removeCookie] = useCookies(['jwt']);
+	document.body.style.fontFamily = "Kanit, sans-serif"
+
+	const [cookie, setCookie, removeCookie] = useCookies(['jwt']);
 
 
 
-    const isToken = () => {
-        return (cookie.jwt != 'undefined' && cookie.jwt != undefined)
-    }
+	const isToken = () => {
+		return (cookie.jwt != 'undefined' && cookie.jwt != undefined)
+	}
 
 
-    const setToken = (token) => {
-        setCookie('jwt', token, { path: '/' });
-        console.log('setCookie success')
-    }
+	const setToken = (token) => {
+		setCookie('jwt', token, { path: '/' });
+		console.log('setCookie success')
+	}
 
 
-    const removeToken = () => {
-        console.log("remove success");
-        removeCookie('jwt', { path: '/' });
-    }
+	const removeToken = () => {
+		console.log("remove success");
+		removeCookie('jwt', { path: '/' });
+	}
 
-    //Autherication
+	//Autherication
 
-    const checkLogin = () => {
-        if (isToken()) {
-            return (
-                <div className="AuthRoute">
-                    <Route exact path="/table">
-                        <Table />
-                    </Route>
-                    <Route exact path="/table_class">
-                        <Table_class />
-                    </Route>
-                    <Route exact path="/history">
-                        <History />
-                    </Route>
-                    <Route exact path="/manage_room">
-                        <Room/>
-                    </Route>
-                    <Route exact path="/manage_class">
-                        <Class/>
-                    </Route>
-                    <Route exact path ="/class_student">
-                        <Class_student/>
-                    </Route>
-                </div>
-            )
-        }
-        else {
-            return (
-                <Redirect to={{ pathname: '/' }} />
-            )
-        }
-    }
+	const checkLogin = () => {
+		if (isToken()) {
+			return (
+				<React.Fragment>
+					<Navbar
+						setToken={setToken}
+						token={cookie.jwt}
+						removeToken={removeToken}
+						isToken={isToken}>
+					</Navbar>
+					<div className="AuthRoute">
+						<Route exact path="/table">
+							<Table />
+						</Route>
+						<Route exact path="/table_class">
+							<Table_class />
+						</Route>
+						<Route exact path="/history">
+							<History />
+						</Route>
+						<Route exact path="/manage_room">
+							<Room />
+						</Route>
+						<Route exact path="/manage_class">
+							<Class />
+						</Route>
+						<Route exact path="/class_student">
+							<Class_student />
+						</Route>
+					</div>
+				</React.Fragment>
+			)
+		}
+		else {
+			return (
+				<Redirect to={{ pathname: '/' }} />
+			)
+		}
+	}
 
 
 
-    return (
-        <div className="App">
-            <Navbar
-                setToken={setToken}
-                token={cookie.jwt}
-                removeToken={removeToken}
-                isToken={isToken}
-            />
-            <Switch>
-                <Route exact path="/">
-                    <Home
-                        isToken={isToken}
-                    />
-                </Route>
-                {checkLogin()}
-            </Switch>
-        </div>
+	return (
+		<div className="App">
 
-    )
+			<Switch>
+
+				<Route exact path="/">
+					<Navbar
+						setToken={setToken}
+						token={cookie.jwt}
+						removeToken={removeToken}
+						isToken={isToken}>
+					</Navbar>
+					<Home isToken={isToken} />
+				</Route>
+
+				<Route exact path="/register">
+					<Register />
+				</Route>
+				{checkLogin()}
+			</Switch>
+		</div>
+
+	)
 
 
 
@@ -140,7 +155,7 @@ Regis_Class_Tran
 -student_id
 
 send_checkin(room_id){
-    Date=>{Day,hour} -->Class Table --> Checkin 
+    Date=>{Day,hour} -->Class Table --> Checkin
 
 }
 

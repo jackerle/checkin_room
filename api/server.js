@@ -14,7 +14,19 @@ const line_middle_ware = require('./line_authen');
 
 
 
-app.use(cors({origin: ['https://127.0.0.1:3000','https://localhost:7777','https://jackerle.bike','http://127.0.0.1','http://127.0.0.1:3000','http://localhost','https://crossknight.com'],credentials:true}));
+app.use(cors({origin: [
+    'http://jackerle.bike',
+    'https://127.0.0.1:3000',
+    'https://localhost:7777',
+    'https://jackerle.bike',
+    'https://jackerle.bike:80',
+    'http://127.0.0.1',
+    'http://127.0.0.1:3000',
+    'http://localhost',
+    'https://crossknight.com',
+    'https://line.crossknight.com',
+    'https://dashboard.crossknight.com'
+],credentials:true}));
 app.use(bodyParser.json());
 app.use('/api',authenRoute)
 
@@ -23,6 +35,9 @@ app.use('/api',authenRoute)
 authenRoute.use(line_middle_ware.middle_ware);
 
 
+
+
+app.post('/get_history',checkin_controller.get_history);
 app.get('/getClass',class_controller.getClass);
 app.post('/login',login_controller.login);
 app.post('/get_room_from_class',class_controller.get_room_from_class);

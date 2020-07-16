@@ -15,12 +15,22 @@ function Table() {
     const [room_select, setRoom_Select] = useState(0);
     const [current_class,setCurrent_class] = useState({})
     const [refresh_button,setRefresh] = useState(0);
+    const [time_now, setTimeNow] = useState({
+        hours: new Date().getHours(),
+        minute: new Date().getMinutes()
+    });
+    const [room_select_data,set_room_select_data] = useState({})
 
 
 
-    const refresh_button_active = function(){
-        fetch_student(room_select)
-    }
+   
+
+
+
+    
+
+
+    
 
 
     const set_current_class = function(obj){
@@ -37,14 +47,34 @@ function Table() {
     }
 
 
+    useEffect(()=>{
+        fetch_student(room_select)
+    },[time_now])
+
+
+
+
 
     useEffect(() => {
+
+
+        setInterval(() => {
+            setTimeNow({
+                hours: new Date().getHours(),
+                minute: new Date().getMinutes()
+            })
+    
+        }, env.TIME_REFRESH)
+
+        
+        console.log('first time')
         Axios.get(env.API + '/getroom')
             .then(res => {
                 setRoom_list(res.data)
             }).catch(err => {
                 console.log(err)
             })
+
     }, [])
 
 
@@ -55,13 +85,15 @@ function Table() {
         let target = event.target.value;
         setRoom_Select(target);
         fetch_student(target)
-        console.log(target);
+        let t = room_list.filter(e=>e.room_id==target)
+        set_room_select_data(t)
     }
 
 
 
 
     const createRoom_list = room_list && room_list.map(room => {
+
         return (
             <option value={room.room_id} key={room.room_id}>{room.room_name}</option>
         )
@@ -82,11 +114,19 @@ function Table() {
                 {createRoom_list}
             </select>
             <br />
-            <Class_show_list room_select={room_select} current_class={current_class} set_current_class={set_current_class}  />
+            <Class_show_list room_select={room_select} current_class={current_class} set_current_class={set_current_class}  time_now={time_now}/>
             <br/>
+            <div class="row">
+                <div class="col-10">
+
+                </div>
+                <div class="col-2">
+                    <b title="จำนวนคนใช้ห้องตอนนี้">{room_select_data[0]? student_in.length +"/"+room_select_data[0].capacity : "-"}</b>
+                </div>
+            </div>
             <div class="row pb-2">
                 <div class="col text-center" >
-                    <button style={{float:"right"}} class="btn btn-outline-secondary" onClick={refresh_button_active}><span class="glyphicon glyphicon-refresh"></span> Refresh</button>
+                    {/* <button style={{float:"right"}} class="btn btn-outline-secondary" onClick={refresh_button_active}><span class="glyphicon glyphicon-refresh"></span> Refresh</button> */}
                 </div>
                 
             </div>
