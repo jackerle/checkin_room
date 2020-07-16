@@ -5,7 +5,7 @@ const env = require('./../../env.json')
 
 var pool = mariadb.createPool({
     host : 'localhost',
-    user : 'root',
+    user : env.USERNAME_DB,
     password : env.PASSWORD_DB,
     database : env.DATABASE,
     connectionLimit : 20,
@@ -318,6 +318,7 @@ exports.get_student_status = function (room){
     return to_query(sql)
 }
 
+
 exports.get_history = function (student_id,student_name,class_id,class_sect,start_time,end_time,room_id){
     let sql = `select room_table.room_name as room_name ,student_table.student_id ,student_table.student_name,transaction.timestamp_checkin as timestamp_checkin , transaction.timestamp_checkout as timestamp_checkout, transaction.role
     from transaction,student_table,room_table
@@ -347,3 +348,4 @@ exports.get_history = function (student_id,student_name,class_id,class_sect,star
 exports.is_full = function(room_id){
 
 }
+
