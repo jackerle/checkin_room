@@ -5,7 +5,7 @@ const env = require('./../../env.json')
 
 var pool = mariadb.createPool({
     host : 'localhost',
-    user : 'root',
+    user : env.USERNAME_DB,
     password : env.PASSWORD_DB,
     database : env.DATABASE,
     connectionLimit : 20,
@@ -79,10 +79,22 @@ exports.getAllRoom = function(){
  */
 exports.checkin = function(room_id,u_id){
     let sql = `insert into transaction (room_id,u_id,timestamp_checkin,status)
-    values(${room_id},'${u_id}',CURRENT_TIMESTAMP,1)
-    where not exists (
-        select * from transaction where room_id =${room_id} and u_id = '${u_id} and status = 1'
-    ) limit 1
+    select ${room_id},'${u_id}',CURRENT_TIMESTAMP,1
+    
+    where not exists(
+        select * from transaction 
+    where room_id = ${room_id}
+    and u_id =  '${u_id}'
+    and status = 1
+    )
+    and exists (
+        select 'left' as a
+from room_table,
+(select count(room_id) as l_count from transaction where room_id=${room_id} and status =1) as c_in
+where capacity - c_in.l_count  >0
+and room_table.room_id = ${room_id}
+
+    )
     ;` 
     return to_query(sql);
 }
@@ -96,6 +108,17 @@ exports.checkout = function(u_id,room_id){
     where u_id = '${u_id}' and status = 1 and room_id = ${room_id};`
     return to_query(sql);
 }
+
+
+exports.f_checkout = function(student_id,room_id){
+    let sql = `update transaction,student_table
+    set transaction.timestamp_checkout = CURRENT_TIMESTAMP,transaction.status = 0,transaction.role = 1
+    where transaction.status = 1 and transaction.room_id = ${room_id} and transaction.u_id = student_table.u_id
+    and student_table.student_id = '${student_id}'
+    ;`
+    return to_query(sql)
+}
+
 
 
 exports.getAllTrans = function(){
@@ -213,7 +236,7 @@ exports.getSchedule = function (class_id,class_sect){
     and class_schedule.class_id = class_table.class_id
     and class_schedule.class_sect = class_table.class_sect
     and class_table.class_id = '${class_id}'
-    and class_table.class_sect = ${class_sect};
+    and class_table.class_sect = '${class_sect}';
     `
     return to_query(sql);
 }
@@ -224,7 +247,7 @@ exports.getReg = function(class_id,class_sect){
     student_table.student_name as student_name
     from reg_class,student_table
     where reg_class.class_id = '${class_id}'
-    and reg_class.class_sect = ${class_sect}
+    and reg_class.class_sect = '${class_sect}'
     and reg_class.student_id = student_table.student_id;`
     return to_query(sql);
 }
@@ -260,11 +283,11 @@ exports.getClass_room = function(room_id,day){
  */
 exports.add_class = function(class_id,class_sect,class_name,schedule){
     let sql_1 = `insert into class_table (class_id,class_sect,class_name)
-    values ('${class_id}',${class_sect},'${class_name}')`
+    values ('${class_id}','${class_sect}','${class_name}')`
     to_query(sql_1)
     console.log(schedule)
     schedule.map(e => {
-        let sql = `insert into class_schedule (class_id,class_sect,class_day,class_start_time,class_end_time,room_id) values('${class_id}',${class_sect},${e.day},'${e.start_time}:00','${e.end_time}:00',${e.room_id});`
+        let sql = `insert into class_schedule (class_id,class_sect,class_day,class_start_time,class_end_time,room_id) values('${class_id}','${class_sect}',${e.day},'${e.start_time}:00','${e.end_time}:00',${e.room_id});`
         console.log(sql)
         to_query(sql)
     })
@@ -303,7 +326,7 @@ exports.get_room_from_class = function(class_id,class_sect){
     room_table.capacity as capacity
     from class_schedule,room_table
     where class_id = '${class_id}'
-    and class_sect = ${class_sect}
+    and class_sect = '${class_sect}'
     and class_schedule.room_id = room_table.room_id
     group by room_table.room_id;`;
     return to_query(sql)
@@ -319,6 +342,7 @@ exports.get_student_status = function (room){
     sql += `1!=1) and status = 1;`
     return to_query(sql)
 }
+
 
 exports.get_history = function (student_id,student_name,class_id,class_sect,start_time,end_time,room_id){
     let sql = `select room_table.room_name as room_name ,student_table.student_id ,student_table.student_name,transaction.timestamp_checkin as timestamp_checkin , transaction.timestamp_checkout as timestamp_checkout, transaction.role
@@ -346,6 +370,15 @@ exports.get_history = function (student_id,student_name,class_id,class_sect,star
 }
 
 
-exports.is_full = function(room_id){
-
+exports.count_room = function(room_id){
+    let sql = `select count(transaction.room_id) as count_in,
+    room_table.capacity-count(transaction.room_id) as count_left,
+    room_table.capacity as capacity
+    
+    from transaction,room_table
+    where transaction.room_id = ${room_id}
+    and transaction.room_id = room_table.room_id
+    and transaction.status = 1`
+    return to_query(sql)
 }
+

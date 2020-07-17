@@ -180,7 +180,7 @@ function Student_all_collapse({ room_list, student_list, class_select, time_now 
                     <div class="col">
                         <div class="collapse multi-collapse" id={_id}>
                             <div class="card card-body">
-                                <Student_show_list student_in={student_reg_list[room_id]} current_class={class_select} />
+                                <Student_show_list student_in={student_reg_list[room_id]} current_class={class_select} room_select={room_id}/>
                             </div>
                         </div>
                     </div>

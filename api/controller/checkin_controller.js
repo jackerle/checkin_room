@@ -8,9 +8,9 @@ exports.checkin = async(req,res)=>{
     let u_id = req.body.u_id;
     try{
         let data = await std_repo.checkin(room_id,u_id);
-        console.log(data);
+        console.log(data)
         res.send({
-            "success" : data? true : false
+            "success" : data.affectedRows>0
         });
     }
     catch(ex){
@@ -37,6 +37,24 @@ exports.checkout = async(req,res)=>{
         });
     }
 }
+
+
+exports.f_checkout = async(req,res)=>{
+    let room_id = req.body.room_id;
+    let student_id = req.body.student_id;
+    try {
+        let data = await std_repo.f_checkout(student_id,room_id)
+        res.send({
+            "success" : data?true:false
+        })
+    }
+    catch(ex){
+        res.send({
+            "success":false
+        })
+    }
+}
+
 
 
 exports.getAllTrans = async(req,res)=>{
@@ -175,7 +193,15 @@ exports.get_history = async(req,res)=>{
         console.log(ex)
     }
 
+}
 
-    
-    
+exports.count_room = async(req,res)=>{
+    let room_id = req.query.room_id;
+    try{
+        let data = await std_repo.count_room(room_id);
+        res.send(data[0])
+    }
+    catch(ex){
+        console.log(ex)
+    }
 }

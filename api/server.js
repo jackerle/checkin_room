@@ -25,7 +25,11 @@ app.use(cors({origin: [
     'http://localhost',
     'https://crossknight.com',
     'https://line.crossknight.com',
-    'https://dashboard.crossknight.com'
+    'https://dashboard.crossknight.com',
+    'https://dashboard.jackerle.bike',
+    'https://qrcheck.jackerle.bike',
+    'https://checkin.sc.su.ac.th',
+    'https://qrcheck.sc.su.ac.th'
 ],credentials:true}));
 app.use(bodyParser.json());
 app.use('/api',authenRoute)
@@ -53,7 +57,9 @@ app.post('/getSchedule',class_controller.getSchedule);
 app.get('/getroom_in',checkin_controller.getroom_in);
 app.post('/getReg',class_controller.getReg);
 app.post('/add_class',class_controller.add_class)
+app.post('/f_checkout',checkin_controller.f_checkout);
 app.post('/getClass_room',class_controller.getClass_room);
+authenRoute.get('/count_room',checkin_controller.count_room);
 authenRoute.post('/checkin',checkin_controller.checkin);
 authenRoute.post('/checkout',checkin_controller.checkout);
 authenRoute.post('/regis_std',std_controller.regis_std);
@@ -62,10 +68,21 @@ authenRoute.post('/getInfo',checkin_controller.getInfo);
 authenRoute.post('/hasAccount',std_controller.hasAccount);
 
 
-https.createServer({
-    key : fs.readFileSync(env.SSL_KEY),
-    cert : fs.readFileSync(env.SSL_FULLCHAIN)
-},app)
-.listen(env.PORT,()=>{
-    console.log('opened on '+env.PORT)
-})
+
+
+
+if(env.DEV){
+    https.createServer({
+        key : fs.readFileSync(env.SSL_KEY),
+        cert : fs.readFileSync(env.SSL_FULLCHAIN)
+    },app)
+    .listen(env.PORT,()=>{
+        console.log('opened on devs '+env.PORT)
+    })
+}else{
+    app.listen(env.PORT,()=>{console.log('openned on production port:'+env.PORT)})
+}
+
+
+
+
