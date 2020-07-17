@@ -10,9 +10,9 @@ import { useHistory } from "react-router";
 function Student_show_list(prop) {
 
 
-    const { student_in, current_class ,room_select} = prop
+    const { student_in, current_class, room_select } = prop
     const [student_reg, setStudent] = useState([])
-
+    const [kick_id,set_kick_form] = useState('')
 
     useEffect(() => {
         if (current_class.class_id != undefined) {
@@ -34,22 +34,25 @@ function Student_show_list(prop) {
 
 
 
-    const kick_button = async function(event){
+    const kick_button = async function (event) {
         console.log(event.target.value)
         Axios({
             method: 'post',
             url: env.API + '/f_checkout',
             data: {
-                student_id:event.target.value,
-                room_id : room_select
+                student_id: event.target.value,
+                room_id: room_select
             },
         }).then(res => {
             console.log('force success')
-            
+
         }).catch(err => {
             console.log(err)
         })
     }
+
+
+   
 
 
 
@@ -68,32 +71,12 @@ function Student_show_list(prop) {
                     {isReg ? <button disabled={true} title="ลงทะเบียน" type="button" class="btn btn-success"></button> : <button disabled={true} type="button" title="ยังไม่ลงทะเบียน" class="btn btn-secondary"></button>}
                 </td>
                 <td class="col-1">
-                    <a role="button" href="#" data-toggle="modal" data-target={"#std-modal-" + student_id}>
+                    <a role="button"  href="#" data-toggle="modal" data-target={"#std-modal"} onClick={()=>{set_kick_form(student_id)}}>
                         Kick
                         </a>
                 </td>
-                <div class="modal fade" id={"std-modal-"+student_id} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div style={{backgroundColor:"red"}}class="modal-header">
-                                <h5 class="modal-title text-white" id="exampleModalLabel">ยืนยันการบังคับลงชื่อออก</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <h5>
-                                    ต้องการที่จะบังคับ {student_name} ลงชื่อออกใช่หรือไม่?
-                                </h5>
-      </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                                <button type="button"  class="btn btn-danger" value={student_id} onClick={kick_button} data-dismiss = "modal">ยืนยัน</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </tr>
+
         )
     })
 
@@ -116,6 +99,27 @@ function Student_show_list(prop) {
                     {_create_student_list}
                 </tbody>
             </table>
+            <div class="modal fade" id={"std-modal"} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div style={{ backgroundColor: "red" }} class="modal-header">
+                            <h5 class="modal-title text-white" id="exampleModalLabel">ยืนยันการบังคับลงชื่อออก</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h5>
+                                ต้องการที่จะบังคับ {kick_id} ลงชื่อออกใช่หรือไม่?
+                        </h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                            <button type="button" class="btn btn-danger" value={kick_id} onClick={kick_button} data-dismiss="modal">ยืนยัน</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     )
