@@ -17,7 +17,7 @@ function Home(prop) {
             }}>
                 <h2>ยินดีต้อนรับเข้าสู่ระบบบันทึกการใช้งานห้องเรียน</h2>
                 <h4>ท่านยังไม่ได้เข้าสู่ระบบกรุณาเข้าสู่ระบบก่อน</h4>
-                <Link to="/register">Register Here</Link>
+                {/* <Link to="/register">Register Here</Link> */}
             </div>
         )
 

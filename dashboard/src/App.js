@@ -100,9 +100,10 @@ function App() {
 					<Home isToken={isToken} />
 				</Route>
 
-				<Route exact path="/register">
+				{/* <Route exact path="/register">
 					<Register />
-				</Route>
+				</Route> */}
+
 				{checkLogin()}
 			</Switch>
 		</div>
