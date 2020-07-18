@@ -192,6 +192,24 @@ function Student_all_collapse({ room_list, student_list, class_select, time_now 
 
     return (
         <div>
+            <div class="row">
+                <div class="col-4">
+
+                </div>
+            <div class="col-2">
+                    <button class="btn btn-success" disabled={true}>
+                    </button>
+                    <small> : ลงทะเบียนในวิชานี้</small>
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-secondary" disabled={true}>
+                    </button>
+                    <small> : ไม่ได้ลงทะเบียนในวิชานี้</small>
+                </div>
+                <div class="col-3">
+
+                </div>
+            </div><br/>
             <div class="row p-3 shadow rounded " data-toggle="collapse" role="button" style={{ backgroundColor: "#ededeb" }} onClick={handle_student_list} data-target="#student_all">
                 <div class="col-10">
                     <h5 class="p-2 text-secondary">- รายชื่อนักเรียน</h5>

@@ -117,8 +117,19 @@ function Table() {
             <Class_show_list room_select={room_select} current_class={current_class} set_current_class={set_current_class}  time_now={time_now}/>
             <br/>
             <div class="row">
-                <div class="col-10">
-
+                <div class="col-4">
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-success" disabled={true}>
+                    </button>
+                    <small> : ลงทะเบียนในวิชานี้</small>
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-secondary" disabled={true}>
+                    </button>
+                    <small> : ไม่ได้ลงทะเบียนในวิชานี้</small>
+                </div>
+                <div class="col-2">
                 </div>
                 <div class="col-2">
                     <b title="จำนวนคนใช้ห้องตอนนี้">{room_select_data[0]? student_in.length +"/"+room_select_data[0].capacity : "-"}</b>

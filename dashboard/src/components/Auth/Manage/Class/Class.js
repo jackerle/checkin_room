@@ -47,7 +47,7 @@ function Class() {
                 <tr class="d-flex">
                     <th scope="row" class="col-3">{class_id}</th>
                     <td class="col-1">{class_sect}</td>
-                    <td class="col-6">
+                    <td style ={{textAlign:"left"}}class="col-6">
                     <a href={to_}>{class_name}</a>
                     </td>
                     <td class="col-2"></td>

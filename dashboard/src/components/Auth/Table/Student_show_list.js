@@ -71,7 +71,7 @@ function Student_show_list(prop) {
                     {isReg ? <button disabled={true} title="ลงทะเบียน" type="button" class="btn btn-success"></button> : <button disabled={true} type="button" title="ยังไม่ลงทะเบียน" class="btn btn-secondary"></button>}
                 </td>
                 <td class="col-1">
-                    <a role="button"  href="#" data-toggle="modal" data-target={"#std-modal"} onClick={()=>{set_kick_form(student_id)}}>
+                    <a role="button"  href="#" data-toggle="modal" data-target={"#std-modal"+room_select} onClick={()=>{set_kick_form(student_id)}}>
                         Kick
                         </a>
                 </td>
@@ -99,7 +99,7 @@ function Student_show_list(prop) {
                     {_create_student_list}
                 </tbody>
             </table>
-            <div class="modal fade" id={"std-modal"} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id={"std-modal"+room_select} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div style={{ backgroundColor: "red" }} class="modal-header">
