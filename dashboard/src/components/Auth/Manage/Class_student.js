@@ -92,7 +92,7 @@ function Class_student() {
                 } = ele
                 return(
                     <p>
-                        รหัสนักศึกษา : {student_id}
+                        #{i+1} รหัสนักศึกษา : {student_id}
                     </p>
                 )
             })}
