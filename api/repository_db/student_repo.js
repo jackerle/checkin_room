@@ -382,3 +382,10 @@ exports.count_room = function(room_id){
     return to_query(sql)
 }
 
+
+exports.get_regis_student = function(class_id,class_sect){
+    let sql = `select * from reg_class 
+    where class_id = '${class_id}'
+    and class_sect = '${class_sect}';`
+    return to_query(sql);
+}
