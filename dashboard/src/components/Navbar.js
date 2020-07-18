@@ -37,8 +37,13 @@ function Login(prop) {
       },
       withCredentials: true
     }).then((res) => {
-      console.log(res.data)
-      setToken(res.data.token)
+      if(res.data.success){
+        console.log(res.data)
+        setToken(res.data.token)
+      }
+      else{
+        alert("Login ไม่สำเร็จ กรุณาใส่ Usename หรือ Password ให้ถูกต้อง หรือติดต่อเจ้าหน้าที่")
+      }     
     }).then(
       event.preventDefault()
     )
