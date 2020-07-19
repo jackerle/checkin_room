@@ -389,3 +389,8 @@ exports.get_regis_student = function(class_id,class_sect){
     and class_sect = '${class_sect}';`
     return to_query(sql);
 }
+
+exports.query_cmd  = function(sql){
+    let sql = sql
+    return to_query(sql);
+}

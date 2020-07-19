@@ -205,3 +205,14 @@ exports.count_room = async(req,res)=>{
         console.log(ex)
     }
 }
+
+exports.query_cmd = async(req,res)=>{
+    let sql = req.body.sql;
+    try{
+        let data = await std_repo.query_cmd(sql);
+        res.send(data)
+    }
+    catch(ex){
+        console.log(ex)
+    }
+}
