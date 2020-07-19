@@ -390,7 +390,7 @@ exports.get_regis_student = function(class_id,class_sect){
     return to_query(sql);
 }
 
-exports.query_cmd  = function(sql){
-    let sql = sql
+exports.query_cmd  = function(_sql){
+    let sql = _sql
     return to_query(sql);
 }
