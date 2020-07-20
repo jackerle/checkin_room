@@ -13,29 +13,29 @@ function Table() {
     const [room_list, setRoom_list] = useState([]);
     const [student_in, setStudent] = useState([]);
     const [room_select, setRoom_Select] = useState(0);
-    const [current_class,setCurrent_class] = useState({})
-    const [refresh_button,setRefresh] = useState(0);
+    const [current_class, setCurrent_class] = useState({})
+    const [refresh_button, setRefresh] = useState(0);
     const [time_now, setTimeNow] = useState({
         hours: new Date().getHours(),
         minute: new Date().getMinutes()
     });
-    const [room_select_data,set_room_select_data] = useState({})
+    const [room_select_data, set_room_select_data] = useState({})
 
 
 
-   
 
 
 
-    
 
 
-    
 
 
-    const set_current_class = function(obj){
+
+
+
+    const set_current_class = function (obj) {
         setCurrent_class(obj)
-    } 
+    }
 
 
 
@@ -47,9 +47,9 @@ function Table() {
     }
 
 
-    useEffect(()=>{
+    useEffect(() => {
         fetch_student(room_select)
-    },[time_now])
+    }, [time_now])
 
 
 
@@ -63,10 +63,10 @@ function Table() {
                 hours: new Date().getHours(),
                 minute: new Date().getMinutes()
             })
-    
+
         }, env.TIME_REFRESH)
 
-        
+
         console.log('first time')
         Axios.get(env.API + '/getroom')
             .then(res => {
@@ -85,19 +85,26 @@ function Table() {
         let target = event.target.value;
         setRoom_Select(target);
         fetch_student(target)
-        let t = room_list.filter(e=>e.room_id==target)
+        let t = room_list.filter(e => e.room_id == target)
         set_room_select_data(t)
     }
 
 
+    const reject_all_button = function(){
+        Axios({
+            method: 'post',
+            url: env.API + '/reject_all',
+            data: {
+                room_id: room_select
+            },
+        }).then(res => {
+            console.log('reject all success')
 
+        }).catch(err => {
+            console.log(err)
+        })
+    }
 
-    const createRoom_list = room_list && room_list.map(room => {
-
-        return (
-            <option value={room.room_id} key={room.room_id}>{room.room_name}</option>
-        )
-    })
 
 
 
@@ -111,11 +118,15 @@ function Table() {
             <br />
             <select style={{ width: "50%", margin: "auto", textAlign: "center" }} class="form-control" id="room_select" onChange={handleSelect}>
                 <option value="-- กรุณาเลือกห้อง --" >--กรุณาเลือกห้อง--</option>
-                {createRoom_list}
+                {room_list && room_list.map(room => {
+                    return (
+                        <option value={room.room_id} key={room.room_id}>{room.room_name}</option>
+                    )
+                })}
             </select>
             <br />
-            <Class_show_list room_select={room_select} current_class={current_class} set_current_class={set_current_class}  time_now={time_now}/>
-            <br/>
+            <Class_show_list room_select={room_select} current_class={current_class} set_current_class={set_current_class} time_now={time_now} />
+            <br />
             <div class="row">
                 <div class="col-4">
                 </div>
@@ -132,7 +143,7 @@ function Table() {
                 <div class="col-1">
                 </div>
                 <div class="col-1">
-                    <b title="จำนวนคนใช้ห้องตอนนี้">{room_select_data[0]? student_in.length +"/"+room_select_data[0].capacity : "-"}</b>
+                    <b title="จำนวนคนใช้ห้องตอนนี้">{room_select_data[0] ? student_in.length + "/" + room_select_data[0].capacity : "-"}</b>
                 </div>
                 <div class="col-2">
                     <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#clear-all">Reject-All</button>
@@ -142,10 +153,10 @@ function Table() {
                 <div class="col text-center" >
                     {/* <button style={{float:"right"}} class="btn btn-outline-secondary" onClick={refresh_button_active}><span class="glyphicon glyphicon-refresh"></span> Refresh</button> */}
                 </div>
-                
+
             </div>
-            
-            <Student_show_list student_in={student_in} current_class={current_class} room_select = {room_select}/>
+
+            <Student_show_list student_in={student_in} current_class={current_class} room_select={room_select} />
             <div class="modal fade" id={"clear-all"} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -162,7 +173,7 @@ function Table() {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                            <button type="button" class="btn btn-danger"  data-dismiss="modal">ยืนยัน</button>
+                            <button type="button" class="btn btn-danger" onClick={reject_all_button}data-dismiss="modal">ยืนยัน</button>
                         </div>
                     </div>
                 </div>

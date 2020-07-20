@@ -394,7 +394,7 @@ exports.get_regis_student = function(class_id,class_sect){
 
 exports.reject_all = function(room_id){
     let sql = `update transaction
-    set timestamp_checkout = CURRENT_TIMESTAMP,status = 0,role = 0
+    set timestamp_checkout = CURRENT_TIMESTAMP,status = 0,role = 1
     where room_id = ${room_id} and status = 1;`
     return to_query(sql)
 }
