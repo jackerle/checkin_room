@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Axios from "axios";
 import env from './../../../../../env.json';
+import { change_day_format } from "./../../../Helper"; 
+
 
 function Class_student() {
 
@@ -61,6 +63,8 @@ function Class_student() {
 
 
 
+    
+
 
 
     return (
@@ -71,7 +75,7 @@ function Class_student() {
                     class_id, class_name, class_day, class_start_time, class_end_time, room_name
                 } = element
                 return (
-                    <p>{class_id} ชื่อ {class_name} วัน { class_day} เวลาเริ่ม {class_start_time} เวลาจบ {class_end_time} ห้อง {room_name}</p>
+                    <p>{class_id} ชื่อ {class_name} วัน { change_day_format(class_day)} เวลาเริ่ม {class_start_time}น. เวลาจบ {class_end_time}น.  ห้อง {room_name}</p>
                 )
             })}
             <h2>นักศึกษาที่ลงทะเบียนระบบเช็คชื่อแล้ว</h2>

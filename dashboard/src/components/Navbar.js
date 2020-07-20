@@ -65,8 +65,6 @@ function Login(prop) {
             {jwt.decode(token).name ? jwt.decode(token).name : ""}
           </a>
           <div class="dropdown-menu " aria-labelledby="navbarDropdown">
-            <a class="dropdown-item " href="#">แก้ไขข้อมูล</a>
-            <div class="dropdown-divider"></div>
             <button class="dropdown-item  text-danger" type="submit" >ออกจากระบบ</button>
           </div>
         </li>
