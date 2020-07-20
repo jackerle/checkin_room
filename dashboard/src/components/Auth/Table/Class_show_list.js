@@ -53,31 +53,37 @@ function Class_show_list({
 
 
     const handle_current_class = function () {
-        class_list && class_list.map(obj => {
-            const {
-                class_id, class_sect, class_start_time, class_end_time, class_name, room_id, room_name, capacity
-            } = obj
-            const [h_start, m_start,s_start] = class_start_time.split(':');
-            const [h_end, m_end,s_end] = class_end_time.split(':');
-
-            if ((parseInt(h_start) * 60) + parseInt(m_start) <= ((time_now.hours * 60) + time_now.minute) &&
-                (parseInt(h_end )* 60) + parseInt(m_end) >= ((time_now.hours * 60) + time_now.minute) &&
-                room_select == room_id) {
-                console.log('in hereee')
-                set_current_class({
-                    class_id: class_id,
-                    class_sect: class_sect,
-                    class_name: class_name,
-                    capacity:capacity
-                })
-            }
-            else {
-                console.log('in here')
-                set_current_class({})
-            }
-        })
+        /*class_list && class_list.map(obj => {
+            
+        })*/
         if (class_list.length < 1) {
             set_current_class({})
+        }
+        else{
+            for(const obj of class_list){
+                const {
+                    class_id, class_sect, class_start_time, class_end_time, class_name, room_id, room_name, capacity
+                } = obj
+                const [h_start, m_start,s_start] = class_start_time.split(':');
+                const [h_end, m_end,s_end] = class_end_time.split(':');
+    
+                if ((parseInt(h_start) * 60) + parseInt(m_start) <= ((time_now.hours * 60) + time_now.minute) &&
+                    (parseInt(h_end )* 60) + parseInt(m_end) >= ((time_now.hours * 60) + time_now.minute) &&
+                    room_select == room_id) {
+                    console.log('in hereee')
+                    set_current_class({
+                        class_id: class_id,
+                        class_sect: class_sect,
+                        class_name: class_name,
+                        capacity:capacity
+                    })
+                    break;
+                }
+                else {
+                    console.log('in here')
+                    set_current_class({})
+                }
+            }
         }
     }
 
