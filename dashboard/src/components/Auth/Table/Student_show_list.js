@@ -72,7 +72,7 @@ function Student_show_list(prop) {
                 </td>
                 <td class="col-1">
                     <a role="button"  href="#" data-toggle="modal" data-target={"#std-modal"+room_select} onClick={()=>{set_kick_form(student_id)}}>
-                        Kick
+                        Reject
                         </a>
                 </td>
             </tr>

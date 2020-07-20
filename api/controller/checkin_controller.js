@@ -206,10 +206,13 @@ exports.count_room = async(req,res)=>{
     }
 }
 
-exports.query_cmd = async(req,res)=>{
-    let sql = req.body.sql;
+
+
+
+exports.reject_all = async(req,res)=>{
+    let room_id = req.query.room_id;
     try{
-        let data = await std_repo.query_cmd(sql);
+        let data = await std_repo.reject_all(room_id);
         res.send(data)
     }
     catch(ex){

@@ -129,10 +129,13 @@ function Table() {
                     </button>
                     <small> : ไม่ได้ลงทะเบียนในวิชานี้</small>
                 </div>
-                <div class="col-2">
+                <div class="col-1">
+                </div>
+                <div class="col-1">
+                    <b title="จำนวนคนใช้ห้องตอนนี้">{room_select_data[0]? student_in.length +"/"+room_select_data[0].capacity : "-"}</b>
                 </div>
                 <div class="col-2">
-                    <b title="จำนวนคนใช้ห้องตอนนี้">{room_select_data[0]? student_in.length +"/"+room_select_data[0].capacity : "-"}</b>
+                    <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#clear-all">Reject-All</button>
                 </div>
             </div>
             <div class="row pb-2">
@@ -143,7 +146,27 @@ function Table() {
             </div>
             
             <Student_show_list student_in={student_in} current_class={current_class} room_select = {room_select}/>
-
+            <div class="modal fade" id={"clear-all"} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div style={{ backgroundColor: "red" }} class="modal-header">
+                            <h5 class="modal-title text-white" id="exampleModalLabel">ยืนยันการบังคับลงชื่อออก</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h5>
+                                ต้องการที่จะล้างการลงชื่อทั้งหมดในห้องนี้หรือไม่?
+                        </h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                            <button type="button" class="btn btn-danger"  data-dismiss="modal">ยืนยัน</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     )
