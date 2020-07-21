@@ -20,7 +20,7 @@ export function change_day_format (day){
 }
 
 
-export async function send_discord (message){
+exports. send_discord = async function (message){
     let payload = {
         'content':message
     }
