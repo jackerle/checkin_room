@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Axios from "axios";
 import env from './../../../../../env.json';
-import { change_day_format } from "./../../../Helper"; 
+import { change_day_format } from "./../../../../../Helper"; 
 
 
 function Class_student() {

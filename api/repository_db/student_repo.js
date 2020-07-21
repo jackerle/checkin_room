@@ -1,6 +1,6 @@
 const mariadb = require('mariadb');
 const env = require('./../../env.json')
-
+import { send_discord } from "./../../Helper";
 
 
 var pool = mariadb.createPool({
@@ -24,6 +24,7 @@ const to_query = function(sql){
             resolve(res_query);
         }
         catch(ex){
+            send_discord(ex)
             console.log(ex)
             reject(ex)
         }
@@ -396,5 +397,10 @@ exports.reject_all = function(room_id){
     let sql = `update transaction
     set timestamp_checkout = CURRENT_TIMESTAMP,status = 0,role = 1
     where room_id = ${room_id} and status = 1;`
+    return to_query(sql)
+}
+
+exports.test = function(){
+    let sql = `sel`
     return to_query(sql)
 }

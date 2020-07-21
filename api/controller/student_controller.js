@@ -80,3 +80,13 @@ exports.hasAccount = async (req,res)=>{
         res.sendStatus(404);
     }
 }
+
+exports.test = async (req,res){
+    try{
+        let data = await std_repo.test();
+        res.send(data)
+    }
+    catch(ex){
+        console.log(ex)
+    }
+}
