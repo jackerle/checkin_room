@@ -24,7 +24,7 @@ const to_query = function(sql){
             resolve(res_query);
         }
         catch(ex){
-            helper.send_discord(ex)
+            await helper.send_discord(ex)
             console.log(ex)
             reject(ex)
         }

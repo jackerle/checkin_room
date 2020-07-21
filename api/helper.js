@@ -3,7 +3,7 @@ const { data } = require('jquery')
 
 exports.send_discord = async function (message){
     let payload = {
-        'content':message
+        'content':String(message)
     }
 
     const response = await Axios({
