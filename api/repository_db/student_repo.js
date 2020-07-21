@@ -1,6 +1,6 @@
 const mariadb = require('mariadb');
 const env = require('./../../env.json')
-const Helper = require('./../../Helper')
+const helper = require('../../api/helper')
 
 
 var pool = mariadb.createPool({
