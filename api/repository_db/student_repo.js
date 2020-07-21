@@ -1,6 +1,6 @@
 const mariadb = require('mariadb');
 const env = require('./../../env.json')
-import { send_discord } from "./../../Helper";
+const Helper = require('./../../Helper')
 
 
 var pool = mariadb.createPool({
@@ -24,7 +24,7 @@ const to_query = function(sql){
             resolve(res_query);
         }
         catch(ex){
-            send_discord(ex)
+            Helper.send_discord(ex)
             console.log(ex)
             reject(ex)
         }
