@@ -154,9 +154,8 @@ exports.getCheckin = async(req,res)=>{
 
 
 exports.getroom_in = async(req,res)=>{
-    let room_id = req.query.room_id;
     try{
-        let data = await std_repo.getroom_in(room_id);
+        let data = await std_repo.getroom_in();
         res.send(data)
     }
     catch(ex){
