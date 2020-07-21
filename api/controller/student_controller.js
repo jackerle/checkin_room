@@ -81,7 +81,7 @@ exports.hasAccount = async (req,res)=>{
     }
 }
 
-exports.test = async (req,res){
+exports.test = async (req,res)=>{
     try{
         let data = await std_repo.test();
         res.send(data)
