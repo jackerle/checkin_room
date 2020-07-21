@@ -399,8 +399,3 @@ exports.reject_all = function(room_id){
     where room_id = ${room_id} and status = 1;`
     return to_query(sql)
 }
-
-exports.test = function(){
-    let sql = `sel`
-    return to_query(sql)
-}
