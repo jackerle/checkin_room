@@ -10,7 +10,8 @@ var pool = mariadb.createPool({
     database : env.DATABASE,
     connectionLimit : 20,
     connectTimeout:15000,
-    idleTimeout:1
+    idleTimeout:1,
+    timezone:"UTC"
 
 });
 
