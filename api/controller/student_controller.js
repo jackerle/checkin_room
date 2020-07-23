@@ -16,7 +16,6 @@ exports.regis_std = async (req,res)=>{
     let student_name = req.body.student_name;
     try {
         let data = await std_repo.register_std(u_id,student_id,student_name);
-        console.log(data)
         res.send({
             "success" : true,
         })
@@ -33,7 +32,6 @@ exports.removestd = async (req,res)=>{
     let student_id = req.body.student_id;
     try {
         let data = await std_repo.removeStd(student_id);
-        console.log(data)
         res.sendStatus(200)
     }
     catch(ex){
@@ -47,7 +45,6 @@ exports.regis_room = async (req,res)=>{
     let capacity = req.body.capacity;
     try {
         let data = await std_repo.register_room(room_name,capacity);
-        console.log(data)
         res.sendStatus(200)
     }
     catch(ex){
@@ -59,7 +56,6 @@ exports.regis_room = async (req,res)=>{
 exports.getroom = async (req,res)=>{
     try{
         let data = await std_repo.getAllRoom();
-        console.log(data)
         res.send(data);
     }
     catch(ex){
