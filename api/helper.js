@@ -13,7 +13,6 @@ exports.send_discord = async function (message){
             payload_json : JSON.stringify(payload)
         }
     })
-    console.log(response)
     
 
 }
