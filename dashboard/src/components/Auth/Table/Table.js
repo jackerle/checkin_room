@@ -82,15 +82,17 @@ function Table() {
 
 
     const handleSelect = function (event) {
-        let target = event.target.value;
-        setRoom_Select(target);
-        fetch_student(target)
-        let t = room_list.filter(e => e.room_id == target)
-        set_room_select_data(t)
+            let target = event.target.value;
+            setRoom_Select(target);
+            fetch_student(target)
+            let t = room_list.filter(e => e.room_id == target)
+            set_room_select_data(t)
+        
+
     }
 
 
-    const reject_all_button = function(){
+    const reject_all_button = function () {
         Axios({
             method: 'post',
             url: env.API + '/reject_all',
@@ -117,7 +119,7 @@ function Table() {
             <h2 style={{ textAlign: "center" }}>บันทึกการใช้งานห้องเรียน</h2>
             <br />
             <select style={{ width: "50%", margin: "auto", textAlign: "center" }} class="form-control" id="room_select" onChange={handleSelect}>
-                <option value="-- กรุณาเลือกห้อง --" >--กรุณาเลือกห้อง--</option>
+                <option value={0} >--กรุณาเลือกห้อง--</option>
                 {room_list && room_list.map(room => {
                     return (
                         <option value={room.room_id} key={room.room_id}>{room.room_name}</option>
@@ -173,7 +175,7 @@ function Table() {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                            <button type="button" class="btn btn-danger" onClick={reject_all_button}data-dismiss="modal">ยืนยัน</button>
+                            <button type="button" class="btn btn-danger" onClick={reject_all_button} data-dismiss="modal">ยืนยัน</button>
                         </div>
                     </div>
                 </div>

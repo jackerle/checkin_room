@@ -35,7 +35,6 @@ function Table_class() {
     useEffect(() => {
 
         setInterval(() => {
-            console.log('interval!')
             setTimeNow({
                 hours: new Date().getHours(),
                 minute: new Date().getMinutes()
@@ -60,7 +59,6 @@ function Table_class() {
 
     useEffect(() => {
         if (class_select != null) {
-            console.log(class_select)
             Axios({
                 method: 'post',
                 url: env.API + '/get_room_from_class',
@@ -70,7 +68,6 @@ function Table_class() {
                 },
             }).then(res => {
                 setRoom_list(res.data)
-                console.log(res.data)
             }).catch(err => {
                 console.log(err)
             })
@@ -82,7 +79,6 @@ function Table_class() {
                     class_sect: class_select.class_sect
                 },
             }).then(res => {
-                console.log(res.data)
                 setStudent(res.data)
             }).catch(err => {
                 console.log(err)
@@ -156,7 +152,6 @@ function Student_all_collapse({ room_list, student_list, class_select, time_now 
         }
         fetchData()
 
-        console.log(document.getElementById('inclass'))
     }, [room_list, time_now])
 
 

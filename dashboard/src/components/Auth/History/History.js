@@ -79,7 +79,6 @@ function History() {
 
     const onClick_button = () => {
         fetch_history()
-        console.log(input_start_time)
     }
 
 

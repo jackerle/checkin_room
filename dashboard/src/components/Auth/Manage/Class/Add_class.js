@@ -85,7 +85,6 @@ function ADD_CLASS() {
         let dummy = { ...schedule_list }
         dummy.room_id = target
         setSchedule(dummy)
-        console.log("target"+target);
     }
 
 
@@ -126,8 +125,6 @@ function ADD_CLASS() {
         let dummy = { ...form_input }
         dummy.schedule.push(schedule_list)
         set_Form_input(dummy)
-        console.log(form_input)
-        console.log(schedule_list)
     }
 
     const schedule_list_element = form_input.schedule && form_input.schedule.map(ele => {

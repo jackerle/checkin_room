@@ -8,7 +8,6 @@ exports.checkin = async(req,res)=>{
     let u_id = req.body.u_id;
     try{
         let data = await std_repo.checkin(room_id,u_id);
-        console.log(data)
         res.send({
             "success" : data.affectedRows>0
         });
@@ -24,8 +23,7 @@ exports.checkout = async(req,res)=>{
     let u_id = req.body.u_id;
     try{
         let data = await std_repo.checkout(u_id,room_id);
-        console.log('checkout success')
-        console.log(data);
+
         res.send({
             "success" : data? true : false
         })
@@ -74,7 +72,6 @@ exports.getInfo = async(req,res)=>{
         try {
             let data = await std_repo.getInfo(u_id,room_id);
             let obj = data[0]
-            console.log(obj)
             if(obj!=undefined&&obj.msg == 'has account and checkin'){
                 res.send({
                     "success" : true,

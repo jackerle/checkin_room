@@ -32,7 +32,6 @@ function Class_show_list({
             },
         }).then(res => {
             setClass_list(res.data)
-            console.log('select room')
         })
             .catch(err => {
                 console.log(err)
@@ -46,7 +45,7 @@ function Class_show_list({
 
     useEffect(() => {
         handle_current_class()
-        console.log('handle class_list')
+
     }, [class_list,time_now])
 
 
