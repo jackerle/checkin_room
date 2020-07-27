@@ -420,3 +420,9 @@ exports.add_reg_student = function(msg){
     let sql = `insert into reg_class values`+msg+';'
     return to_query(sql);
 }
+
+
+exports.rename_student = function(u_id,student_name){
+    let sql = `update student_table set student_name = '${student_name}' where u_id = '${u_id}';`
+    return to_query(sql);
+}

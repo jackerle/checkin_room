@@ -77,3 +77,16 @@ exports.hasAccount = async (req,res)=>{
     }
 }
 
+exports.rename_student = async (req,res)=>{
+    let u_id = req.body.u_id;
+    let student_name = req.body.student_name;
+    try{
+        let data = await std_repo.rename_student(u_id,student_name);
+        res.send({
+            "success":true
+        })
+    }
+    catch(ex){
+        console.log(ex);
+    }
+}
