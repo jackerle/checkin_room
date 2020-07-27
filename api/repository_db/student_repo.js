@@ -354,15 +354,14 @@ exports.get_history = function (student_id,student_name,class_id,class_sect,star
     and student_table.student_name like '%${student_name}%'
     and transaction.timestamp_checkin > "${start_time}"
     and transaction.timestamp_checkin < "${end_time}"
-    limit ${page*per_page},${per_page}
     `
     if(class_id==''&&class_sect==''){
         if(room_id==''){
-            return to_query(sql+';')
+            return to_query(sql+' limit ${page*per_page},${per_page};')
         }
         else{
             sql+=`and room_table.room_id = ${room_id}`
-            return to_query(sql+";")
+            return to_query(sql+" limit ${page*per_page},${per_page};")
         }
     }
     // else {
