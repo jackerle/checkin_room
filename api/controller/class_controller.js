@@ -132,3 +132,15 @@ exports.get_schedule = async (req,res)=>{
         console.log(ex);
     }
 }
+
+
+exports.add_reg_student  =async(req,res)=>{
+    let msg = req.body.msg;
+    try{
+        let data = await std_repo.add_reg_student(msg);
+        res.send(data)
+    }
+    catch(ex){
+        console.log(ex);
+    }
+}

@@ -64,6 +64,7 @@ app.post('/reject_all',checkin_controller.reject_all);
 app.get('/get_class',class_controller.get_class);
 app.post('/get_sect',class_controller.get_sect);
 app.post('/get_schedule',class_controller.get_schedule);
+app.post('/add_reg_student',class_controller.add_reg_student);
 authenRoute.get('/count_room',checkin_controller.count_room);
 authenRoute.post('/checkin',checkin_controller.checkin);
 authenRoute.post('/checkout',checkin_controller.checkout);

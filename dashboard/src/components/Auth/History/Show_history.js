@@ -8,7 +8,7 @@ function Show_history({ history_list }) {
 
 return (
         <div style={{ margin: "auto", textAlign: "center" }} class="table-responsive">
-            <table class="table">
+            <table class="table table-striped">
                 <thead>
                     <tr class="d-flex">
                         <th class="col-2" scope="col">ห้อง</th>

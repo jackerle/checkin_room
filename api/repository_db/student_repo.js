@@ -414,3 +414,8 @@ exports.get_schedule = function(class_id){
     let sql = `select * from class_schedule where class_id = '${class_id}';`
     return to_query(sql);
 }
+
+exports.add_reg_student = function(msg){
+    let sql = `insert into reg_class values`+msg+';'
+    return to_query(sql);
+}

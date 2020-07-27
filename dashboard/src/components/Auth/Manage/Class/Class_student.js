@@ -53,6 +53,40 @@ function Class_student() {
 
 
 
+    const add_button_handle = async (list_std,class_sect) => {
+        if(class_student.class_id&&list_std){
+            let obj = ''
+            let id = list_std.split(/\n| |\r\n/)
+            id.map((e,i)=>{
+                id[i] = `('${class_student.class_id}','${class_sect}' , '${e}')`;
+            })
+            obj = id.toString()
+            if(obj){
+                await Axios({
+                    method:'post',
+                    url:env.API + '/add_reg_student',
+                    data:{
+                        msg:obj
+                    }
+                }).then((res)=>{
+                    alert('เพิ่มรายชื่อสำเร็จแล้ว')
+                })
+                .catch((ex)=>{
+                    alert('เพิ่มรายชื่อไม่สำเร็จ')
+                    console.log(ex);
+                })
+            }
+        }
+        else{
+            alert('เกิดข้อผิดพลาด กรุณาใส่รหัสนักศึกษา')
+        }
+        
+    }
+
+
+
+
+
 
 
 
@@ -63,7 +97,13 @@ function Class_student() {
             <h2 style={{ textAlign: "center" }}>จัดการรายวิชาเรียน</h2>
             <h4 style={{ textAlign: "center" }}>ชื่อวิชา : {class_name_header}</h4>
             {
-                list_sect && list_schedule && list_sect.map((element ,i)=> {
+                list_sect && list_schedule && list_sect.map((element, i) => {
+
+                    let msg = ''
+                    const handle_change = (event) => {
+                        msg = event.target.value
+                    }
+
                     const {
                         class_id, class_sect, class_name
                     } = element
@@ -80,9 +120,9 @@ function Class_student() {
                             <div class="row">
                                 <div class="col">
                                     <div class="collapse multi-collapse" id={data_target}>
-                                        <div class="card card-body">
-                                            <p>ตารางเวลาของวิชา : </p>
-                                            <div style={{ margin: "auto", width: "80%", textAlign: "center" }} class="table-responsive">
+                                        <div style={{ textAlign: "center", margin: "auto" }} class="card card-body">
+                                            <p>ตารางเวลา </p>
+                                            <div style={{ margin: "auto" }} class="table-responsive">
                                                 <table class="table">
                                                     <thead>
                                                         <tr class="d-flex">
@@ -99,7 +139,7 @@ function Class_student() {
                                                                 class_day, class_start_time, class_end_time, room_id
                                                             } = e
                                                             return (
-                                                                <tr style={{backgroundColor:"#f5f5f5"}}class="d-flex">
+                                                                <tr style={{ backgroundColor: "#f5f5f5" }} class="d-flex">
                                                                     <th scope="row" class="col-1">{class_sect}</th>
                                                                     <td class="col-2">{change_day_format(class_day)}</td>
                                                                     <td class="col-3">{class_start_time}</td>
@@ -110,14 +150,45 @@ function Class_student() {
                                                         })}
                                                     </tbody>
                                                 </table>
-
                                             </div>
-                                            {console.log(schedule)}
-
+                                            <div class="row">
+                                                <div class="col-9"></div>
+                                                <div class="col-1">
+                                                    <button type="button" class="btn btn-primary">รายชื่อ</button>
+                                                </div>
+                                                <div class="col-1">
+                                                    <button data-toggle="modal" data-target={"#add_std_" + i} type="button" class="btn btn-success">เพิ่ม</button>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade" id={"add_std_" + i} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div style={{ backgroundColor: "green" }} class="modal-header">
+                                                            <h5 class="modal-title text-white" id="exampleModalLabel">เพิ่มรายชื่อนักศึกษาในรายวิชา</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <h5>
+                                                                ใส่รหัสนักศึกษาที่ต้องการจะเพิ่มในรายวิชาดังกล่าว
+                                                            </h5>
+                                                            <div class="form-group">
+                                                                <textarea class="form-control" id={"add_std_modal_" + i} rows="3" onChange={handle_change}></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-success" data-dismiss="modal" onClick={async ()=>{ await add_button_handle(msg,class_sect)}}>เพิ่ม</button>
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
 
                     )
