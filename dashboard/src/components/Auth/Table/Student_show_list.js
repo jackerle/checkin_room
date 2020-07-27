@@ -35,7 +35,6 @@ function Student_show_list(prop) {
 
 
     const kick_button = async function (event) {
-        console.log(event.target.value)
         Axios({
             method: 'post',
             url: env.API + '/f_checkout',
@@ -44,7 +43,6 @@ function Student_show_list(prop) {
                 room_id: room_select
             },
         }).then(res => {
-            console.log('force success')
 
         }).catch(err => {
             console.log(err)
