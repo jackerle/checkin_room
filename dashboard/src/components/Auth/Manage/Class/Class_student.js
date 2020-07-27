@@ -63,11 +63,11 @@ function Class_student() {
             <h2 style={{ textAlign: "center" }}>จัดการรายวิชาเรียน</h2>
             <h4 style={{ textAlign: "center" }}>ชื่อวิชา : {class_name_header}</h4>
             {
-                list_sect && list_schedule && list_sect.map(element => {
+                list_sect && list_schedule && list_sect.map((element ,i)=> {
                     const {
                         class_id, class_sect, class_name
                     } = element
-                    const data_target = 'show' + class_id + '_' + class_sect
+                    const data_target = 'show' + class_id + '_' + i
                     const schedule = list_schedule.filter(e => e.class_id == class_id && e.class_sect == class_sect)
                     return (
                         <div style={{ width: "80%", margin: "auto" }}>
