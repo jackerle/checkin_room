@@ -34,7 +34,7 @@ function Class_student() {
             },
         }).then((res) => {
             set_sect(res.data)
-            setHeader(res.data[0].class_name);
+            setHeader(res.data[0].class_name.split('(')[0]);
         });
 
     }, [])
@@ -49,14 +49,33 @@ function Class_student() {
         <div>
             <br />
             <h2 style={{ textAlign: "center" }}>จัดการรายวิชาเรียน</h2>
-            <h3>ชื่อวิชา : {class_name_header}</h3>
+            <h4 style={{ textAlign: "center" }}>ชื่อวิชา : {class_name_header}</h4>
             {
                 list_sect && list_sect.map(element => {
                     const {
                         class_id, class_sect, class_name
                     } = element
+                    const data_target = 'show' + class_id + '_' + class_sect
                     return (
-                        <p>{class_id} sect : {class_sect} ชื่อ {class_name} </p>
+                       
+                        <div style={{width:"80%",margin:"auto"}}>
+                             <br/>
+                            <div class="row p-3 shadow rounded " data-toggle="collapse" role="button" style={{ backgroundColor: "#ededeb" }} data-target={'#' + data_target}>
+                                <div class="col-10">
+                                    <h5 class="p-2 text-secondary">{class_id} sect : {class_sect} ชื่อ {class_name} </h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="collapse multi-collapse" id={data_target}>
+                                        <div class="card card-body">
+                                            <p>Detail</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     )
                 })}
 

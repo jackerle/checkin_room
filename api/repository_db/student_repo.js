@@ -409,3 +409,8 @@ exports.get_sect = function(class_id){
     let sql = `select * from class_table where class_id = '${class_id}'; `
     return to_query(sql)
 }
+
+exports.get_schedule = function(class_id){
+    let sql = `select * from class_schedule where class_id = '${class_id}';`
+    return to_query(sql);
+}
