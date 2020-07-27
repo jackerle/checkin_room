@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Axios from "axios";
-import env from './../../../../../env.json';
-import { change_day_format } from "../../../Helper"; 
+import env from '../../../../../../env.json';
+import { change_day_format } from "../../../../Helper"; 
 
 
 function Class_student() {
@@ -69,7 +69,9 @@ function Class_student() {
 
     return (
         <div>
-            <h1>ชื่อวิชา : {class_name_header} sect : {class_student.class_sect}</h1>
+            <br/>
+            <h2 style={{textAlign:"center"}}>จัดการรายวิชาเรียน</h2>
+            <h3>ชื่อวิชา : {class_name_header} sect : {class_student.class_sect}</h3>
             {list_schedule && list_schedule.map(element => {
                 const {
                     class_id, class_name, class_day, class_start_time, class_end_time, room_name

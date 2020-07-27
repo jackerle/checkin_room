@@ -398,3 +398,9 @@ exports.reject_all = function(room_id){
     where room_id = ${room_id} and status = 1;`
     return to_query(sql)
 }
+
+
+exports.get_class = function(){
+    let sql = `select class_id as class_id ,class_name as class_name from class_table group by class_id;`
+    return to_query(sql);
+}

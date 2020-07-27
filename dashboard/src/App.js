@@ -11,7 +11,7 @@ import Table from './components/Auth/Table/Table';
 import History from './components/Auth/History/History';
 import Room from './components/Auth/Manage/Room';
 import Class from './components/Auth/Manage/Class/Class';
-import Class_student from './components/Auth/Manage/Class_student';
+import Class_student from './components/Auth/Manage/Class/Class_student';
 import Table_class from './components/Auth/Table/Table_class';
 import Register from './components/Register'
 

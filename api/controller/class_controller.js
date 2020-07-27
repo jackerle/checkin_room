@@ -99,3 +99,14 @@ exports.get_regis_student = async(req,res)=>{
         console.log(ex)
     }
 }
+
+
+exports.get_class = async (req,res)=>{
+    try {
+        let data = await std_repo.get_class();
+        res.send(data)
+    }
+    catch(ex){
+        console.log(ex)
+    }
+}
