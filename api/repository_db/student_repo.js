@@ -404,3 +404,8 @@ exports.get_class = function(){
     let sql = `select class_id as class_id ,class_name as class_name from class_table group by class_id;`
     return to_query(sql);
 }
+
+exports.get_sect = function(class_id){
+    let sql = `select * from class_table where class_id = '${class_id}'; `
+    return to_query(sql)
+}

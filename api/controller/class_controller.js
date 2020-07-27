@@ -110,3 +110,14 @@ exports.get_class = async (req,res)=>{
         console.log(ex)
     }
 }
+
+exports.get_sect = async (req,res)=>{
+    let class_id = req.body.class_id
+    try {
+        let data = await std_repo.get_sect(class_id);
+        res.send(data)
+    }
+    catch(ex){
+        console.log(ex);
+    }
+}

@@ -20,11 +20,9 @@ function Class() {
 
 
     useEffect(() => {
-        Axios.get(env.API + '/getAllClass')
+        Axios.get(env.API + '/get_class')
             .then(res => {
                 setClass_list(res.data);
-                console.log(class_list)
-                console.log(add_class_button)
             })
     }, [add_class_button])
 
@@ -39,16 +37,15 @@ function Class() {
 
 
     const show_class_list = class_list && class_list.map(obj => {
-        const { class_id, class_sect, class_name } = obj
-        let to_ = `/class_student?class_id=${class_id}&&class_sect=${class_sect}`
+        const { class_id,  class_name } = obj
+        let to_ = `/class_student?class_id=${class_id}`
 
         if ((keyword == '' &&keyword_id == '')|| (class_name.toUpperCase().indexOf(keyword.toUpperCase()) != -1 &&class_id.indexOf(keyword_id)!= -1)) {
             return (
                 <tr class="d-flex">
                     <th scope="row" class="col-3">{class_id}</th>
-                    <td class="col-1">{class_sect}</td>
                     <td style ={{textAlign:"left"}}class="col-6">
-                    <a href={to_}>{class_name}</a>
+                    <a href={to_}>{class_name.split('(')[0]}</a>
                     </td>
                     <td class="col-2"></td>
                 </tr>
@@ -107,7 +104,6 @@ function Class() {
                     <thead>
                         <tr class="d-flex">
                             <th class="col-3" scope="col">รหัสวิชา</th>
-                            <th class="col-1" scope="col">sect</th>
                             <th class="col-6" scope="col">ชื่อวิชา</th>
                             <th class="col-2" scope="col">จัดการ</th>
                         </tr>
