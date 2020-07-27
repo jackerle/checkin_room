@@ -98,7 +98,7 @@ function Navbar(prop) {
       return (
         <ul class="navbar-nav mr-auto">
           <li class="nav-item dropdown">
-            <a class="navbar-brand " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="navbar-brand dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Real-Time
         </a>
             <div style ={{backgroundColor:"white"}}class="dropdown-menu " aria-labelledby="navbarDropdown">

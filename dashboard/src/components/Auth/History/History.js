@@ -57,7 +57,7 @@ function History() {
     }
 
 
-    const fetch_history = ()=>{
+    const fetch_history = (page)=>{
         Axios({
             method: 'post',
             url: env.API + '/get_history',
@@ -68,7 +68,8 @@ function History() {
                 class_sect : input_class_sect,
                 start_time : input_start_time,
                 end_time : input_end_time,
-                room_id : input_room_id
+                room_id : input_room_id,
+                page:page
             },
         }).then(res => {
             setHistory(res.data)
@@ -78,7 +79,7 @@ function History() {
     }
 
     const onClick_button = () => {
-        fetch_history()
+        fetch_history(0)
     }
 
 

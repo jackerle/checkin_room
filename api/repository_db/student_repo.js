@@ -344,7 +344,7 @@ exports.get_student_status = function (room){
 }
 
 
-exports.get_history = function (student_id,student_name,class_id,class_sect,start_time,end_time,room_id){
+exports.get_history = function (student_id,student_name,class_id,class_sect,start_time,end_time,room_id,page){
     let sql = `select room_table.room_name as room_name ,student_table.student_id ,student_table.student_name,transaction.timestamp_checkin as timestamp_checkin , transaction.timestamp_checkout as timestamp_checkout, transaction.role
     from transaction,student_table,room_table
     where transaction.u_id = student_table.u_id
@@ -353,6 +353,7 @@ exports.get_history = function (student_id,student_name,class_id,class_sect,star
     and student_table.student_name like '%${student_name}%'
     and transaction.timestamp_checkin > "${start_time}"
     and transaction.timestamp_checkin < "${end_time}"
+    limit ${page},20
     `
     if(class_id==''&&class_sect==''){
         if(room_id==''){
