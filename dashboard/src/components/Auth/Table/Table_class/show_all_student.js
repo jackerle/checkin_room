@@ -27,14 +27,12 @@ function show_all_student({
                 room: room_list,
             },
         }).then(res => {
-            console.log(res.data)
             setStatus(res.data)
         }).catch(err => {
             console.log(err)
         })
 
         student_list_element = createStudentList()
-        console.log('b: ', createStudentList())
     }, [room_list, time_now])
 
 
@@ -52,7 +50,6 @@ function show_all_student({
             if (isCheckin > 0) {
                 iterator.isCheckin = true
                 _count++
-                console.log('here')
             }
             std_list.push(iterator)
         }
