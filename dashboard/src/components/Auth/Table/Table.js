@@ -60,6 +60,14 @@ function Table() {
 
 
 
+    useEffect(()=>{
+        fetch_student(room_select)
+        let t = room_list.filter(e => e.room_id == room_select)
+        set_room_select_data(t)
+    },[room_select])
+
+
+
 
 
     useEffect(() => {
@@ -91,11 +99,6 @@ function Table() {
     const handleSelect = function (event) {
             let target = event.target.value;
             setRoom_Select(target);
-            fetch_student(target)
-            let t = room_list.filter(e => e.room_id == target)
-            set_room_select_data(t)
-        
-
     }
 
 
