@@ -357,11 +357,11 @@ exports.get_history = function (student_id,student_name,class_id,class_sect,star
     `
     if(class_id==''&&class_sect==''){
         if(room_id==''){
-            return to_query(sql+' limit ${page*per_page},${per_page};')
+            return to_query(sql+` limit ${page*per_page},${per_page};`)
         }
         else{
             sql+=`and room_table.room_id = ${room_id}`
-            return to_query(sql+" limit ${page*per_page},${per_page};")
+            return to_query(sql+` limit ${page*per_page},${per_page};`)
         }
     }
     // else {
