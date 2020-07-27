@@ -56,7 +56,7 @@ function Class_student() {
     const add_button_handle = async (list_std,class_sect) => {
         if(class_student.class_id&&list_std){
             let obj = ''
-            let id = list_std.split(/\n| |\r\n/)
+            let id = list_std.split(/\n|^[\s]*$|\r\n/)
             id.map((e,i)=>{
                 id[i] = `('${class_student.class_id}','${class_sect}' , '${e}')`;
             })
