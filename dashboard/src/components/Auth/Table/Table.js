@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
+import { useLocation } from "react-router-dom";
 import env from "../../../../../env.json";
 import Student_show_list from './Student_show_list'
 import Class_show_list from "./Class_show_list";
@@ -10,11 +11,17 @@ import Class_show_list from "./Class_show_list";
 
 function Table() {
 
+    function useQuery() {
+        return new URLSearchParams(useLocation().search);
+    }
+
+
+    let query = useQuery();
+
     const [room_list, setRoom_list] = useState([]);
     const [student_in, setStudent] = useState([]);
     const [room_select, setRoom_Select] = useState(0);
     const [current_class, setCurrent_class] = useState({})
-    const [refresh_button, setRefresh] = useState(0);
     const [time_now, setTimeNow] = useState({
         hours: new Date().getHours(),
         minute: new Date().getMinutes()
@@ -67,10 +74,10 @@ function Table() {
         }, env.TIME_REFRESH)
 
 
-        console.log('first time')
         Axios.get(env.API + '/getroom')
             .then(res => {
                 setRoom_list(res.data)
+                setRoom_Select(query.get('room_id')?parseInt(query.get('room_id')):0)
             }).catch(err => {
                 console.log(err)
             })
@@ -100,7 +107,6 @@ function Table() {
                 room_id: room_select
             },
         }).then(res => {
-            console.log('reject all success')
 
         }).catch(err => {
             console.log(err)
