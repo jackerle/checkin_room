@@ -11,10 +11,10 @@ import Table from './components/Auth/Table/Table';
 import History from './components/Auth/History/History';
 import Room from './components/Auth/Manage/Room';
 import Class from './components/Auth/Manage/Class/Class';
-import Class_student from './components/Auth/Manage/Class/Class_student';
+import Class_schedule from './components/Auth/Manage/Class/Class_schedule';
 import Table_class from './components/Auth/Table/Table_class';
 import Register from './components/Register'
-
+import Class_student from "./components/Auth/Manage/Class/Class_student";
 
 
 function App() {
@@ -68,6 +68,9 @@ function App() {
 						</Route>
 						<Route exact path="/manage_class">
 							<Class />
+						</Route>
+						<Route exact path="/class_schedule">
+							<Class_schedule />
 						</Route>
 						<Route exact path="/class_student">
 							<Class_student />

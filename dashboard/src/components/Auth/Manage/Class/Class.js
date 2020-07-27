@@ -38,7 +38,7 @@ function Class() {
 
     const show_class_list = class_list && class_list.map(obj => {
         const { class_id,  class_name } = obj
-        let to_ = `/class_student?class_id=${class_id}`
+        let to_ = `/class_schedule?class_id=${class_id}`
 
         if ((keyword == '' &&keyword_id == '')|| (class_name.toUpperCase().indexOf(keyword.toUpperCase()) != -1 &&class_id.indexOf(keyword_id)!= -1)) {
             return (

@@ -144,3 +144,5 @@ exports.add_reg_student  =async(req,res)=>{
         console.log(ex);
     }
 }
+
+
