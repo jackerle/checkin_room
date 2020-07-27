@@ -87,10 +87,17 @@ function History() {
     }
 
 
-    const next_page_handle = ()=>{
-        fetch_history(current_page+1)
-        set_current_page(current_page+1)
-        
+    const next_page_handle = () => {
+
+        fetch_history(current_page + 1)
+        set_current_page(current_page + 1)
+
+    }
+
+
+    const previous_page_handle = () => {
+        fetch_history(current_page - 1)
+        set_current_page(current_page - 1)
     }
 
 
@@ -121,15 +128,23 @@ function History() {
                             <nav aria-label="Page navigation" >
                                 <div class="row">
                                     <div class="col-2">
-                                        {current_page==0?<div></div>:<div class="pt-3 pb-1 rounded " style={{backgroundColor: "#ededeb", textAlign: "center",color:"gray" }} >
+                                        {current_page == 0 ? <div></div> : <div role="button" class="pt-3 pb-1 rounded " style={{ backgroundColor: "#ededeb", textAlign: "center", color: "gray" }} onClick={previous_page_handle} >
                                             <p>{"ก่อนหน้า"}</p>
                                         </div>}
                                     </div>
                                     <div class="col-8"></div>
                                     <div class="col-2">
-                                    <div class="pt-3 pb-1 rounded " role="button" style={{ backgroundColor: "#ededeb", textAlign: "center",color:"gray" }} onClick={next_page_handle}>
-                                            <p>{"ถัดไป"}</p>
-                                        </div>
+                                        {
+                                            (() => {
+                                                if (history_list.length >= 15) {
+                                                    return (
+                                                        <div class="pt-3 pb-1 rounded " role="button" style={{ backgroundColor: "#ededeb", textAlign: "center", color: "gray" }} onClick={next_page_handle}>
+                                                            <p>{"ถัดไป"}</p>
+                                                        </div>
+                                                    )
+                                                }
+                                            })()
+                                        }
                                     </div>
                                 </div>
                             </nav>
