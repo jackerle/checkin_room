@@ -179,7 +179,7 @@ exports.get_history = async(req,res)=>{
     let start_time = req.body.start_time;
     let end_time = req.body.end_time;
     let room_id = req.body.room_id;
-    let page = req.body.room_id;
+    let page = req.body.page;
     try {
         let data = await std_repo.get_history(student_id,student_name,class_id,class_sect,start_time,end_time,room_id,page);
         res.send(data)
