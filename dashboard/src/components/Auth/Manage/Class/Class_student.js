@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Axios from "axios";
 import env from '../../../../../../env.json';
-import { change_day_format } from "../../../../Helper"; 
+import { change_day_format } from "../../../../Helper";
 
 
 function Class_student() {
@@ -15,10 +15,9 @@ function Class_student() {
     let query = useQuery();
 
     const [class_student, setClass] = useState({
-        class_id: query.get('class_id'),
-        class_sect: query.get('class_sect')
+        class_id: query.get('class_id')
     })
-    const [list_schedule, setSchedule] = useState([])
+    const [list_sect, set_sect] = useState([])
     const [class_name_header, setHeader] = useState('')
     const [student_list, setStudent] = useState([])
     const [student_list_regis, setRegis] = useState([])
@@ -29,79 +28,38 @@ function Class_student() {
     useEffect(() => {
         Axios({
             method: 'post',
-            url: env.API + '/getSchedule',
+            url: env.API + '/get_sect',
             data: {
                 class_id: class_student.class_id,
-                class_sect: class_student.class_sect
             },
         }).then((res) => {
-            setSchedule(res.data)
+            set_sect(res.data)
             setHeader(res.data[0].class_name);
         });
-        Axios({
-            method: 'post',
-            url: env.API + '/getReg',
-            data: {
-                class_id: class_student.class_id,
-                class_sect: class_student.class_sect
-            },
-        }).then(res => {
-            setStudent(res.data)
-        })
-        Axios({
-            method: "post",
-            url: env.API + '/get_regis_student',
-            data: {
-                class_id: class_student.class_id,
-                class_sect: class_student.class_sect
-            }
-        }).then(res => {
-            setRegis(res.data)
-        })
 
     }, [])
 
 
 
-    
+
 
 
 
     return (
         <div>
-            <br/>
-            <h2 style={{textAlign:"center"}}>จัดการรายวิชาเรียน</h2>
-            <h3>ชื่อวิชา : {class_name_header} sect : {class_student.class_sect}</h3>
-            {list_schedule && list_schedule.map(element => {
-                const {
-                    class_id, class_name, class_day, class_start_time, class_end_time, room_name
-                } = element
-                return (
-                    <p>{class_id} ชื่อ {class_name} วัน { change_day_format(class_day)} เวลาเริ่ม {class_start_time}น. เวลาจบ {class_end_time}น.  ห้อง {room_name}</p>
-                )
-            })}
-            <h2>นักศึกษาที่ลงทะเบียนระบบเช็คชื่อแล้ว</h2>
-            {student_list && student_list.map(element => {
-                const {
-                    student_id, student_name
-                } = element;
-                return (
-                    <p>
-                        ชื่อ {student_name} รหัสนักศึกษา {student_id}
-                    </p>
-                )
-            })}
-            <h2>นักศึกษาที่ลงทะเบียนในรายวิชาแล้ว</h2>
-            {student_list_regis && student_list_regis.map((ele,i)=>{
-                const {
-                    student_id
-                } = ele
-                return(
-                    <p>
-                        #{i+1} รหัสนักศึกษา : {student_id}
-                    </p>
-                )
-            })}
+            <br />
+            <h2 style={{ textAlign: "center" }}>จัดการรายวิชาเรียน</h2>
+            <h3>ชื่อวิชา : {class_name_header}</h3>
+            {
+                list_sect && list_sect.map(element => {
+                    const {
+                        class_id, class_sect, class_name
+                    } = element
+                    return (
+                        <p>{class_id} sect : {class_sect} ชื่อ {class_name} </p>
+                    )
+                })}
+
         </div>
 
     )
