@@ -9,18 +9,18 @@ function History() {
     const [input_student_id, set_input_student_id] = useState('')
     const [input_student_name, set_input_student_name] = useState('')
     const [input_class_id, set_input_class_id] = useState('')
-    const [input_class_sect,set_input_class_sect] = useState('')
+    const [input_class_sect, set_input_class_sect] = useState('')
     const [input_start_time, set_input_start_time] = useState('2020-01-25')
     const [input_end_time, set_input_end_time] = useState('2029-01-25')
     const [input_room_id, set_input_room_id] = useState('')
     const [search_button, set_search_button] = useState(0);
-    const [history_list,setHistory] = useState([])
-
+    const [history_list, setHistory] = useState([])
+    const [current_page, set_current_page] = useState(null)
 
 
 
     useEffect(() => {
-        
+
     }, [search_button])
 
     const handle_student_id = (event) => {
@@ -32,11 +32,11 @@ function History() {
     }
 
     const handle_class_id = (event) => {
-        if(event.target.value=='_'){
+        if (event.target.value == '_') {
             set_input_class_id('')
             set_input_class_sect('')
         }
-        else{
+        else {
             set_input_class_id(event.target.value.split('-')[0])
             set_input_class_sect(event.target.value.split('-')[1])
         }
@@ -57,32 +57,41 @@ function History() {
     }
 
 
-    const fetch_history = (page)=>{
-        Axios({
-            method: 'post',
-            url: env.API + '/get_history',
-            data: {
-                student_id :input_student_id,
-                student_name : input_student_name,
-                class_id : input_class_id,
-                class_sect : input_class_sect,
-                start_time : input_start_time,
-                end_time : input_end_time,
-                room_id : input_room_id,
-                page:page
-            },
-        }).then(res => {
-            setHistory(res.data)
-        }).catch(err => {
-            console.log(err)
-        })
+    const fetch_history = (page) => {
+        if (page != null) {
+            Axios({
+                method: 'post',
+                url: env.API + '/get_history',
+                data: {
+                    student_id: input_student_id,
+                    student_name: input_student_name,
+                    class_id: input_class_id,
+                    class_sect: input_class_sect,
+                    start_time: input_start_time,
+                    end_time: input_end_time,
+                    room_id: input_room_id,
+                    page: page
+                },
+            }).then(res => {
+                setHistory(res.data)
+            }).catch(err => {
+                console.log(err)
+            })
+        }
+
     }
 
     const onClick_button = () => {
+        set_current_page(0)
         fetch_history(0)
     }
 
 
+    const next_page_handle = ()=>{
+        fetch_history(current_page+1)
+        set_current_page(current_page+1)
+        
+    }
 
 
 
@@ -104,7 +113,34 @@ function History() {
                 handle_room_id={handle_room_id}
                 onClick_button={onClick_button}
             />
-            <Show_history history_list={history_list}/>
+            <Show_history history_list={history_list} />
+            {
+                (() => {
+                    if (current_page != null) {
+                        return (
+                            <nav aria-label="Page navigation" >
+                                <div class="row">
+                                    <div class="col-2">
+                                        {current_page==0?<div></div>:<div class="pt-3 pb-1 rounded " style={{backgroundColor: "#ededeb", textAlign: "center",color:"gray" }} >
+                                            <p>{"ก่อนหน้า"}</p>
+                                        </div>}
+                                    </div>
+                                    <div class="col-8"></div>
+                                    <div class="col-2">
+                                    <div class="pt-3 pb-1 rounded " role="button" style={{ backgroundColor: "#ededeb", textAlign: "center",color:"gray" }} onClick={next_page_handle}>
+                                            <p>{"ถัดไป"}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </nav>
+
+                        )
+                    }
+                })()
+            }
+            <br />
+            <br />
+
         </div>
     )
 }
