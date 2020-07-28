@@ -376,7 +376,8 @@ exports.get_history = function (student_id, student_name, class_id, class_sect, 
         and transaction.timestamp_checkin < "${end_time} 23:59:00"
         and dayofweek(transaction.timestamp_checkin)-1 = class_schedule.class_day
         and transaction.room_id = class_schedule.room_id
-        and abs(hour(transaction.timestamp_checkin) -hour(class_schedule.class_start_time)) <=2
+        and abs(hour(transaction.timestamp_checkin) -hour(class_schedule.class_start_time)) <=1
+        and hour(transaction.timestamp_checkin) - hour(class_schedule.class_end_time) <= 0
         and class_schedule.class_id = '${class_id}'
         and class_schedule.class_sect = '${class_sect}'
         and class_schedule.class_id = reg_class.class_id
