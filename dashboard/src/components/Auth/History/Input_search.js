@@ -110,7 +110,7 @@ function Input_search({
                     </div>
                     <div class="col-2">
                         <select class="form-control" onChange={handle_room_id}>
-                            <option value="_">--กรุณาเลือกห้อง--</option>
+                            <option value="">--กรุณาเลือกห้อง--</option>
                             {room_select_element}
                         </select>
                     </div>
