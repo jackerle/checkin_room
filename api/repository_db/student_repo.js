@@ -358,10 +358,12 @@ exports.get_history = function (student_id, student_name, class_id, class_sect, 
 
     if (class_id == '' && class_sect == '') {
         if (room_id == '') {
-            return to_query(sql + ` limit ${page * per_page},${per_page};`)
+            return to_query(sql + `order by transaction.timestamp_checkin DESC 
+            limit ${page * per_page},${per_page};`)
         }
         else {
-            sql += `and room_table.room_id = ${room_id}`
+            sql += `and room_table.room_id = ${room_id}
+            order by transaction.timestamp_checkin DESC`
             return to_query(sql + ` limit ${page * per_page},${per_page};`)
         }
     }
@@ -385,10 +387,12 @@ exports.get_history = function (student_id, student_name, class_id, class_sect, 
         and student_table.student_id = reg_class.student_id
         `
         if (room_id == '') {
-            return to_query(sql + `limit ${page * per_page},${per_page};`)
+            return to_query(sql + `order by transaction.timestamp_checkin DESC
+            limit ${page * per_page},${per_page};`)
         }
         else {
-            sql += `and room_table.room_id = ${room_id}`
+            sql += `and room_table.room_id = ${room_id}
+            order by transaction.timestamp_checkin DESC`
             return to_query(sql + ` limit ${page * per_page},${per_page};`)
         }
 
