@@ -47,15 +47,26 @@ function Table() {
 
 
     function fetch_student(room_id) {
-        Axios.get(env.API + '/getCheckin?room_id=' + room_id)
+        return new Promise((resolve,reject)=>{
+            Axios.get(env.API + '/getCheckin?room_id=' + room_id)
             .then(res => {
                 setStudent(res.data);
+                resolve(res.data)
             })
+        })
+        
     }
 
 
     useEffect(() => {
-        fetch_student(room_select)
+        fetch_student(room_select).then(res=>{
+            setTimeout(()=>{
+                setTimeNow({
+                    hours: new Date().getHours(),
+                    minute: new Date().getMinutes()
+                })
+            },env.TIME_REFRESH)
+        })
     }, [time_now])
 
 
@@ -73,7 +84,7 @@ function Table() {
     useEffect(() => {
 
 
-        setInterval(() => {
+        setTimeout(() => {
             setTimeNow({
                 hours: new Date().getHours(),
                 minute: new Date().getMinutes()
