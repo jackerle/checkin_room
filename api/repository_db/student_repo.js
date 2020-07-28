@@ -4,27 +4,27 @@ const helper = require('../../api/helper')
 
 
 var pool = mariadb.createPool({
-    host : 'localhost',
-    user : env.USERNAME_DB,
-    password : env.PASSWORD_DB,
-    database : env.DATABASE,
-    connectionLimit : 20,
-    connectTimeout:15000,
-    idleTimeout:1,
-    timezone:"UTC"
+    host: 'localhost',
+    user: env.USERNAME_DB,
+    password: env.PASSWORD_DB,
+    database: env.DATABASE,
+    connectionLimit: 20,
+    connectTimeout: 15000,
+    idleTimeout: 1,
+    timezone: "UTC"
 
 });
 
 
-const to_query = function(sql){
-    return new Promise(async (resolve,reject)=>{
-        try{
+const to_query = function (sql) {
+    return new Promise(async (resolve, reject) => {
+        try {
             let _pool = await pool.getConnection();
             let res_query = await _pool.query(sql);
             _pool.release();
             resolve(res_query);
         }
-        catch(ex){
+        catch (ex) {
             await helper.send_discord(ex)
             console.log(ex)
             reject(ex)
@@ -38,7 +38,7 @@ const to_query = function(sql){
  * @param {string} student_id Student id
  * @param {string} student_name Strudent name 
  */
-exports.register_std = function(u_id,student_id,student_name){
+exports.register_std = function (u_id, student_id, student_name) {
     let sql = `insert into student_table(u_id,student_id,student_name) 
     values ('${u_id}','${student_id}','${student_name}');`
     return to_query(sql);
@@ -46,7 +46,7 @@ exports.register_std = function(u_id,student_id,student_name){
 
 
 
-exports.getAllStd = function(){
+exports.getAllStd = function () {
     let sql = `select * from student_table;`
     return to_query(sql);
 }
@@ -55,7 +55,7 @@ exports.getAllStd = function(){
 /**
  * @param {string} student_id 
  */
-exports.removeStd = function(student_id){
+exports.removeStd = function (student_id) {
     let sql = `delete from student_table where student_id = '${student_id}'`
     return to_query(sql);
 }
@@ -64,13 +64,13 @@ exports.removeStd = function(student_id){
  * @param {string} room_name Name of room which regis
  * @param {number} capacity Maximum for room  
  */
-exports.register_room = function(room_name,capacity){
+exports.register_room = function (room_name, capacity) {
     let sql = `insert into room_table(room_name,capacity)
     values ('${room_name}',${capacity});`
     return to_query(sql);
 }
 
-exports.getAllRoom = function(){
+exports.getAllRoom = function () {
     let sql = `select * from room_table;`
     return to_query(sql);
 }
@@ -79,7 +79,7 @@ exports.getAllRoom = function(){
  * @param {number} room_id
  * @param {string} u_id
  */
-exports.checkin = function(room_id,u_id){
+exports.checkin = function (room_id, u_id) {
     let sql = `insert into transaction (room_id,u_id,timestamp_checkin,status)
     select ${room_id},'${u_id}',CURRENT_TIMESTAMP,1
     
@@ -97,14 +97,14 @@ where capacity - c_in.l_count  >0
 and room_table.room_id = ${room_id}
 
     )
-    ;` 
+    ;`
     return to_query(sql);
 }
 
 /**
  * @param {string} u_id
  */
-exports.checkout = function(u_id,room_id){
+exports.checkout = function (u_id, room_id) {
     let sql = `update transaction
     set timestamp_checkout = CURRENT_TIMESTAMP,status = 0,role = 0
     where u_id = '${u_id}' and status = 1 and room_id = ${room_id};`
@@ -112,7 +112,7 @@ exports.checkout = function(u_id,room_id){
 }
 
 
-exports.f_checkout = function(student_id,room_id){
+exports.f_checkout = function (student_id, room_id) {
     let sql = `update transaction,student_table
     set transaction.timestamp_checkout = CURRENT_TIMESTAMP,transaction.status = 0,transaction.role = 1
     where transaction.status = 1 and transaction.room_id = ${room_id} and transaction.u_id = student_table.u_id
@@ -123,7 +123,7 @@ exports.f_checkout = function(student_id,room_id){
 
 
 
-exports.getAllTrans = function(){
+exports.getAllTrans = function () {
     let sql = `select * from transaction`
     return to_query(sql);
 }
@@ -134,7 +134,7 @@ exports.getAllTrans = function(){
  * @param {string} u_id 
  * @param {number} room_id 
  */
-exports.getInfo = function(u_id,room_id){
+exports.getInfo = function (u_id, room_id) {
     let sql = `select 
     case when exists(
         select * 
@@ -171,7 +171,7 @@ exports.getInfo = function(u_id,room_id){
  * 
  * @param {string} u_id 
  */
-exports.getTran = function(u_id,room_id){
+exports.getTran = function (u_id, room_id) {
     let sql = `select * from transaction where u_id = '${u_id}' and status = 1 and room_id = ${room_id}`;
     return to_query(sql);
 }
@@ -179,7 +179,7 @@ exports.getTran = function(u_id,room_id){
 /**
  * @param {string} u_id
  */
-exports.hasAccount = function(u_id){
+exports.hasAccount = function (u_id) {
     let sql = `select * from student_table where u_id = '${u_id}';`
     return to_query(sql);
 }
@@ -189,7 +189,7 @@ exports.hasAccount = function(u_id){
  * @param {string} username 
  * @param {string} password 
  */
-exports.login = function(username,hash_password){
+exports.login = function (username, hash_password) {
     let sql = `select * from admin where username = '${username}' and  hash_password = '${hash_password}'`
     return to_query(sql);
 }
@@ -202,7 +202,7 @@ exports.login = function(username,hash_password){
  * @param {string} name 
  * @param {string} about 
  */
-exports.register = function(username,hash_password,name,about){
+exports.register = function (username, hash_password, name, about) {
     let sql = `insert into admin (username,hash_password,name,role,about)
     values ('${username}','${hash_password}','${name}',1,'${about}');`
     return to_query(sql);
@@ -212,7 +212,7 @@ exports.register = function(username,hash_password,name,about){
 /**
  * @param {string} room_id
  */
-exports.getCheckin = function(room_id){
+exports.getCheckin = function (room_id) {
     let sql = `select student_table.u_id as u_id ,student_table.student_name as student_name,student_table.student_id as student_id,transaction.timestamp_checkin as timestamp_checkin from transaction,student_table
     where transaction.room_id = ${room_id} and transaction.status = 1 and transaction.u_id = student_table.u_id;`
     return to_query(sql);
@@ -220,12 +220,12 @@ exports.getCheckin = function(room_id){
 
 
 
-exports.getAllClass = function(){
+exports.getAllClass = function () {
     let sql = `select * from class_table;`
     return to_query(sql);
 }
 
-exports.getSchedule = function (class_id,class_sect){
+exports.getSchedule = function (class_id, class_sect) {
     let sql = `select 
     class_table.class_id as class_id,
     class_table.class_name as class_name,
@@ -243,7 +243,7 @@ exports.getSchedule = function (class_id,class_sect){
     return to_query(sql);
 }
 
-exports.getReg = function(class_id,class_sect){
+exports.getReg = function (class_id, class_sect) {
     let sql = `select 
     student_table.student_id as student_id,
     student_table.student_name as student_name
@@ -255,7 +255,7 @@ exports.getReg = function(class_id,class_sect){
 }
 
 
-exports.getClass_room = function(room_id,day){
+exports.getClass_room = function (room_id, day) {
     let sql = `select class_table.class_id as class_id,
     class_table.class_sect as class_sect,
     class_schedule.class_start_time as class_start_time,
@@ -283,7 +283,7 @@ exports.getClass_room = function(room_id,day){
  * @param {string} class_name 
  * @param {Array} schedule 
  */
-exports.add_class = function(class_id,class_sect,class_name,schedule){
+exports.add_class = function (class_id, class_sect, class_name, schedule) {
     let sql_1 = `insert into class_table (class_id,class_sect,class_name)
     values ('${class_id}','${class_sect}','${class_name}')`
     to_query(sql_1)
@@ -291,14 +291,14 @@ exports.add_class = function(class_id,class_sect,class_name,schedule){
         let sql = `insert into class_schedule (class_id,class_sect,class_day,class_start_time,class_end_time,room_id) values('${class_id}','${class_sect}',${e.day},'${e.start_time}:00','${e.end_time}:00',${e.room_id});`
         to_query(sql)
     })
-    return({
-        "success":true
+    return ({
+        "success": true
     })
 
 }
 
 
-exports.getroom_in = function(){
+exports.getroom_in = function () {
     let sql = `select room_table.room_id as room_id,
     room_table.room_name as room_name,
     room_table.capacity as capacity,
@@ -313,13 +313,13 @@ exports.getroom_in = function(){
 }
 
 
-exports.getClass = function(){
+exports.getClass = function () {
     let sql = `select * from class_table`
     return to_query(sql)
 }
 
 
-exports.get_room_from_class = function(class_id,class_sect){
+exports.get_room_from_class = function (class_id, class_sect) {
     let sql = `select 
     room_table.room_id as room_id,
     room_table.room_name as room_name,
@@ -332,19 +332,19 @@ exports.get_room_from_class = function(class_id,class_sect){
     return to_query(sql)
 }
 
-exports.get_student_status = function (room){
+exports.get_student_status = function (room) {
     let sql = `select student_table.student_id as student_id from 
     transaction,student_table
     where transaction.u_id = student_table.u_id and (`
-    room.map(e=>{
-        sql+= `transaction.room_id = ${e.room_id} or `
+    room.map(e => {
+        sql += `transaction.room_id = ${e.room_id} or `
     })
     sql += `1!=1) and status = 1;`
     return to_query(sql)
 }
 
 
-exports.get_history = function (student_id,student_name,class_id,class_sect,start_time,end_time,room_id,page){
+exports.get_history = function (student_id, student_name, class_id, class_sect, start_time, end_time, room_id, page) {
     let per_page = 15
     let sql = `select room_table.room_name as room_name ,student_table.student_id ,student_table.student_name,transaction.timestamp_checkin as timestamp_checkin , transaction.timestamp_checkout as timestamp_checkout, transaction.role
     from transaction,student_table,room_table
@@ -356,17 +356,25 @@ exports.get_history = function (student_id,student_name,class_id,class_sect,star
     and transaction.timestamp_checkin < "${end_time} 23:59:00"
     `
 
-    if(class_id==''&&class_sect==''){
-        if(room_id==''){
-            return to_query(sql+` limit ${page*per_page},${per_page};`)
+    if (class_id == '' && class_sect == '') {
+        if (room_id == '') {
+            return to_query(sql + ` limit ${page * per_page},${per_page};`)
         }
-        else{
-            sql+=`and room_table.room_id = ${room_id}`
-            return to_query(sql+` limit ${page*per_page},${per_page};`)
+        else {
+            sql += `and room_table.room_id = ${room_id}`
+            return to_query(sql + ` limit ${page * per_page},${per_page};`)
         }
     }
     else {
-        sql+=`and dayofweek(transaction.timestamp_checkin)-1 = class_schedule.class_day
+        sql = `select room_table.room_name as room_name ,student_table.student_id ,student_table.student_name,transaction.timestamp_checkin as timestamp_checkin , transaction.timestamp_checkout as timestamp_checkout, transaction.role
+        from transaction,student_table,room_table,class_schedule,reg_class
+        where transaction.u_id = student_table.u_id
+        and transaction.room_id = room_table.room_id
+        and student_table.student_id like '%${student_id}%'
+        and student_table.student_name like '%${student_name}%'
+        and transaction.timestamp_checkin > "${start_time} 00:00:00"
+        and transaction.timestamp_checkin < "${end_time} 23:59:00"
+        and dayofweek(transaction.timestamp_checkin)-1 = class_schedule.class_day
         and transaction.room_id = class_schedule.room_id
         and abs(hour(transaction.timestamp_checkin) -hour(class_schedule.class_start_time)) <=2
         and class_schedule.class_id = '${class_id}'
@@ -375,20 +383,20 @@ exports.get_history = function (student_id,student_name,class_id,class_sect,star
         and class_schedule.class_sect = reg_class.class_sect
         and student_table.student_id = reg_class.student_id
         `
-        if(room_id==''){
-            return to_query(sql+`limit ${page*per_page},${per_page};`)
+        if (room_id == '') {
+            return to_query(sql + `limit ${page * per_page},${per_page};`)
         }
-        else{
-            sql+=`and room_table.room_id = ${room_id}`
-            return to_query(sql+` limit ${page*per_page},${per_page};`)
+        else {
+            sql += `and room_table.room_id = ${room_id}`
+            return to_query(sql + ` limit ${page * per_page},${per_page};`)
         }
-        
+
     }
-    
+
 }
 
 
-exports.count_room = function(room_id){
+exports.count_room = function (room_id) {
     let sql = `select count(transaction.room_id) as count_in,
     room_table.capacity-count(transaction.room_id) as count_left,
     room_table.capacity as capacity
@@ -401,7 +409,7 @@ exports.count_room = function(room_id){
 }
 
 
-exports.get_regis_student = function(class_id,class_sect){
+exports.get_regis_student = function (class_id, class_sect) {
     let sql = `select * from reg_class 
     where class_id = '${class_id}'
     and class_sect = '${class_sect}';`
@@ -410,7 +418,7 @@ exports.get_regis_student = function(class_id,class_sect){
 
 
 
-exports.reject_all = function(room_id){
+exports.reject_all = function (room_id) {
     let sql = `update transaction
     set timestamp_checkout = CURRENT_TIMESTAMP,status = 0,role = 1
     where room_id = ${room_id} and status = 1;`
@@ -418,28 +426,28 @@ exports.reject_all = function(room_id){
 }
 
 
-exports.get_class = function(){
+exports.get_class = function () {
     let sql = `select class_id as class_id ,class_name as class_name from class_table group by class_id;`
     return to_query(sql);
 }
 
-exports.get_sect = function(class_id){
+exports.get_sect = function (class_id) {
     let sql = `select * from class_table where class_id = '${class_id}'; `
     return to_query(sql)
 }
 
-exports.get_schedule = function(class_id){
+exports.get_schedule = function (class_id) {
     let sql = `select * from class_schedule where class_id = '${class_id}';`
     return to_query(sql);
 }
 
-exports.add_reg_student = function(msg){
-    let sql = `insert into reg_class values`+msg+';'
+exports.add_reg_student = function (msg) {
+    let sql = `insert into reg_class values` + msg + ';'
     return to_query(sql);
 }
 
 
-exports.rename_student = function(u_id,student_name){
+exports.rename_student = function (u_id, student_name) {
     let sql = `update student_table set student_name = '${student_name}' where u_id = '${u_id}';`
     return to_query(sql);
 }
