@@ -3,7 +3,8 @@ import { useLocation } from "react-router-dom";
 import Axios from "axios";
 import env from '../../../../../../env.json';
 import { change_day_format, change_date_format } from "../../../../Helper";
-
+import add_help_1 from "./../../../../../public/help_add_reg_class_1.png";
+import add_help_2 from "./../../../../../public/help_add_reg_class_2.png"
 
 function Class_schedule() {
 
@@ -53,40 +54,40 @@ function Class_schedule() {
 
 
 
-    const add_button_handle = async (list_std,class_sect) => {
-        if(class_student.class_id&&list_std){
+    const add_button_handle = async (list_std, class_sect) => {
+        if (class_student.class_id && list_std) {
             let obj = ''
             let id = list_std.trim().split(/\s+/)
-            id.map((e,i)=>{
+            id.map((e, i) => {
                 id[i] = `('${class_student.class_id}','${class_sect}' , '${e}')`;
             })
             obj = id.toString()
-            if(obj){
+            if (obj) {
                 await Axios({
-                    method:'post',
-                    url:env.API + '/add_reg_student',
-                    data:{
-                        msg:obj
+                    method: 'post',
+                    url: env.API + '/add_reg_student',
+                    data: {
+                        msg: obj
                     }
-                }).then((res)=>{
+                }).then((res) => {
                     alert('เพิ่มรายชื่อสำเร็จแล้ว')
                 })
-                .catch((ex)=>{
-                    alert('เพิ่มรายชื่อไม่สำเร็จ')
-                    console.log(ex);
-                })
+                    .catch((ex) => {
+                        alert('เพิ่มรายชื่อไม่สำเร็จ')
+                        console.log(ex);
+                    })
             }
         }
-        else{
+        else {
             alert('เกิดข้อผิดพลาด กรุณาใส่รหัสนักศึกษา')
         }
-        
+
     }
 
 
-    const list_button_handle = (class_sect)=>{
-        if(class_sect){
-            window.open('/class_student?class_id='+class_student.class_id+'&&class_sect='+class_sect)
+    const list_button_handle = (class_sect) => {
+        if (class_sect) {
+            window.open('/class_student?class_id=' + class_student.class_id + '&&class_sect=' + class_sect)
         }
     }
 
@@ -160,7 +161,7 @@ function Class_schedule() {
                                             <div class="row">
                                                 <div class="col-9"></div>
                                                 <div class="col-1">
-                                                    <button type="button" class="btn btn-primary" onClick={()=>{list_button_handle(class_sect)}}>รายชื่อ</button>
+                                                    <button type="button" class="btn btn-primary" onClick={() => { list_button_handle(class_sect) }}>รายชื่อ</button>
                                                 </div>
                                                 <div class="col-1">
                                                     <button data-toggle="modal" data-target={"#add_std_" + i} type="button" class="btn btn-success">เพิ่ม</button>
@@ -182,9 +183,24 @@ function Class_schedule() {
                                                             <div class="form-group">
                                                                 <textarea class="form-control" id={"add_std_modal_" + i} rows="3" onChange={handle_change}></textarea>
                                                             </div>
+                                                            <div style={{ textAlign: "left" }}>
+                                                                <details>
+                                                                    <summary>
+                                                                        วิธีการใช้งาน
+                                                                    </summary>
+                                                                    <p>1. ใส่หมายเลขนักศึกษาที่ต้องการจะลงทะเบียนในวิชานี้ในช่องว่างด้านบน</p>
+                                                                    <p>2. หากต้องการที่จะเพิ่มนักศึกษาเป็นจำนวนมากสามารถคัดลอกมาเป็นจำนวนมาก โดยคั่นด้วยการเว้นบรรทัดได้ เช่น</p>
+                                                                    <img class="border border-success"src={add_help_1}/>
+                                                                    <p>3. ไฟล์ประเภท Excel ต่างๆ สามารถลากและคัดลอกในหลายแถวได้เลย ดังภาพ</p>
+                                                                    <img class="border border-success" src={add_help_2}/>
+                                                                </details>
+                                                                 
+                                                            </div>
+
+
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-success" data-dismiss="modal" onClick={async ()=>{ await add_button_handle(msg,class_sect)}}>เพิ่ม</button>
+                                                            <button type="button" class="btn btn-success" data-dismiss="modal" onClick={async () => { await add_button_handle(msg, class_sect) }}>เพิ่ม</button>
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
                                                         </div>
                                                     </div>
