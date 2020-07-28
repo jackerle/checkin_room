@@ -7,12 +7,9 @@ const crypto = require('crypto');
 exports.login = async (req,res)=>{
     let username = req.body.username;
     let password = req.body.password;
-    console.log(password)
     let hash_password = crypto.createHash('sha256').update(password).digest('hex');
-    console.log(hash_password)
     try {
         let data = await std_repo.login(username,hash_password);
-        console.log(data[0]);
         if(data[0]){
             let _token = {
                 username:data[0].username,
@@ -50,7 +47,6 @@ exports.register = async (req,res)=>{
     let hash_password = crypto.createHash('sha256').update(password).digest('hex');
     try {
         let data = await std_repo.register(username,hash_password,name,about);
-        console.log(data);
         res.send({
             "success":true
         })

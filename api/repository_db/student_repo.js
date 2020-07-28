@@ -355,6 +355,7 @@ exports.get_history = function (student_id,student_name,class_id,class_sect,star
     and transaction.timestamp_checkin > "${start_time} 00:00:00"
     and transaction.timestamp_checkin < "${end_time} 23:59:00"
     `
+
     if(class_id==''&&class_sect==''){
         if(room_id==''){
             return to_query(sql+` limit ${page*per_page},${per_page};`)
@@ -364,9 +365,32 @@ exports.get_history = function (student_id,student_name,class_id,class_sect,star
             return to_query(sql+` limit ${page*per_page},${per_page};`)
         }
     }
-    // else {
-    //     return to_query(sql+";")
-    // }
+    else {
+        if(room_id==''){
+            return to_query(sql+`	and dayofweek(transaction.timestamp_checkin)-1 = class_schedule.class_day
+            and transaction.room_id = class_schedule.room_id
+            and abs(hour(transaction.timestamp_checkin) -hour(class_schedule.class_start_time)) <=2
+            and class_schedule.class_id = '${class_id}'
+            and class_schedule.class_sect = '${class_sect}'
+            and class_schedule.class_id = reg_class.class_id
+            and class_schedule.class_sect = reg_class.class_sect
+            and student_table.student_id = reg_class.student_id
+            limit ${page*per_page},${per_page};`)
+        }
+        else{
+            return to_query(sql+`	and dayofweek(transaction.timestamp_checkin)-1 = class_schedule.class_day
+            and transaction.room_id = class_schedule.room_id
+            and abs(hour(transaction.timestamp_checkin) -hour(class_schedule.class_start_time)) <=2
+            and class_schedule.class_id = '${class_id}'
+            and class_schedule.class_sect = '${class_sect}'
+            and class_schedule.class_id = reg_class.class_id
+            and class_schedule.class_sect = reg_class.class_sect
+            and student_table.student_id = reg_class.student_id
+            and room_table.room_id = ${room_id}
+            limit ${page*per_page},${per_page};`)
+        }
+        
+    }
     
 }
 

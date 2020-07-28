@@ -78,7 +78,7 @@ function Input_search({
                         <b>2. ค้นหาด้วยวิชา</b>
                     </div>
                     <div class="col-8">
-                        <select disabled={true}class="form-control" onChange={handle_class_id}>
+                        <select class="form-control" onChange={handle_class_id}>
                             <option value="-">--กรุณาเลือกวิชา--</option>
                             {class_select_element}
                         </select>
