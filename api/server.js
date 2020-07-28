@@ -87,7 +87,7 @@ if(env.DEV){
         console.log('opened on devs '+env.PORT)
     })
 }else{
-    app.listen(env.PORT,()=>{console.log('openned on production port:'+env.PORT)})
+    app.listen(env.PORT,'127.0.0.1',()=>{console.log('openned on production port:'+env.PORT)})
 }
 
 
