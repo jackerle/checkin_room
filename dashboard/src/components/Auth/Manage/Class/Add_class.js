@@ -89,7 +89,7 @@ function ADD_CLASS() {
 
 
     const add_class_button = ()=>{
-        if(form_input.schedule.length!=0){
+        if(form_input.schedule.length!=0&&form_input.class_id.length!=0&&form_input.class_sect.length!=0&&form_input.class_name.length!=0){
             Axios({
                 method:'post',
                 url:env.API + '/add_class',
@@ -104,7 +104,7 @@ function ADD_CLASS() {
             })
         }
         else{
-            alert('กรุณากรอกข้อมูลให้ครบถ้วน')
+            alert('กรุณากรอกข้อมูลให้ครบถ้วน (รหัสวิชา , sect (ถ้าไม่มีให้ใส่ 1 ) ,ชื่อวิชา)')
         }
         
     }
