@@ -464,6 +464,10 @@ exports.delete_class = function (class_id,class_sect){
             return to_query(`delete from class_table where class_id ='${class_id}' and class_sect = '${class_sect}';`)
         })
     })
-    
+}
 
+
+exports.get_profile = function (u_id){
+    let sql = `select * from student_table where u_id = '${u_id}'`
+    return to_query(sql);
 }
