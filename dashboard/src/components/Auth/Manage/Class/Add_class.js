@@ -127,7 +127,13 @@ function ADD_CLASS() {
         set_Form_input(dummy)
     }
 
-    const schedule_list_element = form_input.schedule && form_input.schedule.map(ele => {
+    const delete_schedule_handle = function(i){
+        let dummy = {...form_input}
+        dummy.schedule.splice(i,1)
+        set_Form_input(dummy)
+    }
+
+    const schedule_list_element = form_input.schedule && form_input.schedule.map((ele,i) => {
         let day, time_s, time_e, room
         switch (+ele.day) {
             case 0:
@@ -176,6 +182,9 @@ function ADD_CLASS() {
                     <p>{room}</p>
                 </div>
                 <div class="col-2">
+                    <a onClick={()=>{
+                        delete_schedule_handle(i)
+                    }}href="#">ลบออก</a>
                 </div>
             </div>)
 
