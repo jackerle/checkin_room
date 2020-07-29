@@ -456,3 +456,9 @@ exports.rename_student = function (u_id, student_name) {
     let sql = `update student_table set student_name = '${student_name}' where u_id = '${u_id}';`
     return to_query(sql);
 }
+
+exports.delete_class = function (class_id,class_sect){
+    let sql = `delete from reg_class where class_id = '${class_id}' and class_sect = '${class_sect}';
+    delete from class_schedule where class_id = '${class_id}' and class_sect = '${class_sect}';
+    delete from class_table where class_id ='${class_id}' and class_sect = '${class_sect}';`
+}

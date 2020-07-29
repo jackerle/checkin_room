@@ -21,7 +21,7 @@ function Class_schedule() {
     const [list_sect, set_sect] = useState([])
     const [class_name_header, setHeader] = useState('')
     const [list_schedule, set_schedule] = useState([]);
-
+    const [delete_class,set_delete_class] = useState({})
 
 
 
@@ -85,6 +85,9 @@ function Class_schedule() {
     }
 
 
+
+
+
     const list_button_handle = (class_sect) => {
         if (class_sect) {
             window.open('/class_student?class_id=' + class_student.class_id + '&&class_sect=' + class_sect)
@@ -128,16 +131,30 @@ function Class_schedule() {
                                 <div class="col">
                                     <div class="collapse multi-collapse" id={data_target}>
                                         <div style={{ textAlign: "center", margin: "auto" }} class="card card-body">
-                                            <p>ตารางเวลา </p>
+                                            <div class="row">
+                                                <div class='col-6' />
+                                                <p class="text-right">ตารางเวลา</p>
+                                                <div class='col-4'>
+                                                </div>
+                                                <div class="col-1">
+                                                    <a data-toggle="modal" onClick={()=>{
+                                                        set_delete_class({
+                                                            class_id:class_id,
+                                                            class_sect:class_sect
+                                                        })
+                                                    }}data-target="#delete_class_sect" href="#">ลบวิชา</a>
+                                                </div>
+                                            </div>
+
                                             <div style={{ margin: "auto" }} class="table-responsive">
                                                 <table class="table">
                                                     <thead>
                                                         <tr class="d-flex">
-                                                            <th class="col-1" scope="col">sect</th>
                                                             <th class="col-2" scope="col">วัน</th>
                                                             <th class="col-3" scope="col">เวลาเริ่ม</th>
                                                             <th class="col-3" scope="col">เวลาจบ</th>
                                                             <th class="col-2" scope="col">Id ห้อง</th>
+                                                            <th class="col-2" scope="col">จัดการ</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -147,11 +164,14 @@ function Class_schedule() {
                                                             } = e
                                                             return (
                                                                 <tr style={{ backgroundColor: "#f5f5f5" }} class="d-flex">
-                                                                    <th scope="row" class="col-1">{class_sect}</th>
                                                                     <td class="col-2">{change_day_format(class_day)}</td>
                                                                     <td class="col-3">{class_start_time}</td>
                                                                     <td class="col-3">{class_end_time}</td>
                                                                     <td class="col-2">{room_id}</td>
+                                                                    <td class="col-2">
+                                                                        <a href="#">แก้ไข</a>
+                                                                        <a href="#">{" ลบ"}</a>
+                                                                    </td>
                                                                 </tr>
                                                             )
                                                         })}
@@ -159,12 +179,18 @@ function Class_schedule() {
                                                 </table>
                                             </div>
                                             <div class="row">
-                                                <div class="col-9"></div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div style={{ textAlign: "left" }} class="col-9">
+
+                                                    <a href="#" class="text-left">+ เพิ่มเวลา</a>
+                                                </div>
                                                 <div class="col-1">
                                                     <button type="button" class="btn btn-primary" onClick={() => { list_button_handle(class_sect) }}>รายชื่อ</button>
                                                 </div>
                                                 <div class="col-1">
-                                                    <button data-toggle="modal" data-target={"#add_std_" + i} type="button" class="btn btn-success">เพิ่ม</button>
+                                                    <button data-toggle="modal" data-target={"#add_std_" + i} type="button" class="btn btn-success">เพิ่ม นศ.</button>
                                                 </div>
                                             </div>
                                             <div class="modal fade" id={"add_std_" + i} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -190,14 +216,11 @@ function Class_schedule() {
                                                                     </summary>
                                                                     <p>1. ใส่หมายเลขนักศึกษาที่ต้องการจะลงทะเบียนในวิชานี้ในช่องว่างด้านบน</p>
                                                                     <p>2. หากต้องการที่จะเพิ่มนักศึกษาเป็นจำนวนมากสามารถคัดลอกมาเป็นจำนวนมาก โดยคั่นด้วยการเว้นบรรทัดได้ เช่น</p>
-                                                                    <img class="border border-success"src={add_help_1}/>
+                                                                    <img class="border border-success" src={add_help_1} />
                                                                     <p>3. ไฟล์ประเภท Excel ต่างๆ สามารถลากและคัดลอกในหลายแถวได้เลย ดังภาพ</p>
-                                                                    <img class="border border-success" src={add_help_2}/>
+                                                                    <img class="border border-success" src={add_help_2} />
                                                                 </details>
-                                                                 
                                                             </div>
-
-
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-success" data-dismiss="modal" onClick={async () => { await add_button_handle(msg, class_sect) }}>เพิ่ม</button>
@@ -215,7 +238,29 @@ function Class_schedule() {
 
                     )
                 })}
-
+            <div class="modal fade" id={"delete_class_sect"} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div style={{ backgroundColor: "red" }} class="modal-header">
+                            <h5 class="modal-title text-white" id="exampleModalLabel">ยืนยันการลบวิชา</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h5>
+                                ต้องการที่จะลบวิชาที่เลือกไว้หรือไม่?
+                        </h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                            <button type="button" onClick={()=>{
+                                console.log(delete_class)
+                            }}class="btn btn-danger"   data-dismiss="modal">ยืนยัน</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     )
