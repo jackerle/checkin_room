@@ -92,7 +92,7 @@ exports.rename_student = async (req,res)=>{
 }
 
 
-exports.get_profile = function(u_id){
+exports.get_profile = async (req,res)=>{
     let u_id = req.body.u_id;
     try{
         let data = await std_repo.get_profile(u_id);
