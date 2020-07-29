@@ -169,8 +169,8 @@ function Class_schedule() {
                                                                     <td class="col-3">{class_end_time}</td>
                                                                     <td class="col-2">{room_id}</td>
                                                                     <td class="col-2">
-                                                                        <a href="#">แก้ไข</a>
-                                                                        <a href="#">{" ลบ"}</a>
+                                                                        {/* <a href="#">แก้ไข</a>
+                                                                        <a href="#">{" ลบ"}</a> */}
                                                                     </td>
                                                                 </tr>
                                                             )
@@ -182,9 +182,9 @@ function Class_schedule() {
 
                                             </div>
                                             <div class="row">
-                                                <div style={{ textAlign: "left" }} class="col-9">
+                                                <div style={{ textAlign: "left" }} class="col-10">
 
-                                                    <a href="#" class="text-left">+ เพิ่มเวลา</a>
+                                                    {/* {<a href="#" class="text-left">+ เพิ่มเวลา</a>} */}
                                                 </div>
                                                 <div class="col-1">
                                                     <button type="button" class="btn btn-primary" onClick={() => { list_button_handle(class_sect) }}>รายชื่อ</button>
