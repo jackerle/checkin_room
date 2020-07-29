@@ -255,7 +255,16 @@ function Class_schedule() {
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
                             <button type="button" onClick={()=>{
-                                console.log(delete_class)
+                                Axios({
+                                    method: 'post',
+                                    url: env.API + '/delete_class',
+                                    data: {
+                                        class_id:delete_class.class_id,
+                                        class_sect:delete_class.class_sect
+                                    }
+                                }).then(res=>{
+                                    location.reload();
+                                })
                             }}class="btn btn-danger"   data-dismiss="modal">ยืนยัน</button>
                         </div>
                     </div>
