@@ -155,5 +155,6 @@ exports.delete_class = async function(req,res){
     }
     catch(ex){
         console.log(ex);
+        res.send(404)
     }
 }

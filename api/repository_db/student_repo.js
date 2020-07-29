@@ -458,7 +458,12 @@ exports.rename_student = function (u_id, student_name) {
 }
 
 exports.delete_class = function (class_id,class_sect){
-    let sql = `delete from reg_class where class_id = '${class_id}' and class_sect = '${class_sect}';
-    delete from class_schedule where class_id = '${class_id}' and class_sect = '${class_sect}';
-    delete from class_table where class_id ='${class_id}' and class_sect = '${class_sect}';`
+    let sql = `delete from reg_class where class_id = '${class_id}' and class_sect = '${class_sect}';`
+    to_query(sql).then(res=>{
+        to_query(`delete from class_schedule where class_id = '${class_id}' and class_sect = '${class_sect}';`).then(res=>{
+            return to_query(`delete from class_table where class_id ='${class_id}' and class_sect = '${class_sect}';`)
+        })
+    })
+    
+
 }
