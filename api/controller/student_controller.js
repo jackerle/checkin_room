@@ -108,5 +108,8 @@ exports.get_profile = async (req,res)=>{
     }
     catch(ex){
         console.log(ex);
+        res.send({
+            "success":false
+        })
     }
 }
