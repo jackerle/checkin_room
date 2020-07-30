@@ -98,7 +98,7 @@ exports.get_profile = async (req,res)=>{
         let data = await std_repo.get_profile(u_id);
         res.send({
             "success":true,
-            data:data
+            data:data[0]
         })
 
     }
