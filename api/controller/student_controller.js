@@ -98,18 +98,21 @@ exports.get_profile = async (req,res)=>{
         let data = await std_repo.get_profile(u_id);
         res.send(data[0].student_name?{
             "success":true,
+            "hasAccount":true,
             "u_id" : data[0].u_id,
             "student_id":data[0].student_id,
             "student_name":data[0].student_name
         }:{
-            "success":false
+            "success":false,
+            "hasAccount":false
         })
 
     }
     catch(ex){
         console.log(ex);
         res.send({
-            "success":false
+            "success":false,
+            "hasAccount":false
         })
     }
 }
