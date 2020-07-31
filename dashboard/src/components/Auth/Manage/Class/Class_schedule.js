@@ -23,7 +23,7 @@ function Class_schedule() {
     const [list_schedule, set_schedule] = useState([]);
     const [delete_class, set_delete_class] = useState({})
     const [edit_name_class, set_edit_name] = useState([])
-
+    const [edit_value,set_edit_value] = useState("")
 
 
 
@@ -126,15 +126,36 @@ function Class_schedule() {
                             <br />
                             <div class="row p-3 shadow rounded " data-toggle="collapse" role="button" style={{ backgroundColor: "#ededeb" }} data-target={'#' + data_target}>
                                 <div class="col-10">
-                                <form onSubmit={(event)=>{
+                                <form onSubmit={ async(event)=>{
                                     event.preventDefault()
                                     event.stopPropagation()
+
+                                    await Axios({
+                                        method: 'post',
+                                        url: env.API + '/change_class_name',
+                                        data: {
+                                            class_id:class_id,
+                                            class_sect:class_sect,
+                                            new_name:edit_value
+                                        }
+                                    }).then((res) => {
+                                        location.reload();
+                                    })
+                                        .catch((ex) => {
+                                            alert('แก้ไขชื่อไม่สำเร็จ')
+                                            console.log(ex);
+                                        })
+
+
                                 }} >
 
 
                                     <h5 class="p-2 text-secondary">{class_id} sect : {class_sect} ชื่อ {edit_name_class[i]?
 
-                                    <input placeholder={class_name} value={class_name} type="text"/>
+                                    <input placeholder={class_name} value={edit_value} onChange={(event)=>{
+                                        if(event.target.value.trim()==''){alert('กรุณากรอกข้อมูล อย่าให้เป็นช่องว่าง')}
+                                        else set_edit_value(event.target.value)
+                                    }} type="text"/>
                                     
                                     :
 
@@ -155,8 +176,9 @@ function Class_schedule() {
                                                 <div class='col-1'>
                                                     <a href="#" onClick={() => {
                                                         let dummy = [...edit_name_class]
-                                                        dummy[i] = class_name
+                                                        dummy[i] = true
                                                         set_edit_name(dummy)
+                                                        set_edit_value(class_name)
                                                         // console.log(edit_name_class[i])
                                                     }}>
                                                         แก้ไขชื่อ
