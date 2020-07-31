@@ -83,6 +83,7 @@ class infoRoom extends Component {
 	}
 
 	onClickElement(_e) {
+		console.log(_e)
 		if (_e.length < 1)
 			return
 		const e = _e[0]
