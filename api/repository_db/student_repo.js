@@ -471,3 +471,8 @@ exports.get_profile = function (u_id){
     let sql = `select * from student_table where u_id = '${u_id}'`
     return to_query(sql);
 }
+
+
+exports.change_class_name = function(class_id,class_sect,new_name){
+    let sql = `update class_table set class_name = '${new_name}' where class_id = '${class_id}' and class_sect = '${class_sect}';`
+}

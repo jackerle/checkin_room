@@ -21,7 +21,9 @@ function Class_schedule() {
     const [list_sect, set_sect] = useState([])
     const [class_name_header, setHeader] = useState('')
     const [list_schedule, set_schedule] = useState([]);
-    const [delete_class,set_delete_class] = useState({})
+    const [delete_class, set_delete_class] = useState({})
+    const [edit_name_class, set_edit_name] = useState([])
+
 
 
 
@@ -124,7 +126,21 @@ function Class_schedule() {
                             <br />
                             <div class="row p-3 shadow rounded " data-toggle="collapse" role="button" style={{ backgroundColor: "#ededeb" }} data-target={'#' + data_target}>
                                 <div class="col-10">
-                                    <h5 class="p-2 text-secondary">{class_id} sect : {class_sect} ชื่อ {class_name} </h5>
+                                <form onSubmit={(event)=>{
+                                    event.preventDefault()
+                                    event.stopPropagation()
+                                }} >
+
+
+                                    <h5 class="p-2 text-secondary">{class_id} sect : {class_sect} ชื่อ {edit_name_class[i]?
+
+                                    <input placeholder={class_name} value={class_name} type="text"/>
+                                    
+                                    :
+
+
+                                    class_name }</h5>
+                                    </form>
                                 </div>
                             </div>
                             <div class="row">
@@ -134,15 +150,25 @@ function Class_schedule() {
                                             <div class="row">
                                                 <div class='col-6' />
                                                 <p class="text-right">ตารางเวลา</p>
-                                                <div class='col-4'>
+                                                <div class='col-3'>
+                                                </div>
+                                                <div class='col-1'>
+                                                    <a href="#" onClick={() => {
+                                                        let dummy = [...edit_name_class]
+                                                        dummy[i] = class_name
+                                                        set_edit_name(dummy)
+                                                        // console.log(edit_name_class[i])
+                                                    }}>
+                                                        แก้ไขชื่อ
+                                                    </a>
                                                 </div>
                                                 <div class="col-1">
-                                                    <a data-toggle="modal" onClick={()=>{
+                                                    <a data-toggle="modal" onClick={() => {
                                                         set_delete_class({
-                                                            class_id:class_id,
-                                                            class_sect:class_sect
+                                                            class_id: class_id,
+                                                            class_sect: class_sect
                                                         })
-                                                    }}data-target="#delete_class_sect" href="#">ลบวิชา</a>
+                                                    }} data-target="#delete_class_sect" href="#">ลบวิชา</a>
                                                 </div>
                                             </div>
 
@@ -254,18 +280,18 @@ function Class_schedule() {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                            <button type="button" onClick={()=>{
+                            <button type="button" onClick={() => {
                                 Axios({
                                     method: 'post',
                                     url: env.API + '/delete_class',
                                     data: {
-                                        class_id:delete_class.class_id,
-                                        class_sect:delete_class.class_sect
+                                        class_id: delete_class.class_id,
+                                        class_sect: delete_class.class_sect
                                     }
-                                }).then(res=>{
+                                }).then(res => {
                                     location.reload();
                                 })
-                            }}class="btn btn-danger"   data-dismiss="modal">ยืนยัน</button>
+                            }} class="btn btn-danger" data-dismiss="modal">ยืนยัน</button>
                         </div>
                     </div>
                 </div>
