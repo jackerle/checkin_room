@@ -158,3 +158,18 @@ exports.delete_class = async function(req,res){
         res.send(404)
     }
 }
+
+
+exports.change_class_name = async function(req,res){
+    let class_id = req.body.class_id;
+    let class_sect = req.body.class_sect;
+    let new_name = req.body.new_name;
+    try{
+        let data = await std_repo.change_class_name(class_id,class_sect,new_name)
+        res.send(data)
+    }
+    catch(ex){
+        console.log(ex);
+        res.send(404)
+    }
+}
