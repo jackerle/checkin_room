@@ -104,7 +104,7 @@ function Class_schedule() {
 
 
     return (
-        <div>
+        <div >
             <br />
             <h2 style={{ textAlign: "center" }}>จัดการรายวิชาเรียน</h2>
             <h4 style={{ textAlign: "center" }}>ชื่อวิชา : {class_name_header}</h4>
@@ -132,6 +132,10 @@ function Class_schedule() {
                                         if (edit_value.trim() == '') {
 
                                             alert('กรุณากรอกข้อมูล อย่าให้เป็นช่องว่าง')
+                                        }else if(edit_value==class_name){
+                                            let dummy = [...edit_name_class]
+                                            dummy[i] = false
+                                            set_edit_name(dummy)
                                         }
                                         else {
                                             await Axios({
