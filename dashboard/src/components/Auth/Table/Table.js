@@ -138,7 +138,7 @@ function Table() {
             <br />
             <h2 style={{ textAlign: "center" }}>บันทึกการใช้งานห้องเรียน</h2>
             <br />
-            <select style={{ width: "50%", margin: "auto", textAlign: "center" }} class="form-control" id="room_select" onChange={handleSelect}>
+            <select style={{ width: "50%", margin: "auto", textAlign: "center" }} class="form-control" id="room_select" value={room_select}onChange={handleSelect}>
                 <option value={0} >--กรุณาเลือกห้อง--</option>
                 {room_list && room_list.map(room => {
                     return (
