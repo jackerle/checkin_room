@@ -182,14 +182,14 @@ function Class_schedule() {
 
                                             </div>
                                             <div class="row">
-                                                <div style={{ textAlign: "left" }} class="col-10">
+                                                <div style={{ textAlign: "left" }} class="col-8">
 
                                                     {/* {<a href="#" class="text-left">+ เพิ่มเวลา</a>} */}
                                                 </div>
-                                                <div class="col-1">
+                                                <div class="col-2">
                                                     <button type="button" class="btn btn-primary" onClick={() => { list_button_handle(class_sect) }}>รายชื่อ</button>
                                                 </div>
-                                                <div class="col-1">
+                                                <div class="col-2">
                                                     <button data-toggle="modal" data-target={"#add_std_" + i} type="button" class="btn btn-success">เพิ่ม นศ.</button>
                                                 </div>
                                             </div>
