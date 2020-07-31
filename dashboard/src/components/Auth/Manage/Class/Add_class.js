@@ -89,7 +89,7 @@ function ADD_CLASS() {
 
 
     const add_class_button = ()=>{
-        if(form_input.schedule.length!=0&&form_input.class_id.length!=0&&form_input.class_sect.length!=0&&form_input.class_name.length!=0){
+        if(form_input.schedule.length!=0&&form_input.class_id.length!=0&&form_input.class_sect.length!=0&&form_input.class_name.length!=0&&form_input.class_sect.length<10&&form_input.class_id.indexOf('-')==-1&&form_input.class_sect.indexOf('-')==-1){
             Axios({
                 method:'post',
                 url:env.API + '/add_class',
@@ -101,10 +101,15 @@ function ADD_CLASS() {
                 }
             }).then((res)=>{
                 location.reload()
+            }).catch(ex=>{
+                alert('ไม่สำเร็จ')
             })
         }
         else{
-            alert('กรุณากรอกข้อมูลให้ครบถ้วน (รหัสวิชา , sect (ถ้าไม่มีให้ใส่ 1 ) ,ชื่อวิชา)')
+            alert(`กรุณากรอกข้อมูลให้ครบถ้วน 
+            -(รหัสวิชา , sect (ถ้าไม่มีให้ใส่ 1 ) ,ชื่อวิชา)
+            - sect ใส่ได้ไม่เกิน 10 ตัวเท่านั้น
+            - รหัสวิชา และ sect ห้ามใส่อักขระ "-"`)
         }
         
     }
