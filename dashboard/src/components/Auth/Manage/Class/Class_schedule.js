@@ -117,7 +117,7 @@ function Class_schedule() {
                     const {
                         class_id, class_sect, class_name
                     } = element
-                    const data_target = 'show' + class_id + '_' + i
+                    const data_target = 'show_' + i
                     const schedule = list_schedule.filter(e => e.class_id == class_id && e.class_sect == class_sect)
                     return (
                         <div style={{ width: "80%", margin: "auto" }}>
