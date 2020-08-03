@@ -43,7 +43,7 @@ function change_month_format (month){
             return 'ก.ค.'
             break
         case 8 :
-            return 'ส.ต.'
+            return 'ส.ค.'
             break
         case 9 :
             return 'ก.ย.'
