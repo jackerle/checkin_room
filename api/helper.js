@@ -23,7 +23,7 @@ exports.watcher_auto_reject =  function(){
     setInterval(async ()=>{
         let d = new Date().getHours();
         //in 00.00 o'clock
-        if(d == 14){
+        if(d == 17){
             //todo
             await Axios({
                 method:'post',
