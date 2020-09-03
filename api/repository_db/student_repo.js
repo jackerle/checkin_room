@@ -81,8 +81,8 @@ exports.getAllRoom = function () {
  */
 exports.checkin = function (room_id, u_id) {
     let sql = `insert into transaction (room_id,u_id,timestamp_checkin,status)
-    select ${room_id},'${u_id}',CURRENT_TIMESTAMP,1
-    
+    select ${room_id},'${u_id}',CURRENT_TIMESTAMP,1 
+    from transaction
     where not exists(
         select * from transaction 
     where room_id = ${room_id}
@@ -95,8 +95,8 @@ from room_table,
 (select count(room_id) as l_count from transaction where room_id=${room_id} and status =1) as c_in
 where capacity - c_in.l_count  >0
 and room_table.room_id = ${room_id}
-
     )
+    group by '${u_id}'
     ;`
     return to_query(sql);
 }
@@ -475,5 +475,12 @@ exports.get_profile = function (u_id){
 
 exports.change_class_name = function(class_id,class_sect,new_name){
     let sql = `update class_table set class_name = '${new_name}' where class_id = '${class_id}' and class_sect = '${class_sect}';`
+    return to_query(sql)
+}
+
+exports.auto_reject_all = function (room_id) {
+    let sql = `update transaction
+    set timestamp_checkout = CURRENT_TIMESTAMP,status = 0,role = 1
+    where status = 1;`
     return to_query(sql)
 }

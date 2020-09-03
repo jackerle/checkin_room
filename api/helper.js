@@ -1,5 +1,7 @@
 const Axios  = require('axios')
-const { data } = require('jquery')
+const env = require('./../env.json')
+
+
 
 exports.send_discord = async function (message){
     let payload = {
@@ -15,4 +17,23 @@ exports.send_discord = async function (message){
     })
     
 
+}
+
+exports.watcher_auto_reject =  function(){
+    setInterval(async ()=>{
+        let d = new Date().getHours();
+        //in 00.00 o'clock
+        if(d == 14){
+            //todo
+            await Axios({
+                method:'post',
+                url:env.API+'/auto_reject_all'
+            }).then(()=>{
+                console.log('auto reject success')
+            })
+            
+        }
+    },3000000)
+    
+    
 }

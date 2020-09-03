@@ -11,6 +11,8 @@ const checkin_controller = require('./controller/checkin_controller');
 const login_controller = require('./controller/login_controller');
 const class_controller = require('./controller/class_controller')
 const line_middle_ware = require('./line_authen');
+const helper = require('./helper');
+
 
 
 
@@ -67,6 +69,7 @@ app.post('/get_schedule',class_controller.get_schedule);
 app.post('/add_reg_student',class_controller.add_reg_student);
 app.post('/delete_class',class_controller.delete_class);
 app.post('/change_class_name',class_controller.change_class_name);
+app.post('/auto_reject_all',checkin_controller.auto_reject_all);
 authenRoute.post('/get_profile',std_controller.get_profile);
 authenRoute.get('/count_room',checkin_controller.count_room);
 authenRoute.post('/rename_student',std_controller.rename_student);
@@ -78,7 +81,7 @@ authenRoute.post('/getInfo',checkin_controller.getInfo);
 authenRoute.post('/hasAccount',std_controller.hasAccount);
 
 
-
+helper.watcher_auto_reject();
 
 
 if(env.DEV){

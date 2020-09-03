@@ -214,3 +214,13 @@ exports.reject_all = async(req,res)=>{
         console.log(ex)
     }
 }
+
+exports.auto_reject_all = async(req,res)=>{
+    try{
+        let data = await std_repo.auto_reject_all();
+        res.send(data)
+    }
+    catch(ex){
+        console.log(ex)
+    }
+}
