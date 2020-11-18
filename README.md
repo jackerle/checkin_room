@@ -1,5 +1,6 @@
 # Checkin_room ระบบลงทะเบียนการเข้าใช้งานห้องปฏิบัติการ
 ## v.1.0.0
+## React Hook(Functional)+ExpressJS (Nodejs) + Mysql
 
 ![Example](./img/readme1.jpg)
 
