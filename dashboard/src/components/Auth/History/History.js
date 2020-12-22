@@ -128,7 +128,7 @@ function History() {
                             <nav aria-label="Page navigation" >
                                 <div class="row">
                                     <div class="col-2">
-                                        {current_page == 0 ? <div></div> : <div role="button" class="pt-3 pb-1 rounded " style={{ backgroundColor: "#ededeb", textAlign: "center", color: "gray" }} onClick={previous_page_handle} >
+                                        {current_page == 0 ? <div></div> : <div role="button" class="pt-3 pb-1 rounded " style={{ backgroundColor: "#45AB87", textAlign: "center", color: "white" }} onClick={previous_page_handle} >
                                             <p>{"ก่อนหน้า"}</p>
                                         </div>}
                                     </div>
@@ -138,7 +138,7 @@ function History() {
                                             (() => {
                                                 if (history_list.length >= 15) {
                                                     return (
-                                                        <div class="pt-3 pb-1 rounded " role="button" style={{ backgroundColor: "#ededeb", textAlign: "center", color: "gray" }} onClick={next_page_handle}>
+                                                        <div class="pt-3 pb-1 rounded " role="button" style={{ backgroundColor: "#45AB87", textAlign: "center", color: "white" }} onClick={next_page_handle}>
                                                             <p>{"ถัดไป"}</p>
                                                         </div>
                                                     )

@@ -16,36 +16,56 @@ function Class() {
     const [keyword, setKeyword] = useState('');
     const [class_list, setClass_list] = useState([]);
     const [add_class_button, set_add_Toggle] = useState(false)
-    const [keyword_id,setKeyword_id] = useState('');
+    const [keyword_id, setKeyword_id] = useState('');
+    const [term, set_term] = useState([])
+    const [current_term, set_current_term] = useState('');
 
 
     useEffect(() => {
-        Axios.get(env.API + '/get_class')
-            .then(res => {
+        Axios({
+            method: 'post',
+            url: env.API + '/get_class',
+            data: {
+                term: current_term
+            }
+        }).then(res => {
                 setClass_list(res.data);
             })
-    }, [add_class_button])
+    }, [add_class_button,current_term])
+
+
+    useEffect(() => {
+        Axios({
+            method: 'post',
+            url: env.API + '/get_term',
+        }).then(res => {
+            set_term(res.data)
+            set_current_term(res.data[res.data.length - 1])
+        }).catch(err => {
+            console.log(err)
+        })
+    }, [])
 
 
     const handleKeyword = (event) => {
         setKeyword(event.target.value);
     }
 
-    const handleKeyword_id = (event)=>{
+    const handleKeyword_id = (event) => {
         setKeyword_id(event.target.value);
     }
 
 
     const show_class_list = class_list && class_list.map(obj => {
-        const { class_id,  class_name } = obj
+        const { class_id, class_name } = obj
         let to_ = `/class_schedule?class_id=${class_id}`
 
-        if ((keyword == '' &&keyword_id == '')|| (class_name.toUpperCase().indexOf(keyword.toUpperCase()) != -1 &&class_id.indexOf(keyword_id)!= -1)) {
+        if ((keyword == '' && keyword_id == '') || (class_name.toUpperCase().indexOf(keyword.toUpperCase()) != -1 && class_id.indexOf(keyword_id) != -1)) {
             return (
                 <tr class="d-flex">
                     <th scope="row" class="col-3">{class_id}</th>
-                    <td style ={{textAlign:"left"}}class="col-6">
-                    <a href={to_}>{class_name.split('(')[0]}</a>
+                    <td style={{ textAlign: "left" }} class="col-6">
+                        <a href={to_}>{class_name.split('(')[0]}</a>
                     </td>
                     <td class="col-2"></td>
                 </tr>
@@ -57,14 +77,14 @@ function Class() {
     const add_class_button_element = () => {
         if (add_class_button) {
             return (
-                <ADD_CLASS/>
+                <ADD_CLASS />
 
             )
         }
         else {
             return (
-                <br/>
-                
+                <br />
+
             )
         }
     }
@@ -74,9 +94,9 @@ function Class() {
     }
 
 
-
-
-
+    const handle_term_change = (event)=>{
+        set_current_term(event.target.value)
+    }
 
 
 
@@ -88,13 +108,24 @@ function Class() {
             <div class="container">
                 <div class="row">
                     <div class="col-2">
-                    <input style={{ width: "100%", margin: "auto", textAlign: "center" }} class="form-control" type="text" placeholder="ค้นหารหัสวิชาที่นี่" value={keyword_id} onChange={handleKeyword_id} />
+                        <select class="form-control" value={current_term.term} onChange={handle_term_change}>
+                            {
+                                term && term.map((ele) => {
+                                    return (
+                                        <option value={ele.term}>{ele.term}</option>
+                                    )
+                                })
+                            }
+                        </select>
                     </div>
-                    <div class="col-8">
+                    <div class="col-2">
+                        <input style={{ width: "100%", margin: "auto", textAlign: "center" }} class="form-control" type="text" placeholder="ค้นหารหัสวิชาที่นี่" value={keyword_id} onChange={handleKeyword_id} />
+                    </div>
+                    <div class="col-6">
                         <input style={{ width: "100%", margin: "auto", textAlign: "center" }} class="form-control" type="text" placeholder="ค้นหาชื่อวิชาที่นี่" value={keyword} onChange={handleKeyword} />
                     </div>
                     <div class="col-2">
-                        <button type="button" class={add_class_button ?  "btn btn-danger": "btn btn-success"} onClick={handle_add_button}>{add_class_button ? "ยกเลิก" : "เพิ่มวิชาเรียน"}</button>
+                        <button type="button" class={add_class_button ? "btn btn-danger" : "btn btn-success"} onClick={handle_add_button}>{add_class_button ? "ยกเลิก" : "เพิ่มวิชาเรียน"}</button>
                     </div>
                 </div>
             </div>
@@ -112,7 +143,7 @@ function Class() {
                         {show_class_list}
                     </tbody>
                 </table>
-                
+
             </div>
         </div>
     )
