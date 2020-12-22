@@ -63,13 +63,14 @@ app.post('/f_checkout',checkin_controller.f_checkout);
 app.post('/get_regis_student',class_controller.get_regis_student)
 app.post('/getClass_room',class_controller.getClass_room);
 app.post('/reject_all',checkin_controller.reject_all);
-app.get('/get_class',class_controller.get_class);
+app.post('/get_class',class_controller.get_class);
 app.post('/get_sect',class_controller.get_sect);
 app.post('/get_schedule',class_controller.get_schedule);
 app.post('/add_reg_student',class_controller.add_reg_student);
 app.post('/delete_class',class_controller.delete_class);
 app.post('/change_class_name',class_controller.change_class_name);
 app.post('/auto_reject_all',checkin_controller.auto_reject_all);
+app.post('/get_term',class_controller.get_term);
 authenRoute.post('/get_profile',std_controller.get_profile);
 authenRoute.get('/count_room',checkin_controller.count_room);
 authenRoute.post('/rename_student',std_controller.rename_student);

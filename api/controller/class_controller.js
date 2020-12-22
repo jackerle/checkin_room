@@ -102,8 +102,9 @@ exports.get_regis_student = async(req,res)=>{
 
 
 exports.get_class = async (req,res)=>{
+    let term = req.body.term;
     try {
-        let data = await std_repo.get_class();
+        let data = await std_repo.get_class(term);
         res.send(data)
     }
     catch(ex){
@@ -171,5 +172,15 @@ exports.change_class_name = async function(req,res){
     catch(ex){
         console.log(ex);
         res.send(404)
+    }
+}
+
+exports.get_term = async function(req,res){
+    try{
+        let data = await std_repo.get_term()
+        res.send(data)
+    }
+    catch(ex){
+        console.log(ex);
     }
 }

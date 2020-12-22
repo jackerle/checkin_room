@@ -1,6 +1,7 @@
 const mariadb = require('mariadb');
 const env = require('./../../env.json')
-const helper = require('../../api/helper')
+const helper = require('../../api/helper');
+const { get_term } = require('../controller/class_controller');
 
 
 var pool = mariadb.createPool({
@@ -431,8 +432,11 @@ exports.reject_all = function (room_id) {
 }
 
 
-exports.get_class = function () {
-    let sql = `select class_id as class_id ,class_name as class_name from class_table group by class_id;`
+exports.get_class = function (term) {
+    let sql = `select class_id as class_id ,class_name as class_name 
+    from class_table 
+    where term = '${term}'
+    group by class_id;`
     return to_query(sql);
 }
 
@@ -483,4 +487,9 @@ exports.auto_reject_all = function (room_id) {
     set timestamp_checkout = CURRENT_TIMESTAMP,status = 0,role = 1
     where status = 1;`
     return to_query(sql)
+}
+
+exports.get_term = function (){
+    let sql = `select * from term_table;`
+    return to_query(sql);
 }
