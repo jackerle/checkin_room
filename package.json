@@ -7,7 +7,8 @@
     "push": "git checkout dev &&git add . && git commit -m \"p. to cloud\" && git push origin dev",
     "dev": "webpack-dev-server --mode development --open --hot",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+	"backup":"sudo mysqldump checkin_room > db_backup.sql"
   },
   "author": "",
   "license": "ISC",
