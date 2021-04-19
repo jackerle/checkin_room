@@ -8,7 +8,7 @@
     "dev": "webpack-dev-server --mode development --open --hot",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js",
-	"backup":"sudo mysqldump checkin_room > db_backup.sql"
+  	"backup":"mysqldump checkin_room > db_backup.sql"
   },
   "author": "",
   "license": "ISC",
