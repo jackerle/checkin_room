@@ -68,7 +68,8 @@ exports.hasAccount = async (req,res)=>{
     try{
         let data = await std_repo.hasAccount(u_id);
         res.send({
-            "success" : data[0]? true : false
+            "success" : data[0]? true : false,
+            "data": data[0]? data[0] : {}
         })
     }
     catch(ex){
