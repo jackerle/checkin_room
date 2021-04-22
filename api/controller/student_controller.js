@@ -96,7 +96,7 @@ exports.rename_student = async (req,res)=>{
 exports.get_profile = async (req,res)=>{
     let u_id = req.body.u_id;
     try{
-        let data = await std_repo.get_profile(u_id);
+        let data = await std_repo.get_timeline(u_id);
         res.send(data[0].student_name?{
             "success":true,
             "hasAccount":true,

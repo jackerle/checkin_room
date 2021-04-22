@@ -3,10 +3,11 @@ const std_repo = require('./../../api/repository_db/student_repo')
 
 exports.has_profile = async (req,res) => {
 
-    let student_id = req.body.u_id
+    let student_id = req.body.student_id
 
     try {
         let data = await std_repo.has_profile(student_id)
+        
         res.send({
             "success" : data[0]? true : false
         }) 
