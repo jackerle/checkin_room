@@ -10,8 +10,10 @@ const std_controller = require('./controller/student_controller');
 const checkin_controller = require('./controller/checkin_controller');
 const login_controller = require('./controller/login_controller');
 const class_controller = require('./controller/class_controller')
+const profile_controller = require('./controller/profile_controller')
 const line_middle_ware = require('./line_authen');
 const helper = require('./helper');
+
 
 
 
@@ -80,17 +82,14 @@ authenRoute.post('/regis_std',std_controller.regis_std);
 authenRoute.post('/removestd',std_controller.removestd);
 authenRoute.post('/getInfo',checkin_controller.getInfo);
 authenRoute.post('/hasAccount',std_controller.hasAccount);
-
+authenRoute.post('/has_profile',profile_controller.has_profile);
+authenRoute.post('./register_profile',profile_controller.register_profile)
+authenRoute.post('./get_profile',profile_controller.get_profile)
 
 helper.watcher_auto_reject();
 
-
 if(env.DEV){
-    https.createServer({
-        key : fs.readFileSync(env.SSL_KEY),
-        cert : fs.readFileSync(env.SSL_FULLCHAIN)
-    },app)
-    .listen(env.PORT,()=>{
+    app.listen(env.PORT,()=>{
         console.log('opened on devs '+env.PORT)
     })
 }else{

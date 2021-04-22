@@ -461,23 +461,23 @@ exports.rename_student = function (u_id, student_name) {
     return to_query(sql);
 }
 
-exports.delete_class = function (class_id,class_sect){
+exports.delete_class = function (class_id, class_sect) {
     let sql = `delete from reg_class where class_id = '${class_id}' and class_sect = '${class_sect}';`
-    to_query(sql).then(res=>{
-        to_query(`delete from class_schedule where class_id = '${class_id}' and class_sect = '${class_sect}';`).then(res=>{
+    to_query(sql).then(res => {
+        to_query(`delete from class_schedule where class_id = '${class_id}' and class_sect = '${class_sect}';`).then(res => {
             return to_query(`delete from class_table where class_id ='${class_id}' and class_sect = '${class_sect}';`)
         })
     })
 }
 
 
-exports.get_profile = function (u_id){
+exports.get_timeline = function (u_id) {
     let sql = `select * from student_table where u_id = '${u_id}'`
     return to_query(sql);
 }
 
 
-exports.change_class_name = function(class_id,class_sect,new_name){
+exports.change_class_name = function (class_id, class_sect, new_name) {
     let sql = `update class_table set class_name = '${new_name}' where class_id = '${class_id}' and class_sect = '${class_sect}';`
     return to_query(sql)
 }
@@ -489,7 +489,58 @@ exports.auto_reject_all = function (room_id) {
     return to_query(sql)
 }
 
-exports.get_term = function (){
+exports.get_term = function () {
     let sql = `select * from term_table;`
     return to_query(sql);
+}
+
+
+exports.has_profile = function (student_id) {
+    let sql = `select * from profile_table where student_id = '${student_id}'`
+    return to_query(sql)
+}
+
+
+exports.get_timeline = async function (student_id) {
+
+    let q_has_profile = `select * from profile_table where student_id = '${student_id}'`
+    let has_profile = await to_query(q_has_profile)
+
+    if (has_profile[0]) {
+
+        let q_profile = `select student_id , student_name from profile_table where student_id = '${student_id}'`
+        let profile = await to_query(q_profile)
+
+        let q_device_list = `select u_id from student_table where student_id = '${student_id}'`
+        let device_list = await to_query(q_device_list)
+
+        let q_get_timeline = `select student_table.u_id , transaction.timestamp_checkin , transaction.timestamp_checkout , transaction.role , student_table.student_name from transaction ,student_table
+        where student_table.student_id = '${student_id}'
+        and transaction.u_id = student_table.u_id
+        order by timestamp_checkin asc;`
+        let timeline = await to_query(q_get_timeline)
+
+
+        return ({
+            "success": true,
+            "profile": profile[0],
+            "device_list": device_list,
+            "timeline": timeline
+        })
+
+    } else {
+        return ({
+            "success": false,
+            "error": 'doesnt have profile'
+        })
+    }
+
+
+}
+
+exports.register_profile = async (student_id , student_name , password) => {
+
+    let sql = `insert into profile_table(student_id,student_name,password) values('${student_id}','${student_name}','${password}')`
+    return to_query(sql)
+
 }
