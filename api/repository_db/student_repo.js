@@ -495,52 +495,29 @@ exports.get_term = function () {
 }
 
 
-exports.has_profile = function (student_id) {
-    let sql = `select * from profile_table where student_id = '${student_id}'`
-    return to_query(sql)
-}
 
 
-exports.get_timeline = async function (student_id) {
 
-    let q_has_profile = `select * from profile_table where student_id = '${student_id}'`
-    let has_profile = await to_query(q_has_profile)
+exports.get_timeline = async function (student_id , u_id) {
 
-    if (has_profile[0]) {
+    let q_student_info = `select * from student_table where u_id = '${u_id}' `
+    let student_info = await to_query(q_student_info)
 
-        let q_profile = `select student_id , student_name from profile_table where student_id = '${student_id}'`
-        let profile = await to_query(q_profile)
+    let q_device_list = `select u_id from student_table where student_id = '${student_id}'`
+    let device_list = await to_query(q_device_list)
 
-        let q_device_list = `select u_id from student_table where student_id = '${student_id}'`
-        let device_list = await to_query(q_device_list)
-
-        let q_get_timeline = `select student_table.u_id , transaction.timestamp_checkin , transaction.timestamp_checkout , transaction.role , student_table.student_name from transaction ,student_table
+    let q_get_timeline = `select student_table.u_id , transaction.timestamp_checkin , transaction.timestamp_checkout , transaction.role , student_table.student_name from transaction ,student_table
         where student_table.student_id = '${student_id}'
         and transaction.u_id = student_table.u_id
         order by timestamp_checkin asc;`
-        let timeline = await to_query(q_get_timeline)
+    let timeline = await to_query(q_get_timeline)
 
 
-        return ({
-            "success": true,
-            "profile": profile[0],
-            "device_list": device_list,
-            "timeline": timeline
-        })
+    return ({
+        "success": true,
+        "student_info": student_info[0],
+        "device_list": device_list,
+        "timeline": timeline
+    })
 
-    } else {
-        return ({
-            "success": false,
-            "error": 'doesnt have profile'
-        })
-    }
-
-
-}
-
-exports.register_profile = async (student_id , student_name , password) => {
-
-    let sql = `insert into profile_table(student_id,student_name,password) values('${student_id}','${student_name}','${password}')`
-    return to_query(sql)
-
-}
+} 
