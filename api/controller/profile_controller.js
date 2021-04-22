@@ -14,6 +14,7 @@ exports.get_timeline = async (req,res) => {
     }
     catch (ex) {
         console.log(ex);
+        res.send(ex)
     }
 }
 
