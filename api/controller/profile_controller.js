@@ -3,7 +3,7 @@ const std_repo = require('./../../api/repository_db/student_repo')
 
 
 
-exports.get_profile = async (req,res) => {
+exports.get_timeline = async (req,res) => {
 
     let student_id = req.body.student_id
     let u_id = req.body.u_id

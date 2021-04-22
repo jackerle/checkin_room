@@ -82,7 +82,7 @@ authenRoute.post('/regis_std',std_controller.regis_std);
 authenRoute.post('/removestd',std_controller.removestd);
 authenRoute.post('/getInfo',checkin_controller.getInfo);
 authenRoute.post('/hasAccount',std_controller.hasAccount);
-authenRoute.post('./get_profile',profile_controller.get_profile)
+authenRoute.post('./get_timeline',profile_controller.get_timeline)
 
 helper.watcher_auto_reject();
 
