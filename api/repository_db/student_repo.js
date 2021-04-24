@@ -503,7 +503,7 @@ exports.get_timeline = async function (student_id , u_id) {
     let q_student_info = `select * from student_table where u_id = '${u_id}' `
     let student_info = await to_query(q_student_info)
 
-    let q_device_list = `select u_id from student_table where student_id = '${student_id}'`
+    let q_device_list = `select u_id , student_name from student_table where student_id = '${student_id}'`
     let device_list = await to_query(q_device_list)
 
     let q_get_timeline = `select student_table.u_id , transaction.timestamp_checkin , transaction.timestamp_checkout , transaction.role , student_table.student_name , room_table.room_name
