@@ -26,9 +26,10 @@ function Class() {
             method: 'post',
             url: env.API + '/get_class',
             data: {
-                term: current_term
+                term: current_term.term
             }
         }).then(res => {
+            console.log(res.data);
                 setClass_list(res.data);
             })
     }, [add_class_button,current_term])
@@ -77,7 +78,7 @@ function Class() {
     const add_class_button_element = () => {
         if (add_class_button) {
             return (
-                <ADD_CLASS term={current_term}/>
+                <ADD_CLASS current_term={current_term}/>
 
             )
         }
@@ -95,7 +96,8 @@ function Class() {
 
 
     const handle_term_change = (event)=>{
-        set_current_term(event.target.value)
+        set_current_term({"term":event.target.value})
+        console.log(event.target.value);
     }
 
 

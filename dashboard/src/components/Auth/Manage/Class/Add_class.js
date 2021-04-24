@@ -97,7 +97,7 @@ function ADD_CLASS({current_term}) {
                     class_id:form_input.class_id,
                     class_sect:form_input.class_sect,
                     class_name:form_input.class_name,
-                    term:current_term,
+                    term:current_term.term,
                     schedule:form_input.schedule
                 }
             }).then((res)=>{
