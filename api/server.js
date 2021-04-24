@@ -87,9 +87,7 @@ authenRoute.post('/get_timeline',profile_controller.get_timeline)
 helper.watcher_auto_reject();
 
 if(env.DEV){
-    app.listen(env.PORT,()=>{
-        console.log('opened on devs '+env.PORT)
-    })
+    app.listen(env.PORT,'127.0.0.1',()=>{console.log('openned on production port:'+env.PORT)})
 }else{
     app.listen(env.PORT,'127.0.0.1',()=>{console.log('openned on production port:'+env.PORT)})
 }
