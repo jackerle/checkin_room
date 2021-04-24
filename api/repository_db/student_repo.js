@@ -284,9 +284,9 @@ exports.getClass_room = function (room_id, day) {
  * @param {string} class_name 
  * @param {Array} schedule 
  */
-exports.add_class = function (class_id, class_sect, class_name, schedule) {
-    let sql_1 = `insert into class_table (class_id,class_sect,class_name)
-    values ('${class_id}','${class_sect}','${class_name}')`
+exports.add_class = function (class_id, class_sect, class_name, term,schedule) {
+    let sql_1 = `insert into class_table (class_id,class_sect,class_name,term)
+    values ('${class_id}','${class_sect}','${class_name}','${term}')`
     to_query(sql_1)
     schedule.map(e => {
         let sql = `insert into class_schedule (class_id,class_sect,class_day,class_start_time,class_end_time,room_id) values('${class_id}','${class_sect}',${e.day},'${e.start_time}:00','${e.end_time}:00',${e.room_id});`

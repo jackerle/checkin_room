@@ -77,7 +77,7 @@ function Class() {
     const add_class_button_element = () => {
         if (add_class_button) {
             return (
-                <ADD_CLASS />
+                <ADD_CLASS term={current_term}/>
 
             )
         }

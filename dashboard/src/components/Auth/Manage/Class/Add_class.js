@@ -4,7 +4,7 @@ import env from './../../../../../../env.json'
 import { Redirect } from "react-router-dom";
 
 
-function ADD_CLASS() {
+function ADD_CLASS({current_term}) {
 
     const [timeValue, setTimeValue] = useState('')
     const [room_list, setRoom_list] = useState([])
@@ -97,6 +97,7 @@ function ADD_CLASS() {
                     class_id:form_input.class_id,
                     class_sect:form_input.class_sect,
                     class_name:form_input.class_name,
+                    term:current_term,
                     schedule:form_input.schedule
                 }
             }).then((res)=>{
