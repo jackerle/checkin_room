@@ -8,7 +8,7 @@
     "dev": "webpack-dev-server --mode development --open --hot",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js",
-  	"backup":"mysqldump checkin_room > db_backup.sql"
+    "backup": "mysqldump checkin_room > db_backup.sql"
   },
   "author": "",
   "license": "ISC",
@@ -32,7 +32,9 @@
     "react-chartjs-2": "^2.9.0",
     "react-cookie": "^4.0.3",
     "react-dom": "^16.13.1",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "swagger-ui-express": "^4.1.6",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.10.3",

@@ -1,0 +1,100 @@
+openapi: 3.0.0
+info:
+  title: Tracking system for classroom and place usage API Document
+  description: Optional multiline or single-line description in HTML.
+  version: 1.2.0
+servers:
+  - url: https://checkin.sc.su.ac.th/api
+    description: test from https://checkin.sc.su.ac.th/api
+paths:
+  /regis_std:
+    post:
+      summary: สมัครสมาชิกในระบบ
+      parameters:
+        - in: header
+          name: channel
+          description: channel ที่จะเลือกใช้งาน (หากเป็น OpenAPI จะเป็น 'OpenAPI')
+      description: สมัครสมาชิกในระบบติดตามการเข้าใช้งานห้องเรียนและอาคาร
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token :
+                  type: string
+                student_id : 
+                  type: string
+                student_name :
+                  type: string
+      responses:
+        '200':    # status code
+          description: สำเร็จ
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  success: 
+                    type: boolean
+
+  /checkin:
+    post:
+      summary: ลงทะเบียนเข้าใช้งานห้อง
+      parameters:
+        - in: header
+          name: channel
+          description: channel ที่จะเลือกใช้งาน (หากเป็น OpenAPI จะเป็น 'OpenAPI')
+      description: ลงทะเบียนในการเข้าใช้งานห้อง โดยจะส่งเป็น UniqueID ไปให้แก่ Server เพื่อลงทะเบียนใน Transaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token :
+                  type: string
+                room_id : 
+                  type: integer
+      responses:
+        '200':    # status code
+          description: สำเร็จ
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  success: 
+                    type: boolean
+
+  /checkout:
+    post:
+      summary: ลงทะเบียนออกจากห้อง
+      parameters:
+        - in: header
+          name: channel
+          description: channel ที่จะเลือกใช้งาน (หากเป็น OpenAPI จะเป็น 'OpenAPI')
+      description: ลงทะเบียนในการออกจากห้อง โดยจะส่งเป็น UniqueID ไปให้แก่ Server เพื่อลงทะเบียนใน Transaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token :
+                  type: string
+                room_id : 
+                  type: integer
+      responses:
+        '200':    # status code
+          description: สำเร็จ
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  success: 
+                    type: boolean

@@ -5,6 +5,8 @@ const fs = require('fs')
 const bodyParser = require('body-parser');
 const env = require('./../env.json');
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
 const authenRoute = express.Router();
 const std_controller = require('./controller/student_controller');
 const checkin_controller = require('./controller/checkin_controller');
@@ -14,10 +16,28 @@ const profile_controller = require('./controller/profile_controller')
 const line_middle_ware = require('./line_authen');
 const helper = require('./helper');
 
+const swaggerDocument = YAML.load('./swagger.yaml');
 
 
+const swagger_option = {
+    swaggerOptions: {
+        plugins: [
+            function() {
+                return {
+                  statePlugins: {
+                    spec: {
+                      wrapSelectors: {
+                        allowTryItOutFor: () => () => false
+                      }
+                    }
+                  }
+                }
+              }
+        ]
+     }
+  };
 
-
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument,swagger_option));
 app.use(cors({origin: [
     'http://jackerle.bike',
     'https://127.0.0.1:3000',
